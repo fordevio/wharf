@@ -18,6 +18,8 @@ func main() {
 	}
     
 	conf.InitDir()
+	DockerClient := conf.InitDockerClient()
+	defer DockerClient.Close()
 	router := gin.New()
 	router.Use(cors.New(corsConfig))
 	router.Use(gin.Logger())
