@@ -17,7 +17,7 @@ func main() {
 		AllowCredentials: true,
 	}
     
-	go conf.InitDir()
+	conf.InitDir()
 	router := gin.New()
 	router.Use(cors.New(corsConfig))
 	router.Use(gin.Logger())
