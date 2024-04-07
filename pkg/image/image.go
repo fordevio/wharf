@@ -18,11 +18,13 @@ func GetImages(client *client.Client, ctx context.Context, ch chan *image.Summar
 		Panic:  false,
 	}
 	errCh <- errStruc
+	close(errCh)
 	close(ch)
 	return
    }
    for _, img := range images {
 	ch <- &img
    }
+   close(errCh)
    close(ch)
 }

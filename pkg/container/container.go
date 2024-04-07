@@ -18,6 +18,7 @@ func GetContainers(client *client.Client, ctx context.Context, ch chan *Containe
 		   Panic: false,
 		}
         errCh <- errStruct
+		close(errCh)
 		close(ch)
 		return
 	 }
@@ -42,5 +43,6 @@ func GetContainers(client *client.Client, ctx context.Context, ch chan *Containe
 		}
 		ch <- contStruct
 	 }
+	 close(errCh)
 	 close(ch)
 }
