@@ -18,6 +18,8 @@ func GetContainers(dockerClient *client.Client, ctx context.Context, ch chan *Co
 		   Panic: false,
 		}
         errCh <- errStruct
+		close(ch)
+		return
 	 }
 
 	 for _, container := range containers {
