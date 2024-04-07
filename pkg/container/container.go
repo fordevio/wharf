@@ -9,8 +9,8 @@ import (
 	"github.com/wharf/wharf/types"
 )
 
-func GetContainers(dockerClient *client.Client, ctx context.Context, ch chan *Container, errCh chan *types.Error) {
-     containers,err  := dockerClient.ContainerList(ctx, container.ListOptions{})
+func GetContainers(client *client.Client, ctx context.Context, ch chan *Container, errCh chan *types.Error) {
+     containers,err  := client.ContainerList(ctx, container.ListOptions{})
      if err!=nil {
 		errStruct := &types.Error{
            Name : "Container Listing",
