@@ -17,6 +17,7 @@ func main() {
 		AllowCredentials: true,
 	}
     
+	// ErrCh := make(chan []Error)
 	conf.InitDir()
 	DockerClient := conf.InitDockerClient()
 	defer DockerClient.Close()
