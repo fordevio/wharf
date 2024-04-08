@@ -27,6 +27,6 @@ func GetVolumes(client *client.Client, ctx context.Context, ch chan *volume.Volu
 	for _, vol := range volumes.Volumes {
 		ch <- vol
 	}
-
+	
 	close(ch)
 }

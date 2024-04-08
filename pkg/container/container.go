@@ -28,6 +28,5 @@ func GetContainers(client *client.Client, ctx context.Context, ch chan *types.Co
 
 		ch <- &container
 	}
-
 	close(ch)
 }

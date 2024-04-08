@@ -15,7 +15,6 @@ require (
 	github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d // indirect
 	github.com/chenzhuoyu/iasm v0.9.1 // indirect
 	github.com/codegangsta/envy v0.0.0-20141216192214-4b78388c8ce4 // indirect
-	github.com/codegangsta/gin v0.0.0-20230218063734-2c98d96c9244 // indirect
 	github.com/containerd/log v0.1.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/distribution/reference v0.6.0 // indirect
