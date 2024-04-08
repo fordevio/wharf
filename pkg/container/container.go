@@ -4,45 +4,30 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
-	"github.com/wharf/wharf/types"
+	wharfTypes "github.com/wharf/wharf/types"
 )
 
-func GetContainers(client *client.Client, ctx context.Context, ch chan *Container, errCh chan *types.Error) {
-     containers,err  := client.ContainerList(ctx, container.ListOptions{})
-     if err!=nil {
-		errStruct := &types.Error{
-           Name : "Container Listing",
-		   Err:  fmt.Errorf("error while docker containers listing: %w", err),
-		   Panic: false,
+func GetContainers(client *client.Client, ctx context.Context, ch chan *types.Container, errCh chan *wharfTypes.Error) {
+	containers, err := client.ContainerList(ctx, container.ListOptions{})
+	if err != nil {
+		errStruct := &wharfTypes.Error{
+			Name: "Container Listing",
+			Err:  fmt.Errorf("error while docker containers listing: %w", err),
 		}
-        errCh <- errStruct
+		errCh <- errStruct
 		close(errCh)
 		close(ch)
 		return
-	 }
+	}
+	close(errCh)
 
-	 for _, container := range containers {
-		contStruct := &Container{
-			ID:       container.ID,
-			Names:    container.Names,
-			Image:    container.Image,
-			ImageID:  container.ImageID,
-			Command:  container.Command,
-			Created:  container.Created,
-			Ports:    container.Ports,
-			SizeRw:   container.SizeRw,
-			SizeRootFs: container.SizeRootFs,
-			Labels:    container.Labels,
-			State:    container.State,
-			Status:   container.Status,
-			HostConfig: container.HostConfig,
-			NetworkSettings: container.NetworkSettings,
-			Mounts : container.Mounts,
-		}
-		ch <- contStruct
-	 }
-	 close(errCh)
-	 close(ch)
+	for _, container := range containers {
+
+		ch <- &container
+	}
+
+	close(ch)
 }

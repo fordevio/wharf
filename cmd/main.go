@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/wharf/wharf/conf"
+	"github.com/wharf/wharf/internal/routes"
 )
 
 func main() {
@@ -16,13 +16,11 @@ func main() {
 		AllowHeaders:     []string{"*"},
 		AllowCredentials: true,
 	}
-    
-	// ErrCh := make(chan []Error)
-	conf.InitDir()
-	DockerClient := conf.InitDockerClient()
-	defer DockerClient.Close()
+
 	router := gin.New()
 	router.Use(cors.New(corsConfig))
 	router.Use(gin.Logger())
+
+	routes.ContainerRoutes(router)
 	router.Run(":" + port)
 }

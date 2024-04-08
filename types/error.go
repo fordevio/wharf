@@ -1,7 +1,6 @@
-package types
+package wharfTypes
 
 type Error struct {
-	Name string 
-	Err error 
-	Panic bool
+	Name string
+	Err  error
 }

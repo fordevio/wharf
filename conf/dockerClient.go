@@ -6,14 +6,15 @@ import (
 	"github.com/docker/docker/client"
 )
 
-
 func InitDockerClient() *client.Client {
-	client, err := client.NewClientWithOpts(client.FromEnv)
-	if err!= nil {
+	client, err := client.NewClientWithOpts(client.WithAPIVersionNegotiation())
+	if err != nil {
 		client.Close()
 		log.Println("Error while initializing DockerClient: %w", err)
 		panic(err)
 	}
 	log.Println("DockerClient succefully initialized")
-    return client
+	return client
 }
+
+var DockerClient = InitDockerClient()

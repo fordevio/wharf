@@ -6,17 +6,16 @@ import (
 
 	"github.com/docker/docker/api/types/volume"
 	"github.com/docker/docker/client"
-	"github.com/wharf/wharf/types"
+	wharfTypes "github.com/wharf/wharf/types"
 )
 
-func GetVolumes(client *client.Client, ctx context.Context, ch chan *volume.Volume, errCh chan *types.Error ){
-   
+func GetVolumes(client *client.Client, ctx context.Context, ch chan *volume.Volume, errCh chan *wharfTypes.Error) {
+
 	volumes, err := client.VolumeList(ctx, volume.ListOptions{})
 	if err != nil {
-    	errStruc := &types.Error{
-			Name : "Listing volumes",
-			Err:   fmt.Errorf("error while docker volumes listing: %w", err),
-			Panic:  false,
+		errStruc := &wharfTypes.Error{
+			Name: "Listing volumes",
+			Err:  fmt.Errorf("error while docker volumes listing: %w", err),
 		}
 		errCh <- errStruc
 		close(errCh)
@@ -24,9 +23,10 @@ func GetVolumes(client *client.Client, ctx context.Context, ch chan *volume.Volu
 		return
 	}
 
-	for _, vol := range volumes.Volumes {
-       ch <- vol 
-	}
 	close(errCh)
+	for _, vol := range volumes.Volumes {
+		ch <- vol
+	}
+
 	close(ch)
 }
