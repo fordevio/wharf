@@ -22,5 +22,6 @@ func main() {
 	router.Use(gin.Logger())
 
 	routes.ContainerRoutes(router)
+	routes.ImageRoutes(router)
 	router.Run(":" + port)
 }

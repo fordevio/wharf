@@ -11,7 +11,7 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/gin-gonic/gin"
 	"github.com/wharf/wharf/conf"
-	"github.com/wharf/wharf/pkg/container"
+	pkg "github.com/wharf/wharf/pkg/container"
 	wharfTypes "github.com/wharf/wharf/types"
 )
 
@@ -22,7 +22,7 @@ func GetContainers() gin.HandlerFunc {
 		errCh := make(chan *wharfTypes.Error)
 		containers := []*types.Container{}
 		defer cancel()
-		go container.GetContainers(conf.DockerClient, ctx, ch, errCh)
+		go pkg.GetContainers(conf.DockerClient, ctx, ch, errCh)
 		for err := range errCh {
 			log.Println(err.Err)
 			c.JSON(http.StatusInternalServerError, "Internal server error")
