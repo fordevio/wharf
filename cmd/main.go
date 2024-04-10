@@ -24,5 +24,6 @@ func main() {
 	routes.ContainerRoutes(router)
 	routes.ImageRoutes(router)
 	routes.VolumeRoutes(router)
+	routes.NetworkRoutes(router)
 	router.Run(":" + port)
 }
