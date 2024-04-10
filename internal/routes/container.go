@@ -7,4 +7,6 @@ import (
 
 func ContainerRoutes(incommingRoutes *gin.Engine) {
 	incommingRoutes.GET("/api/containers", controllers.GetContainers())
+	incommingRoutes.PUT("/api/container/stop/:id", controllers.StopContainer())
+
 }

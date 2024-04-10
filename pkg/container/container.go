@@ -30,3 +30,20 @@ func GetContainers(client *client.Client, ctx context.Context, ch chan *types.Co
 	}
 	close(ch)
 }
+
+
+func StopContainer(client *client.Client, ctx context.Context, containerId string , errCh chan *wharfTypes.Error) {
+    
+	err := client.ContainerStop(ctx, containerId, container.StopOptions{})
+	if err != nil {
+
+		errStruct := &wharfTypes.Error{
+			Name: err.Error(),
+			Err:  fmt.Errorf("error while docker container stoping: %w", err),
+		}
+		errCh <- errStruct
+		close(errCh)
+		return 
+	}
+	close(errCh)
+}
