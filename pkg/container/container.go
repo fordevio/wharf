@@ -31,9 +31,8 @@ func GetContainers(client *client.Client, ctx context.Context, ch chan *types.Co
 	close(ch)
 }
 
+func StopContainer(client *client.Client, ctx context.Context, containerId string, errCh chan *wharfTypes.Error) {
 
-func StopContainer(client *client.Client, ctx context.Context, containerId string , errCh chan *wharfTypes.Error) {
-    
 	err := client.ContainerStop(ctx, containerId, container.StopOptions{})
 	if err != nil {
 
@@ -43,7 +42,7 @@ func StopContainer(client *client.Client, ctx context.Context, containerId strin
 		}
 		errCh <- errStruct
 		close(errCh)
-		return 
+		return
 	}
 	close(errCh)
 }

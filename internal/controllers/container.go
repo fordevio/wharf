@@ -36,16 +36,15 @@ func GetContainers() gin.HandlerFunc {
 	}
 }
 
-
 func StopContainer() gin.HandlerFunc {
-	return func(c  *gin.Context) {
+	return func(c *gin.Context) {
 		id := c.Param("id")
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		errCh := make(chan *wharfTypes.Error)
 		defer cancel()
-		go pkg.StopContainer(conf.DockerClient, ctx,  id, errCh)
+		go pkg.StopContainer(conf.DockerClient, ctx, id, errCh)
 		for err := range errCh {
-            if err != nil {
+			if err != nil {
 				log.Println(err.Err)
 				c.JSON(http.StatusBadRequest, err.Name)
 				return
@@ -54,4 +53,3 @@ func StopContainer() gin.HandlerFunc {
 		c.JSON(200, "Container stopped")
 	}
 }
- 
