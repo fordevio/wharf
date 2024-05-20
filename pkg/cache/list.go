@@ -38,27 +38,27 @@ func (l *DoublyLinkedList) Remove(node *Node) *Node {
 		l.len--
 	}()
 
-	tail := l.root.prev 
+	tail := l.root.prev
 	l.isolate(tail)
 	return tail
 }
 
 func (l *DoublyLinkedList) isolate(node *Node) {
-	node.next.prev = node.prev 
-	node.prev.next = node.next 
-	node.next, node.prev = nil, nil 
+	node.next.prev = node.prev
+	node.prev.next = node.next
+	node.next, node.prev = nil, nil
 }
 
 func (l *DoublyLinkedList) MoveFront(node *Node) {
-	currentFront := l.root.next 
-	node.prev = &l.root 
-	l.root.next = node 
-	currentFront.prev = node 
+	currentFront := l.root.next
+	node.prev = &l.root
+	l.root.next = node
+	currentFront.prev = node
 	node.next = currentFront
 }
 
 func (l *DoublyLinkedList) Head() *Node {
-	return l.root.next 
+	return l.root.next
 }
 
 func (l *DoublyLinkedList) Tail() *Node {
