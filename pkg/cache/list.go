@@ -1,4 +1,4 @@
-package pkg
+package cache
 
 var (
 	ErrInvalidIndex = "invalid positional index"

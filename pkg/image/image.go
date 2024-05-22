@@ -1,4 +1,4 @@
-package pkg
+package dockerImage
 
 import (
 	"context"

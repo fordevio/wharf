@@ -9,7 +9,7 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/gin-gonic/gin"
 	"github.com/wharf/wharf/conf"
-	pkg "github.com/wharf/wharf/pkg/networks"
+	dockerNetwork "github.com/wharf/wharf/pkg/networks"
 	wharfTypes "github.com/wharf/wharf/types"
 )
 
@@ -20,7 +20,7 @@ func GetNetworks() gin.HandlerFunc {
 		errCh := make(chan *wharfTypes.Error)
 		networks := []*types.NetworkResource{}
 		defer cancel()
-		go pkg.GetNetworks(conf.DockerClient, ctx, ch, errCh)
+		go dockerNetwork.GetNetworks(conf.DockerClient, ctx, ch, errCh)
 		for err := range errCh {
 			log.Println(err.Err)
 			c.JSON(http.StatusInternalServerError, "Internal server error")

@@ -9,7 +9,7 @@ import (
 	"github.com/docker/docker/api/types/image"
 	"github.com/gin-gonic/gin"
 	"github.com/wharf/wharf/conf"
-	pkg "github.com/wharf/wharf/pkg/image"
+	dockerImage "github.com/wharf/wharf/pkg/image"
 	wharfTypes "github.com/wharf/wharf/types"
 )
 
@@ -20,8 +20,7 @@ func GetImages() gin.HandlerFunc {
 		errCh := make(chan *wharfTypes.Error)
 		images := []*image.Summary{}
 		defer cancel()
-		go pkg.GetImages(conf.DockerClient, ctx, ch, errCh)
-
+        go dockerImage.GetImages(conf.DockerClient, ctx, ch, errCh)
 		for err := range errCh {
 			log.Println(err.Err)
 			c.JSON(http.StatusInternalServerError, "Internal server error")

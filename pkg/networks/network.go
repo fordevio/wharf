@@ -1,4 +1,4 @@
-package pkg
+package dockerNetwork
 
 import (
 	"context"

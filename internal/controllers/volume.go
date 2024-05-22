@@ -9,7 +9,7 @@ import (
 	"github.com/docker/docker/api/types/volume"
 	"github.com/gin-gonic/gin"
 	"github.com/wharf/wharf/conf"
-	pkg "github.com/wharf/wharf/pkg/volume"
+	dockerVolume "github.com/wharf/wharf/pkg/volume"
 	wharfTypes "github.com/wharf/wharf/types"
 )
 
@@ -20,7 +20,7 @@ func GetVolumes() gin.HandlerFunc {
 		errCh := make(chan *wharfTypes.Error)
 		volumes := []*volume.Volume{}
 		defer cancel()
-		go pkg.GetVolumes(conf.DockerClient, ctx, ch, errCh)
+		go dockerVolume.GetVolumes(conf.DockerClient, ctx, ch, errCh)
 		for err := range errCh {
 			log.Println(err.Err)
 			c.JSON(http.StatusInternalServerError, "Internal server error")

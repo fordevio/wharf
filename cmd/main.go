@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/wharf/wharf/conf"
 	"github.com/wharf/wharf/internal/routes"
+	"github.com/wharf/wharf/pkg/store"
 )
 
 func main() {
@@ -27,5 +28,6 @@ func main() {
 	routes.NetworkRoutes(router)
 	conf.InitDir()
 	go conf.InitPassword()
+	go store.InitStore()
 	router.Run(":" + port)
 }

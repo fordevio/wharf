@@ -60,8 +60,8 @@ func InitPassword() {
 		if err != nil {
 			log.Panicln(err)
 		}
-		if err = file.Sync() ; err != nil {
-           log.Panicln(err)
+		if err = file.Sync(); err != nil {
+			log.Panicln(err)
 		}
 	}
 

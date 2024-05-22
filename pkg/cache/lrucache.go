@@ -1,4 +1,4 @@
-package pkg
+package cache
 
 func New(size int) *LRUCache {
 	return &LRUCache{
