@@ -2,7 +2,6 @@ package store
 
 import (
 	"encoding/json"
-	"errors"
 	"log"
 
 	bolt "go.etcd.io/bbolt"
@@ -38,7 +37,7 @@ func CreateUser(user *models.User) error {
 	err = db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("users"))
 		if b == nil {
-			return errors.New("bucket users does not exists")
+			return ErrBucketNotExists
 		}
 		id, _ := b.NextSequence()
 		user.ID = int(id)
@@ -60,11 +59,11 @@ func UpdateUser(user *models.User) error {
 	err = db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("users"))
 		if b == nil {
-			return errors.New("bucket users does not exists")
+			return ErrBucketNotExists
 		}
 		v := b.Get([]byte(helpers.Itob(user.ID)))
 		if v == nil {
-			return errors.New("user does not exists")
+			return ErrUserNotFound
 		}
 		buf, err := json.Marshal(user)
 		if err != nil {
@@ -85,11 +84,11 @@ func DeleteUser(id int) error {
 	err = db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("users"))
 		if b == nil {
-			return errors.New("bucket users does not exists")
+			return ErrBucketNotExists
 		}
 		v := b.Get([]byte(helpers.Itob(id)))
 		if v == nil {
-			return errors.New("user does not exists")
+			return ErrUserNotFound
 		}
 
 		return b.Delete([]byte(helpers.Itob(id)))
@@ -103,21 +102,21 @@ func GetUserById(id int) (*models.User, error) {
 	if err != nil {
 		log.Panicln(err)
 	}
-	var user *models.User
+	var user models.User
 	defer db.Close()
 	err = db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("users"))
 		if b == nil {
-			return errors.New("bucket users does not exists")
+			return ErrBucketNotExists
 		}
 		v := b.Get([]byte(helpers.Itob(id)))
-		err = json.Unmarshal(v, user)
+		err = json.Unmarshal(v, &user)
 		if err != nil {
 			return err
 		}
 		return nil
 	})
-	return user, err
+	return &user, err
 }
 
 func GetAllUsers() ([]*models.User, error) {
@@ -128,16 +127,49 @@ func GetAllUsers() ([]*models.User, error) {
 	var users []*models.User
 	err = db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("users"))
+		if b == nil {
+			return ErrBucketNotExists
+		}
 		err = b.ForEach(func(_, v []byte) error {
-			var user *models.User
-			err = json.Unmarshal(v, user)
+			var user models.User
+			err = json.Unmarshal(v, &user)
 			if err != nil {
 				return err
 			}
-			users = append(users, user)
+			users = append(users, &user)
 			return nil
 		})
 		return nil
 	})
 	return users, err
+}
+
+func GetAdminUser() (*models.User, error) {
+	db, err := helpers.OpenStore()
+	if err != nil {
+		log.Panicln(err)
+	}
+	var adminUser *models.User
+	err = db.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte("users"))
+		if b == nil {
+			return ErrBucketNotExists
+		}
+
+		err = b.ForEach(func(_, v []byte) error {
+			var user models.User
+			err = json.Unmarshal(v, &user)
+			if err != nil {
+				return err
+			}
+			if user.IsAdmin {
+				adminUser = &user
+			}
+
+			return nil
+		})
+		return err
+
+	})
+	return adminUser, err
 }
