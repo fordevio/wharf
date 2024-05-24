@@ -20,7 +20,7 @@ func GetImages() gin.HandlerFunc {
 		errCh := make(chan *wharfTypes.Error)
 		images := []*image.Summary{}
 		defer cancel()
-        go dockerImage.GetImages(conf.DockerClient, ctx, ch, errCh)
+		go dockerImage.GetImages(conf.DockerClient, ctx, ch, errCh)
 		for err := range errCh {
 			log.Println(err.Err)
 			c.JSON(http.StatusInternalServerError, "Internal server error")
