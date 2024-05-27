@@ -12,14 +12,14 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/wharf/wharf/conf"
 	"github.com/wharf/wharf/pkg/container"
-	wharfTypes "github.com/wharf/wharf/types"
+	"github.com/wharf/wharf/pkg/errors"
 )
 
 func GetContainers() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		ch := make(chan *types.Container)
-		errCh := make(chan *wharfTypes.Error)
+		errCh := make(chan *errors.Error)
 		containers := []*types.Container{}
 		defer cancel()
 		go container.GetContainers(conf.DockerClient, ctx, ch, errCh)
@@ -40,7 +40,7 @@ func StopContainer() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("id")
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
-		errCh := make(chan *wharfTypes.Error)
+		errCh := make(chan *errors.Error)
 		defer cancel()
 		go container.StopContainer(conf.DockerClient, ctx, id, errCh)
 		for err := range errCh {

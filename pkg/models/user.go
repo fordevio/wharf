@@ -9,11 +9,11 @@ const (
 )
 
 type User struct {
-	ID         int         `json:"id"`
-	Username   *string     `json:"username"`
-	Password   *string     `json:"password"`
-	IsAdmin    bool        `json:"isAdmin"`
-	Permission *Permission `json:"permissions"`
+	ID         int        `json:"id"`
+	Username   *string    `json:"username"`
+	Password   *string    `json:"password"`
+	IsAdmin    bool       `json:"isAdmin"`
+	Permission Permission `json:"permissions"`
 }
 
 func (p Permission) IsValid() bool {

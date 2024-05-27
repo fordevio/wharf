@@ -6,14 +6,14 @@ import (
 
 	"github.com/docker/docker/api/types/volume"
 	"github.com/docker/docker/client"
-	wharfTypes "github.com/wharf/wharf/types"
+	"github.com/wharf/wharf/pkg/errors"
 )
 
-func GetVolumes(client *client.Client, ctx context.Context, ch chan *volume.Volume, errCh chan *wharfTypes.Error) {
+func GetVolumes(client *client.Client, ctx context.Context, ch chan *volume.Volume, errCh chan *errors.Error) {
 
 	volumes, err := client.VolumeList(ctx, volume.ListOptions{})
 	if err != nil {
-		errStruc := &wharfTypes.Error{
+		errStruc := &errors.Error{
 			Name: "Listing volumes",
 			Err:  fmt.Errorf("error while docker volumes listing: %w", err),
 		}

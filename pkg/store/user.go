@@ -6,6 +6,7 @@ import (
 
 	bolt "go.etcd.io/bbolt"
 
+	"github.com/wharf/wharf/pkg/errors"
 	"github.com/wharf/wharf/pkg/helpers"
 	"github.com/wharf/wharf/pkg/models"
 )
@@ -37,7 +38,7 @@ func CreateUser(user *models.User) error {
 	err = db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("users"))
 		if b == nil {
-			return ErrBucketNotExists
+			return errors.ErrBucketNotExists
 		}
 		id, _ := b.NextSequence()
 		user.ID = int(id)
@@ -59,11 +60,11 @@ func UpdateUser(user *models.User) error {
 	err = db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("users"))
 		if b == nil {
-			return ErrBucketNotExists
+			return errors.ErrBucketNotExists
 		}
 		v := b.Get([]byte(helpers.Itob(user.ID)))
 		if v == nil {
-			return ErrUserNotFound
+			return errors.ErrUserNotFound
 		}
 		buf, err := json.Marshal(user)
 		if err != nil {
@@ -84,11 +85,11 @@ func DeleteUser(id int) error {
 	err = db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("users"))
 		if b == nil {
-			return ErrBucketNotExists
+			return errors.ErrBucketNotExists
 		}
 		v := b.Get([]byte(helpers.Itob(id)))
 		if v == nil {
-			return ErrUserNotFound
+			return errors.ErrUserNotFound
 		}
 
 		return b.Delete([]byte(helpers.Itob(id)))
@@ -107,7 +108,7 @@ func GetUserById(id int) (*models.User, error) {
 	err = db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("users"))
 		if b == nil {
-			return ErrBucketNotExists
+			return errors.ErrBucketNotExists
 		}
 		v := b.Get([]byte(helpers.Itob(id)))
 		err = json.Unmarshal(v, &user)
@@ -128,7 +129,7 @@ func GetAllUsers() ([]*models.User, error) {
 	err = db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("users"))
 		if b == nil {
-			return ErrBucketNotExists
+			return errors.ErrBucketNotExists
 		}
 		err = b.ForEach(func(_, v []byte) error {
 			var user models.User
@@ -153,7 +154,7 @@ func GetAdminUser() (*models.User, error) {
 	err = db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("users"))
 		if b == nil {
-			return ErrBucketNotExists
+			return errors.ErrBucketNotExists
 		}
 
 		err = b.ForEach(func(_, v []byte) error {
@@ -172,4 +173,33 @@ func GetAdminUser() (*models.User, error) {
 
 	})
 	return adminUser, err
+}
+
+func GetUserByUsername(username string) (*models.User, error) {
+	db, err := helpers.OpenStore()
+	if err != nil {
+		log.Panicln(err)
+	}
+	var finUser *models.User
+	err = db.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte("users"))
+		if b == nil {
+			return errors.ErrBucketNotExists
+		}
+		err = b.ForEach(func(_, v []byte) error {
+			var user models.User
+			err = json.Unmarshal(v, &user)
+			if err != nil {
+				return err
+			}
+			if *user.Username == username {
+				finUser = &user
+			}
+			return nil
+		})
+		return err
+
+	})
+	return finUser, err
+
 }

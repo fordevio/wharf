@@ -6,14 +6,14 @@ import (
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
-	wharfTypes "github.com/wharf/wharf/types"
+	"github.com/wharf/wharf/pkg/errors"
 )
 
-func GetNetworks(client *client.Client, ctx context.Context, ch chan *types.NetworkResource, errCh chan *wharfTypes.Error) {
+func GetNetworks(client *client.Client, ctx context.Context, ch chan *types.NetworkResource, errCh chan *errors.Error) {
 
 	networks, err := client.NetworkList(ctx, types.NetworkListOptions{})
 	if err != nil {
-		errStruc := &wharfTypes.Error{
+		errStruc := &errors.Error{
 			Name: "Listing images",
 			Err:  fmt.Errorf("error while docker images listing: %w", err),
 		}
