@@ -1,5 +1,6 @@
 package auth
 
+
 type AdminUserRequest struct {
 	InitPassword string `json:"initPassword" validate:"required"`
 	Username     string `json:"username" validate:"required"`

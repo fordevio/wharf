@@ -6,7 +6,7 @@ hotreload:
 	@nodemon --exec go run cmd/main.go --signal SIGTERM
 
 run:
-	@go run cmd/main.go 
+	@ /bin/build
 
 format:
 	@gofmt -w .
