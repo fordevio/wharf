@@ -1,9 +1,14 @@
 package auth
 
 import (
+
+	"net/http"
 	"regexp"
 
+
+	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+
 )
 
 func PasswordValidation(fl validator.FieldLevel) bool {
@@ -19,4 +24,25 @@ func PasswordValidation(fl validator.FieldLevel) bool {
 	number := regexp.MustCompile(`[0-9]`).MatchString
 
 	return letter(password) && number(password)
+}
+
+
+func AuthMiddleWare() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		clientToken := c.Request.Header.Get("token")
+		if clientToken == "" {
+            c.JSON(http.StatusUnauthorized, gin.H{"error": "No Authorization token header provided"})
+            c.Abort()
+            return
+        }
+		claims, err := VerifyToken(clientToken)
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+            c.Abort()
+            return
+		}
+		c.Set("userId",claims["sub"].(int))
+		c.Next()
+
+	}
 }

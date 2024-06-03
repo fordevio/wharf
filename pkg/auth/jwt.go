@@ -23,7 +23,7 @@ func GenerateToken(userId int) (*string, error) {
 	return &tokenString, nil
 }
 
-func VerifyToken(tokenString string) (*jwt.Token, error) {
+func VerifyToken(tokenString string) (jwt.MapClaims, error) {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return secretKey, nil
 	})
@@ -33,5 +33,10 @@ func VerifyToken(tokenString string) (*jwt.Token, error) {
 	if !token.Valid {
 		return nil, fmt.Errorf("invalid token")
 	}
-	return token, nil
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		return claims, nil
+	
+	} else {
+		return nil, fmt.Errorf("invalid token")
+	}
 }
