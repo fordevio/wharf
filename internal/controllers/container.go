@@ -24,8 +24,8 @@ func GetContainers() gin.HandlerFunc {
 		defer cancel()
 		go container.GetContainers(conf.DockerClient, ctx, ch, errCh)
 		for err := range errCh {
-			log.Println(err.Err)
-			c.JSON(http.StatusInternalServerError, "Internal server error")
+			log.Println(err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Err})
 			return
 		}
 
@@ -45,8 +45,8 @@ func StopContainer() gin.HandlerFunc {
 		go container.StopContainer(conf.DockerClient, ctx, id, errCh)
 		for err := range errCh {
 			if err != nil {
-				log.Println(err.Err)
-				c.JSON(http.StatusBadRequest, err.Name)
+				log.Println(err)
+				c.JSON(http.StatusBadRequest, gin.H{"error": err.Name})
 				return
 			}
 		}

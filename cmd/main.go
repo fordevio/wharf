@@ -26,6 +26,7 @@ func main() {
 	routes.ImageRoutes(router)
 	routes.VolumeRoutes(router)
 	routes.NetworkRoutes(router)
+	routes.AuthRoutes(router)
 	conf.InitDir()
 	go conf.InitPassword()
 	go store.InitStore()

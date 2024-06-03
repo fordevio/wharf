@@ -29,7 +29,7 @@ func InitStore() {
 	}
 }
 
-func CreateUser(user *models.User) error {
+func CreateUser(user *models.User) (*models.User, error) {
 	db, err := helpers.OpenStore()
 	if err != nil {
 		log.Panicln(err)
@@ -48,10 +48,10 @@ func CreateUser(user *models.User) error {
 		}
 		return b.Put(helpers.Itob(user.ID), buf)
 	})
-	return err
+	return user, err
 }
 
-func UpdateUser(user *models.User) error {
+func UpdateUser(user *models.User) (*models.User, error) {
 	db, err := helpers.OpenStore()
 	if err != nil {
 		log.Panicln(err)
@@ -73,7 +73,7 @@ func UpdateUser(user *models.User) error {
 		return b.Put(helpers.Itob(user.ID), buf)
 
 	})
-	return err
+	return user, err
 }
 
 func DeleteUser(id int) error {

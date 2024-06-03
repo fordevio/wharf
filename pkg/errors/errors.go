@@ -7,10 +7,6 @@ type Error struct {
 	Err  error
 }
 
-
 var ErrBucketNotExists = errors.New("bucket not exists")
 
 var ErrUserNotFound = errors.New("user not found")
-
-
-

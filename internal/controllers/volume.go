@@ -23,7 +23,7 @@ func GetVolumes() gin.HandlerFunc {
 		go dockerVolume.GetVolumes(conf.DockerClient, ctx, ch, errCh)
 		for err := range errCh {
 			log.Println(err.Err)
-			c.JSON(http.StatusInternalServerError, "Internal server error")
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Err})
 			return
 		}
 

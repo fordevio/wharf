@@ -20,11 +20,13 @@ func CheckInitPassword() gin.HandlerFunc {
 		var adminRequest auth.AdminUserRequest
 		defer cancel()
 		if err := c.BindJSON(&adminRequest); err != nil {
+			log.Println(err)
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 		validate := validator.New()
 		if err := validate.Struct(adminRequest); err != nil {
+			log.Println(err)
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
@@ -42,6 +44,7 @@ func CheckInitPassword() gin.HandlerFunc {
 		}
 		isAdminPresent, err := store.GetAdminUser()
 		if err != nil {
+			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
@@ -52,6 +55,7 @@ func CheckInitPassword() gin.HandlerFunc {
 
 		isUsernamePresent, err := store.GetUserByUsername(adminRequest.Username)
 		if err != nil {
+			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
@@ -65,10 +69,18 @@ func CheckInitPassword() gin.HandlerFunc {
 			IsAdmin:    true,
 			Permission: models.Execute,
 		}
-		err = store.CreateUser(&user)
+		createdUser, err := store.CreateUser(&user)
 		if err != nil {
+			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
+		token, err := auth.GenerateToken(createdUser.ID)
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"token": *token, "username": user.Username, "userId": createdUser.ID})
 	}
 }
