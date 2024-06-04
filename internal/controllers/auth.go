@@ -141,4 +141,3 @@ func Login() gin.HandlerFunc {
 		c.JSON(http.StatusFound, gin.H{"token": token, "usernam": user.Username, "userId": user.ID})
 	}
 }
-
