@@ -30,5 +30,6 @@ func main() {
 	conf.InitDir()
 	go conf.InitPassword()
 	go store.InitStore()
+	conf.InitCache()
 	router.Run(":" + port)
 }
