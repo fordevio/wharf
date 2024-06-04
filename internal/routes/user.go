@@ -9,4 +9,5 @@ import (
 func UserRoutes(incommingRoutes *gin.Engine) {
 	incommingRoutes.Use(auth.AuthMiddleWare())
 	incommingRoutes.POST("/api/user/create", controllers.CreateUser())
+	incommingRoutes.PUT("/api/user/update/:id", controllers.UpdateRequest())
 }
