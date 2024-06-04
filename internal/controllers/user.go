@@ -9,13 +9,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"github.com/wharf/wharf/conf"
 	"github.com/wharf/wharf/pkg/auth"
 	"github.com/wharf/wharf/pkg/models"
 	"github.com/wharf/wharf/pkg/store"
 	"github.com/wharf/wharf/pkg/user"
 )
 
-func CreateUser() gin.HandlerFunc {
+func Create() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var _, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		var createUserRequest user.CreateUserRequest
@@ -75,7 +76,7 @@ func CreateUser() gin.HandlerFunc {
 	}
 }
 
-func UpdateRequest() gin.HandlerFunc {
+func Update() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var _, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		var updateUserRequest user.UpdateUserRequest
@@ -142,6 +143,47 @@ func UpdateRequest() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
+		conf.Cache.Invalidate(strconv.Itoa(id))
 		c.JSON(http.StatusOK, isUser)
+	}
+}
+
+func Delete() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var _, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		idParam := c.Param("id")
+		id, err := strconv.Atoi(idParam)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+			return
+		}
+
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(*models.User)
+
+		if !reqUser.IsAdmin {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Request not sent by admin"})
+			return
+		}
+		isUser, err := store.GetUserById(id)
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		if isUser == nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "User not exists"})
+			return
+		}
+
+		err = store.DeleteUser(id)
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		conf.Cache.Invalidate(strconv.Itoa(id))
+		c.JSON(http.StatusOK, gin.H{"msg": "user deleted"})
 	}
 }
