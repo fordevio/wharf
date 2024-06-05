@@ -187,3 +187,24 @@ func Delete() gin.HandlerFunc {
 		c.JSON(http.StatusOK, gin.H{"msg": "user deleted"})
 	}
 }
+
+func List() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var _, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(*models.User)
+
+		if !reqUser.IsAdmin {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Request not sent by admin"})
+			return
+		}
+		users, err := store.GetAllUsers()
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, users)
+	}
+}
