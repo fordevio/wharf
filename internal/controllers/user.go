@@ -16,7 +16,7 @@ import (
 	"github.com/wharf/wharf/pkg/user"
 )
 
-func Create() gin.HandlerFunc {
+func CreateUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var _, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		var createUserRequest user.CreateUserRequest
@@ -76,7 +76,7 @@ func Create() gin.HandlerFunc {
 	}
 }
 
-func Update() gin.HandlerFunc {
+func UpdateUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var _, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		var updateUserRequest user.UpdateUserRequest
@@ -148,7 +148,7 @@ func Update() gin.HandlerFunc {
 	}
 }
 
-func Delete() gin.HandlerFunc {
+func DeleteUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var _, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()

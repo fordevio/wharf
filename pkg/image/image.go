@@ -9,7 +9,7 @@ import (
 	"github.com/wharf/wharf/pkg/errors"
 )
 
-func GetImages(client *client.Client, ctx context.Context, ch chan *image.Summary, errCh chan *errors.Error) {
+func GetAll(client *client.Client, ctx context.Context, ch chan *image.Summary, errCh chan *errors.Error) {
 	images, err := client.ImageList(ctx, image.ListOptions{})
 	if err != nil {
 		errStruc := &errors.Error{

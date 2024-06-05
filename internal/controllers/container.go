@@ -13,6 +13,7 @@ import (
 	"github.com/wharf/wharf/conf"
 	"github.com/wharf/wharf/pkg/container"
 	"github.com/wharf/wharf/pkg/errors"
+	"github.com/wharf/wharf/pkg/models"
 )
 
 func GetContainers() gin.HandlerFunc {
@@ -22,7 +23,7 @@ func GetContainers() gin.HandlerFunc {
 		errCh := make(chan *errors.Error)
 		containers := []*types.Container{}
 		defer cancel()
-		go container.GetContainers(conf.DockerClient, ctx, ch, errCh)
+		go container.GetAll(conf.DockerClient, ctx, ch, errCh)
 		for err := range errCh {
 			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Err})
@@ -40,9 +41,17 @@ func StopContainer() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("id")
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
-		errCh := make(chan *errors.Error)
 		defer cancel()
-		go container.StopContainer(conf.DockerClient, ctx, id, errCh)
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(*models.User)
+
+		if reqUser.Permission == models.Read {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
+			return
+		}
+		errCh := make(chan *errors.Error)
+
+		go container.Stop(conf.DockerClient, ctx, id, errCh)
 		for err := range errCh {
 			if err != nil {
 				log.Println(err)
@@ -51,5 +60,28 @@ func StopContainer() gin.HandlerFunc {
 			}
 		}
 		c.JSON(200, "Container stopped")
+	}
+}
+
+func UnpauseContainer() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		id := c.Param("id")
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(*models.User)
+
+		if reqUser.Permission == models.Read {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
+			return
+		}
+		err := container.Unpause(conf.DockerClient, ctx, id)
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, "Container unpause")
+
 	}
 }

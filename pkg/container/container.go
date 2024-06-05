@@ -10,7 +10,7 @@ import (
 	"github.com/wharf/wharf/pkg/errors"
 )
 
-func GetContainers(client *client.Client, ctx context.Context, ch chan *types.Container, errCh chan *errors.Error) {
+func GetAll(client *client.Client, ctx context.Context, ch chan *types.Container, errCh chan *errors.Error) {
 	containers, err := client.ContainerList(ctx, container.ListOptions{})
 	if err != nil {
 		errStruct := &errors.Error{
@@ -31,7 +31,7 @@ func GetContainers(client *client.Client, ctx context.Context, ch chan *types.Co
 	close(ch)
 }
 
-func StopContainer(client *client.Client, ctx context.Context, containerId string, errCh chan *errors.Error) {
+func Stop(client *client.Client, ctx context.Context, containerId string, errCh chan *errors.Error) {
 
 	err := client.ContainerStop(ctx, containerId, container.StopOptions{})
 	if err != nil {
@@ -45,4 +45,9 @@ func StopContainer(client *client.Client, ctx context.Context, containerId strin
 		return
 	}
 	close(errCh)
+}
+
+func Unpause(client *client.Client, ctx context.Context, containerId string) error {
+	err := client.ContainerUnpause(ctx, containerId)
+	return err
 }

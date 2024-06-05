@@ -9,7 +9,7 @@ import (
 	"github.com/wharf/wharf/pkg/errors"
 )
 
-func GetNetworks(client *client.Client, ctx context.Context, ch chan *types.NetworkResource, errCh chan *errors.Error) {
+func GetAll(client *client.Client, ctx context.Context, ch chan *types.NetworkResource, errCh chan *errors.Error) {
 
 	networks, err := client.NetworkList(ctx, types.NetworkListOptions{})
 	if err != nil {

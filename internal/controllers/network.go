@@ -20,7 +20,7 @@ func GetNetworks() gin.HandlerFunc {
 		errCh := make(chan *errors.Error)
 		networks := []*types.NetworkResource{}
 		defer cancel()
-		go dockerNetwork.GetNetworks(conf.DockerClient, ctx, ch, errCh)
+		go dockerNetwork.GetAll(conf.DockerClient, ctx, ch, errCh)
 		for err := range errCh {
 			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Err})
