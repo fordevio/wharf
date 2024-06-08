@@ -9,9 +9,12 @@ import (
 	"time"
 
 	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/container"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"github.com/wharf/wharf/conf"
-	"github.com/wharf/wharf/pkg/container"
+
+	dockerContainer "github.com/wharf/wharf/pkg/container"
 	"github.com/wharf/wharf/pkg/errors"
 	"github.com/wharf/wharf/pkg/models"
 )
@@ -23,7 +26,7 @@ func GetContainers() gin.HandlerFunc {
 		errCh := make(chan *errors.Error)
 		containers := []*types.Container{}
 		defer cancel()
-		go container.GetAll(conf.DockerClient, ctx, ch, errCh)
+		go dockerContainer.GetAll(conf.DockerClient, ctx, ch, errCh)
 		for err := range errCh {
 			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Err})
@@ -51,7 +54,7 @@ func StopContainer() gin.HandlerFunc {
 		}
 		errCh := make(chan *errors.Error)
 
-		go container.Stop(conf.DockerClient, ctx, id, errCh)
+		go dockerContainer.Stop(conf.DockerClient, ctx, id, errCh)
 		for err := range errCh {
 			if err != nil {
 				log.Println(err)
@@ -75,7 +78,7 @@ func UnpauseContainer() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
 		}
-		err := container.Unpause(conf.DockerClient, ctx, id)
+		err := dockerContainer.Unpause(conf.DockerClient, ctx, id)
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
@@ -83,5 +86,44 @@ func UnpauseContainer() gin.HandlerFunc {
 		}
 		c.JSON(http.StatusOK, "Container unpause")
 
+	}
+}
+
+func RemoveContainer() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		id := c.Param("id")
+		var requestBody dockerContainer.ContainerRemoveRequest
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		if err := c.BindJSON(&requestBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		validate := validator.New()
+		if err := validate.Struct(requestBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(*models.User)
+
+		if reqUser.Permission == models.Read {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
+			return
+		}
+		err := dockerContainer.Remove(conf.DockerClient, ctx, id, container.RemoveOptions{
+			RemoveVolumes: requestBody.RemoveVolumes,
+			RemoveLinks:   requestBody.RemoveLinks,
+			Force:         requestBody.Force,
+		})
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, "Container removed")
 	}
 }

@@ -1,4 +1,4 @@
-package container
+package dockerContainer
 
 import (
 	"context"
@@ -49,5 +49,10 @@ func Stop(client *client.Client, ctx context.Context, containerId string, errCh 
 
 func Unpause(client *client.Client, ctx context.Context, containerId string) error {
 	err := client.ContainerUnpause(ctx, containerId)
+	return err
+}
+
+func Remove(client *client.Client, ctx context.Context, containerId string, options container.RemoveOptions) error {
+	err := client.ContainerRemove(ctx, containerId, options)
 	return err
 }
