@@ -110,7 +110,7 @@ func RemoveContainer() gin.HandlerFunc {
 		ur, _ := c.Get("user")
 		reqUser, _ := ur.(*models.User)
 
-		if reqUser.Permission == models.Read {
+		if reqUser.Permission != models.Execute {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
 		}
@@ -125,5 +125,27 @@ func RemoveContainer() gin.HandlerFunc {
 			return
 		}
 		c.JSON(http.StatusOK, "Container removed")
+	}
+}
+
+func PruneContainers() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(*models.User)
+
+		if reqUser.Permission != models.Execute {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
+			return
+		}
+		report, err := dockerContainer.Prune(conf.DockerClient, ctx)
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, report)
 	}
 }

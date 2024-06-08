@@ -6,6 +6,7 @@ import (
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
+	"github.com/docker/docker/api/types/filters"
 	"github.com/docker/docker/client"
 	"github.com/wharf/wharf/pkg/errors"
 )
@@ -55,4 +56,9 @@ func Unpause(client *client.Client, ctx context.Context, containerId string) err
 func Remove(client *client.Client, ctx context.Context, containerId string, options container.RemoveOptions) error {
 	err := client.ContainerRemove(ctx, containerId, options)
 	return err
+}
+
+func Prune(client *client.Client, ctx context.Context) (types.ContainersPruneReport, error) {
+	report, err := client.ContainersPrune(ctx, filters.Args{})
+	return report, err
 }
