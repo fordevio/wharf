@@ -9,6 +9,7 @@ import (
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/api/types/filters"
 	"github.com/docker/docker/client"
+
 	"github.com/wharf/wharf/pkg/errors"
 )
 
@@ -71,6 +72,7 @@ func Stats(client *client.Client, ctx context.Context, containerId string) (stri
 	}
 	defer stats.Body.Close()
 	bodyBytes, err := io.ReadAll(stats.Body)
+	
 	if err != nil {
 		return "", err
 	}

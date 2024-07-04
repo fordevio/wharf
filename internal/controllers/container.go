@@ -10,6 +10,7 @@ import (
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
+	"github.com/docker/docker/errdefs"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/wharf/wharf/conf"
@@ -80,6 +81,10 @@ func UnpauseContainer() gin.HandlerFunc {
 		}
 		err := dockerContainer.Unpause(conf.DockerClient, ctx, id)
 		if err != nil {
+			if errdefs.IsNotFound(err) {
+				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				return
+			}
 			log.Println(err)
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
@@ -120,6 +125,10 @@ func RemoveContainer() gin.HandlerFunc {
 			Force:         requestBody.Force,
 		})
 		if err != nil {
+			if errdefs.IsNotFound(err) {
+				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				return
+			}
 			log.Println(err)
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
@@ -157,8 +166,13 @@ func ContainerStats() gin.HandlerFunc {
 		defer cancel()
 		body, err := dockerContainer.Stats(conf.DockerClient, ctx, id)
 		if err != nil {
+			if errdefs.IsNotFound(err) {
+				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				return
+			}
 			log.Println(err)
-			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+		
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 		c.JSON(http.StatusOK, body)
