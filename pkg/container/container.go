@@ -3,6 +3,7 @@ package dockerContainer
 import (
 	"context"
 	"fmt"
+	"io"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
@@ -61,4 +62,18 @@ func Remove(client *client.Client, ctx context.Context, containerId string, opti
 func Prune(client *client.Client, ctx context.Context) (types.ContainersPruneReport, error) {
 	report, err := client.ContainersPrune(ctx, filters.Args{})
 	return report, err
+}
+
+func Stats(client *client.Client, ctx context.Context, containerId string) (string, error) {
+	stats, err := client.ContainerStatsOneShot(ctx, containerId)
+	if err != nil {
+		return "", err
+	}
+	defer stats.Body.Close()
+	bodyBytes, err := io.ReadAll(stats.Body)
+	if err != nil {
+		return "", err
+	}
+	return string(bodyBytes), nil
+
 }

@@ -149,3 +149,19 @@ func PruneContainers() gin.HandlerFunc {
 		c.JSON(http.StatusOK, report)
 	}
 }
+
+func ContainerStats() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		id := c.Param("id")
+		defer cancel()
+		body, err := dockerContainer.Stats(conf.DockerClient, ctx, id)
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, body)
+
+	}
+}
