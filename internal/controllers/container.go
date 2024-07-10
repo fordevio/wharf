@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"context"
+	"strconv"
 
 	"log"
 	"net/http"
@@ -171,11 +172,39 @@ func ContainerStats() gin.HandlerFunc {
 				return
 			}
 			log.Println(err)
-		
+
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 		c.JSON(http.StatusOK, body)
+	}
+}
 
+func ContainerLogs() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		id := c.Param("id")
+		daysStr := c.Query("days")
+		if daysStr == "" {
+			daysStr = "1"
+		}
+		days, err := strconv.Atoi(daysStr)
+		if err != nil || days <= 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid days qeury parameter"})
+			return
+		}
+
+		body, err := dockerContainer.Logs(conf.DockerClient, ctx, id, days)
+		if err != nil {
+			if errdefs.IsNotFound(err) {
+				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				return
+			}
+			log.Println(err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, body)
 	}
 }

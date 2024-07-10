@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"time"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
@@ -72,10 +73,32 @@ func Stats(client *client.Client, ctx context.Context, containerId string) (stri
 	}
 	defer stats.Body.Close()
 	bodyBytes, err := io.ReadAll(stats.Body)
-	
+
 	if err != nil {
 		return "", err
 	}
 	return string(bodyBytes), nil
 
+}
+
+func Logs(client *client.Client, ctx context.Context, containerId string, days int) (string, error) {
+
+	since := time.Now().Add(-24 * time.Duration(days) * time.Hour).Format(time.RFC3339)
+
+	options := container.LogsOptions{
+		ShowStdout: true,
+		ShowStderr: true,
+		Since:      since,
+		Timestamps: true,
+	}
+	logs, err := client.ContainerLogs(ctx, containerId, options)
+	if err != nil {
+		return "", err
+	}
+	defer logs.Close()
+	bodyBytes, err := io.ReadAll(logs)
+	if err != nil {
+		return "", err
+	}
+	return string(bodyBytes), nil
 }
