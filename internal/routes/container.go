@@ -15,4 +15,5 @@ func ContainerRoutes(incommingRoutes *gin.Engine) {
 	incommingRoutes.DELETE("api/container/prune", controllers.PruneContainers())
 	incommingRoutes.GET("/api/container/stats/:id", controllers.ContainerStats())
 	incommingRoutes.GET("/api/container/logs/:id", controllers.ContainerLogs())
+	incommingRoutes.GET("/api/container/rename/:id", controllers.ContainerRename())
 }

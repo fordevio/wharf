@@ -184,7 +184,7 @@ func DeleteUser() gin.HandlerFunc {
 			return
 		}
 		conf.Cache.Invalidate(strconv.Itoa(id))
-		c.JSON(http.StatusOK, gin.H{"msg": "user deleted"})
+		c.JSON(http.StatusOK, gin.H{"message": "user deleted"})
 	}
 }
 

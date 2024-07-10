@@ -102,3 +102,8 @@ func Logs(client *client.Client, ctx context.Context, containerId string, days i
 	}
 	return string(bodyBytes), nil
 }
+
+func Rename(client *client.Client, ctx context.Context, containerId string, name string) error {
+	err := client.ContainerRename(ctx, containerId, name)
+	return err
+}

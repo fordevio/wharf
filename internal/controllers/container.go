@@ -64,7 +64,7 @@ func StopContainer() gin.HandlerFunc {
 				return
 			}
 		}
-		c.JSON(200, "Container stopped")
+		c.JSON(200, gin.H{"message": "Container stopped"})
 	}
 }
 
@@ -90,7 +90,7 @@ func UnpauseContainer() gin.HandlerFunc {
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusOK, "Container unpause")
+		c.JSON(http.StatusOK, gin.H{"message": "Container unpause"})
 
 	}
 }
@@ -134,7 +134,7 @@ func RemoveContainer() gin.HandlerFunc {
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusOK, "Container removed")
+		c.JSON(http.StatusOK, gin.H{"message": "Container removed"})
 	}
 }
 
@@ -206,5 +206,43 @@ func ContainerLogs() gin.HandlerFunc {
 			return
 		}
 		c.JSON(http.StatusOK, body)
+	}
+}
+
+func ContainerRename() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		id := c.Param("id")
+		var requestBody dockerContainer.ContainerRenameRequest
+		if err := c.BindJSON(&requestBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		validate := validator.New()
+		if err := validate.Struct(requestBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		if requestBody.NewName == "" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid name"})
+			return
+		}
+
+		err := dockerContainer.Rename(conf.DockerClient, ctx, id, requestBody.NewName)
+
+		if err != nil {
+			if errdefs.IsNotFound(err) {
+				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				return
+			}
+			log.Println(err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"message": "Name changed successfully"})
+
 	}
 }
