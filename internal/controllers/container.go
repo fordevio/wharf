@@ -31,7 +31,7 @@ func GetContainers() gin.HandlerFunc {
 		go dockerContainer.GetAll(conf.DockerClient, ctx, ch, errCh)
 		for err := range errCh {
 			log.Println(err)
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Err})
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Err})
 			return
 		}
 
@@ -173,7 +173,7 @@ func ContainerStats() gin.HandlerFunc {
 			}
 			log.Println(err)
 
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
 		}
 		c.JSON(http.StatusOK, body)
@@ -202,7 +202,7 @@ func ContainerLogs() gin.HandlerFunc {
 				return
 			}
 			log.Println(err)
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
 		}
 		c.JSON(http.StatusOK, body)
@@ -239,7 +239,7 @@ func ContainerRename() gin.HandlerFunc {
 				return
 			}
 			log.Println(err)
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
 		}
 		c.JSON(http.StatusOK, gin.H{"message": "Name changed successfully"})

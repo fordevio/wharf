@@ -9,4 +9,5 @@ import (
 func ImageRoutes(incommingRoutes *gin.Engine) {
 	incommingRoutes.Use(auth.AuthMiddleWare())
 	incommingRoutes.GET("/api/images", controllers.GetImages())
+	incommingRoutes.DELETE("/api/images/prune", controllers.PruneImages())
 }
