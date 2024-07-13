@@ -35,6 +35,11 @@ func GetAll(client *client.Client, ctx context.Context, ch chan *image.Summary, 
 func Prune(client *client.Client, ctx context.Context) (types.ImagesPruneReport, error) {
 
 	pruneReport, err := client.ImagesPrune(ctx, filters.Args{})
-
 	return pruneReport, err
+}
+
+func Remove(client *client.Client, ctx context.Context, imageId string, options image.RemoveOptions) ([]image.DeleteResponse, error) {
+
+	removeReport, err := client.ImageRemove(ctx, imageId, options)
+	return removeReport, err
 }
