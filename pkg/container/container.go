@@ -9,8 +9,9 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/api/types/filters"
+	"github.com/docker/docker/api/types/network"
 	"github.com/docker/docker/client"
-
+	"github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/wharf/wharf/pkg/errors"
 )
 
@@ -106,4 +107,9 @@ func Logs(client *client.Client, ctx context.Context, containerId string, days i
 func Rename(client *client.Client, ctx context.Context, containerId string, name string) error {
 	err := client.ContainerRename(ctx, containerId, name)
 	return err
+}
+
+func Create(client *client.Client, ctx context.Context, config *container.Config, hostConfig *container.HostConfig, containerName string) (container.CreateResponse, error) {
+	res, err := client.ContainerCreate(ctx, config, hostConfig, &network.NetworkingConfig{}, &v1.Platform{}, containerName)
+	return res, err
 }

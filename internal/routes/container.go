@@ -16,4 +16,5 @@ func ContainerRoutes(incommingRoutes *gin.Engine) {
 	incommingRoutes.GET("/api/container/stats/:id", controllers.ContainerStats())
 	incommingRoutes.GET("/api/container/logs/:id", controllers.ContainerLogs())
 	incommingRoutes.GET("/api/container/rename/:id", controllers.ContainerRename())
+	incommingRoutes.POST("/api/container/create", controllers.ContainerCreate())
 }

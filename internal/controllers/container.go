@@ -12,10 +12,10 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/errdefs"
+	"github.com/docker/go-connections/nat"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/wharf/wharf/conf"
-
 	dockerContainer "github.com/wharf/wharf/pkg/container"
 	"github.com/wharf/wharf/pkg/errors"
 	"github.com/wharf/wharf/pkg/models"
@@ -214,6 +214,13 @@ func ContainerRename() gin.HandlerFunc {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
 		id := c.Param("id")
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(*models.User)
+
+		if reqUser.Permission != models.Write {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
+			return
+		}
 		var requestBody dockerContainer.ContainerRenameRequest
 		if err := c.BindJSON(&requestBody); err != nil {
 			log.Println(err)
@@ -224,10 +231,6 @@ func ContainerRename() gin.HandlerFunc {
 		if err := validate.Struct(requestBody); err != nil {
 			log.Println(err)
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
-		if requestBody.NewName == "" {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid name"})
 			return
 		}
 
@@ -243,6 +246,92 @@ func ContainerRename() gin.HandlerFunc {
 			return
 		}
 		c.JSON(http.StatusOK, gin.H{"message": "Name changed successfully"})
+
+	}
+}
+
+func ContainerCreate() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(*models.User)
+
+		if reqUser.Permission != models.Write {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
+			return
+		}
+		var requestBody dockerContainer.ContainerCreateRequest
+		if err := c.BindJSON(&requestBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		config := container.Config{
+			Image: requestBody.Image,
+		}
+
+		hostConfig := container.HostConfig{}
+		if vol := requestBody.Volumes; vol != nil {
+			config.Volumes = *vol
+		}
+		if user := requestBody.User; user != nil {
+			config.User = *user
+		}
+		if domainName := requestBody.DomainName; domainName != nil {
+			config.Domainname = *domainName
+		}
+		if exposedPorts := requestBody.ExposedPorts; exposedPorts != nil {
+			portsMap := nat.PortSet{}
+			for _, port := range *exposedPorts {
+				portsMap[nat.Port(port)] = struct{}{}
+			}
+		}
+		if cmd := requestBody.Cmd; cmd != nil {
+			config.Cmd = *cmd
+		}
+		if env := requestBody.Env; env != nil {
+			config.Env = *env
+		}
+		if entryPoint := requestBody.Entrypoint; entryPoint != nil {
+			config.Entrypoint = *entryPoint
+		}
+
+		if binds := requestBody.Bind; binds != nil {
+			hostConfig.Binds = *binds
+		}
+
+		if netMode := requestBody.NetworkMode; netMode != nil {
+			hostConfig.NetworkMode = container.NetworkMode(*netMode)
+		}
+		if restartsPolicy := requestBody.RestartPolicy; restartsPolicy != nil {
+			hostConfig.RestartPolicy = *restartsPolicy
+		}
+
+		if autoRem := requestBody.AutoRemove; autoRem != nil {
+			hostConfig.AutoRemove = *autoRem
+		}
+
+		if portBindings := requestBody.PortBindings; portBindings != nil {
+			pmap := nat.PortMap{}
+			for k, v := range *portBindings {
+				pmap[nat.Port(k)] = []nat.PortBinding{
+					{
+						HostIP:   "0.0.0.0",
+						HostPort: v,
+					},
+				}
+			}
+			hostConfig.PortBindings = pmap
+		}
+
+		res, err := dockerContainer.Create(conf.DockerClient, ctx, &config, &hostConfig, requestBody.Name)
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, res)
 
 	}
 }
