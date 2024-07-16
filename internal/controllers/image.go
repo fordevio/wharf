@@ -95,3 +95,45 @@ func RemoveImage() gin.HandlerFunc {
 		c.JSON(http.StatusOK, report)
 	}
 }
+
+func TagImage() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		id := c.Param("id")
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(*models.User)
+		if reqUser.Permission != models.Write {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
+			return
+		}
+		var reqBody dockerImage.ImageTagRequest
+		if err := c.BindJSON(&reqBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		validate := validator.New()
+		if err := validate.Struct(reqBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		err := dockerImage.Tag(conf.DockerClient, ctx, id, reqBody.Tag)
+
+		if err != nil {
+			if errdefs.IsNotFound(err) {
+				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				return
+			}
+			log.Println(err)
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, id+" tagged successfully")
+
+	}
+}

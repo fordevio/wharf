@@ -3,7 +3,6 @@ package dockerImage
 import (
 	"context"
 	"fmt"
-
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/filters"
 	"github.com/docker/docker/api/types/image"
@@ -42,4 +41,9 @@ func Remove(client *client.Client, ctx context.Context, imageId string, options 
 
 	removeReport, err := client.ImageRemove(ctx, imageId, options)
 	return removeReport, err
+}
+
+func Tag(client *client.Client, ctx context.Context, imageID string, tag string) error {
+	err := client.ImageTag(ctx, imageID, tag)
+	return err
 }

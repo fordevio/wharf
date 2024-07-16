@@ -64,7 +64,7 @@ func StopContainer() gin.HandlerFunc {
 				return
 			}
 		}
-		c.JSON(200, gin.H{"message": "Container stopped"})
+		c.JSON(200, gin.H{"message": id + " container stopped"})
 	}
 }
 
@@ -90,7 +90,7 @@ func UnpauseContainer() gin.HandlerFunc {
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusOK, gin.H{"message": "Container unpause"})
+		c.JSON(http.StatusOK, gin.H{"message": id + " container unpause"})
 
 	}
 }
@@ -134,7 +134,7 @@ func RemoveContainer() gin.HandlerFunc {
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusOK, gin.H{"message": "Container removed"})
+		c.JSON(http.StatusOK, gin.H{"message": id + "container removed"})
 	}
 }
 
@@ -245,7 +245,7 @@ func ContainerRename() gin.HandlerFunc {
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusOK, gin.H{"message": "Name changed successfully"})
+		c.JSON(http.StatusOK, gin.H{"message": id + ": name changed successfully"})
 
 	}
 }

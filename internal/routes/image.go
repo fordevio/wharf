@@ -11,4 +11,5 @@ func ImageRoutes(incommingRoutes *gin.Engine) {
 	incommingRoutes.GET("/api/images", controllers.GetImages())
 	incommingRoutes.DELETE("/api/images/prune", controllers.PruneImages())
 	incommingRoutes.DELETE("/api/images/remove/:id", controllers.RemoveImage())
+	incommingRoutes.PUT("/api/images/tag/:id", controllers.TagImage())
 }
