@@ -8,8 +8,8 @@ import (
 
 func ImageRoutes(incommingRoutes *gin.Engine) {
 	incommingRoutes.Use(auth.AuthMiddleWare())
-	incommingRoutes.GET("/api/images", controllers.GetImages())
-	incommingRoutes.DELETE("/api/images/prune", controllers.PruneImages())
-	incommingRoutes.DELETE("/api/images/remove/:id", controllers.RemoveImage())
-	incommingRoutes.PUT("/api/images/tag/:id", controllers.TagImage())
+	incommingRoutes.GET("/api/image/getAll", controllers.GetImages())
+	incommingRoutes.DELETE("/api/image/prune", controllers.PruneImages())
+	incommingRoutes.DELETE("/api/image/remove/:id", controllers.RemoveImage())
+	incommingRoutes.PUT("/api/image/tag/:id", controllers.TagImage())
 }

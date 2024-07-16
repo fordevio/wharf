@@ -8,5 +8,5 @@ import (
 
 func VolumeRoutes(incommingRoutes *gin.Engine) {
 	incommingRoutes.Use(auth.AuthMiddleWare())
-	incommingRoutes.GET("/api/volumes", controllers.GetVolumes())
+	incommingRoutes.GET("/api/volume/getAll", controllers.GetVolumes())
 }

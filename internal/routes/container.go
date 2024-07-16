@@ -8,7 +8,7 @@ import (
 
 func ContainerRoutes(incommingRoutes *gin.Engine) {
 	incommingRoutes.Use(auth.AuthMiddleWare())
-	incommingRoutes.GET("/api/containers", controllers.GetContainers())
+	incommingRoutes.GET("/api/container/getAll", controllers.GetContainers())
 	incommingRoutes.PUT("/api/container/stop/:id", controllers.StopContainer())
 	incommingRoutes.PUT("/api/container/unpause/:id", controllers.UnpauseContainer())
 	incommingRoutes.DELETE("/api/container/remove/:id", controllers.RemoveContainer())

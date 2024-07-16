@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/filters"
 	"github.com/docker/docker/client"
 	"github.com/wharf/wharf/pkg/errors"
 )
@@ -30,4 +31,9 @@ func GetAll(client *client.Client, ctx context.Context, ch chan *types.NetworkRe
 	}
 
 	close(ch)
+}
+
+func Prune(client *client.Client, ctx context.Context) (types.NetworksPruneReport, error) {
+	pruneReport, err := client.NetworksPrune(ctx, filters.Args{})
+	return pruneReport, err
 }

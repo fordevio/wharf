@@ -188,7 +188,7 @@ func DeleteUser() gin.HandlerFunc {
 	}
 }
 
-func List() gin.HandlerFunc {
+func ListUsers() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var _, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
