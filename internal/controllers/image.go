@@ -103,7 +103,7 @@ func TagImage() gin.HandlerFunc {
 		id := c.Param("id")
 		ur, _ := c.Get("user")
 		reqUser, _ := ur.(*models.User)
-		if reqUser.Permission != models.Write {
+		if reqUser.Permission == models.Read {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
 		}

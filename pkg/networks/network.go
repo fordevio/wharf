@@ -37,3 +37,13 @@ func Prune(client *client.Client, ctx context.Context) (types.NetworksPruneRepor
 	pruneReport, err := client.NetworksPrune(ctx, filters.Args{})
 	return pruneReport, err
 }
+
+func Remove(client *client.Client, ctx context.Context, id string) error {
+	err := client.NetworkRemove(ctx, id)
+	return err
+}
+
+func Disconnect(client *client.Client, ctx context.Context, networkId string, containerId string, force bool) error {
+	err := client.NetworkDisconnect(ctx, networkId, containerId, force)
+	return err
+}

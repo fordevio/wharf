@@ -217,7 +217,7 @@ func ContainerRename() gin.HandlerFunc {
 		ur, _ := c.Get("user")
 		reqUser, _ := ur.(*models.User)
 
-		if reqUser.Permission != models.Write {
+		if reqUser.Permission == models.Read {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
 		}
@@ -257,12 +257,18 @@ func ContainerCreate() gin.HandlerFunc {
 		ur, _ := c.Get("user")
 		reqUser, _ := ur.(*models.User)
 
-		if reqUser.Permission != models.Write {
+		if reqUser.Permission == models.Read {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
 		}
 		var requestBody dockerContainer.ContainerCreateRequest
 		if err := c.BindJSON(&requestBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		validate := validator.New()
+		if err := validate.Struct(requestBody); err != nil {
 			log.Println(err)
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return

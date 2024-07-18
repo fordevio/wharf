@@ -10,4 +10,5 @@ func NetworkRoutes(incommingRoutes *gin.Engine) {
 	incommingRoutes.Use(auth.AuthMiddleWare())
 	incommingRoutes.GET("/api/network/getAll", controllers.GetNetworks())
 	incommingRoutes.DELETE("/api/network/prune", controllers.PruneNetwork())
+	incommingRoutes.PUT("/api/network/disconnect/:id", controllers.DisconnectNetwork())
 }
