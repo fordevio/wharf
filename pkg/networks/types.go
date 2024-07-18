@@ -8,3 +8,7 @@ type DisconnectNetworkRequest struct {
 type ConnectNetworkRequest struct {
 	ContainerID string `json:"containerId" validate:"required"`
 }
+
+type CreateNetworkRequest struct {
+	Driver string `json:"driver" validate:"required"`
+}

@@ -52,3 +52,8 @@ func Connect(client *client.Client, ctx context.Context, networkId string, conta
 	err := client.NetworkConnect(ctx, networkId, containerId, nil)
 	return err
 }
+
+func Create(client *client.Client, ctx context.Context, name string, options types.NetworkCreate) (types.NetworkCreateResponse, error) {
+	res, err := client.NetworkCreate(ctx, name, options)
+	return res, err
+}

@@ -12,4 +12,5 @@ func NetworkRoutes(incommingRoutes *gin.Engine) {
 	incommingRoutes.DELETE("/api/network/prune", controllers.PruneNetwork())
 	incommingRoutes.PUT("/api/network/disconnect/:id", controllers.DisconnectNetwork())
 	incommingRoutes.PUT("/api/network/connect/:id", controllers.ConnectNetwork())
+	incommingRoutes.POST("/api/network/create", controllers.ContainerCreate())
 }

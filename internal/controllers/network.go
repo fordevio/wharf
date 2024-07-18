@@ -160,3 +160,46 @@ func ConnectNetwork() gin.HandlerFunc {
 
 	}
 }
+
+func CreateNetwork() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(*models.User)
+		if reqUser.Permission != models.Read {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Permissions"})
+			return
+		}
+
+		var reqBody dockerNetwork.CreateNetworkRequest
+
+		if err := c.BindJSON(&reqBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		validate := validator.New()
+		if err := validate.Struct(reqBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		options := types.NetworkCreate{
+			Driver:         reqBody.Driver,
+			Scope:          "local",
+			Internal:       true,
+			CheckDuplicate: true,
+		}
+
+		res, err := dockerNetwork.Create(conf.DockerClient, ctx, reqBody.Name, options)
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, res)
+
+	}
+}
