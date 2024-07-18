@@ -47,3 +47,8 @@ func Disconnect(client *client.Client, ctx context.Context, networkId string, co
 	err := client.NetworkDisconnect(ctx, networkId, containerId, force)
 	return err
 }
+
+func Connect(client *client.Client, ctx context.Context, networkId string, containerId string) error {
+	err := client.NetworkConnect(ctx, networkId, containerId, nil)
+	return err
+}

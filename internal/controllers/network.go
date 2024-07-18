@@ -120,3 +120,43 @@ func DisconnectNetwork() gin.HandlerFunc {
 
 	}
 }
+
+func ConnectNetwork() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		id := c.Param("id")
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(*models.User)
+
+		if reqUser.Permission == models.Read {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Permission"})
+			return
+		}
+
+		var reqBody dockerNetwork.ConnectNetworkRequest
+		if err := c.BindJSON(&reqBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		validate := validator.New()
+		if err := validate.Struct(reqBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		err := dockerNetwork.Connect(conf.DockerClient, ctx, id, reqBody.ContainerID)
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
+		}
+		msg := fmt.Sprintf("%s connection created with %s", reqBody.ContainerID, id)
+
+		c.JSON(http.StatusOK, gin.H{"message": msg})
+
+	}
+}
