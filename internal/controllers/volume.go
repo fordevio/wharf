@@ -7,9 +7,12 @@ import (
 	"time"
 
 	"github.com/docker/docker/api/types/volume"
+	"github.com/docker/docker/errdefs"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"github.com/wharf/wharf/conf"
 	"github.com/wharf/wharf/pkg/errors"
+	"github.com/wharf/wharf/pkg/models"
 	dockerVolume "github.com/wharf/wharf/pkg/volume"
 )
 
@@ -32,4 +35,41 @@ func GetVolumes() gin.HandlerFunc {
 		}
 		c.JSON(200, volumes)
 	}
+}
+
+func RemoveVolume() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		id := c.Param("id")
+		var reqBody dockerVolume.RemoveVolumeRequest
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(*models.User)
+		if reqUser.Permission == models.Read {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
+			return
+		}
+		if err := c.BindJSON(&reqBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		validate := validator.New()
+		if err := validate.Struct(reqBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		if err := dockerVolume.Remove(conf.DockerClient, ctx, id, reqBody.Force); err != nil {
+			if errdefs.IsNotFound(err) {
+				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				return
+			}
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"message": id + " volume removed"})
+
+	}
+
 }

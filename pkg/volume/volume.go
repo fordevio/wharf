@@ -30,3 +30,8 @@ func GetAll(client *client.Client, ctx context.Context, ch chan *volume.Volume, 
 
 	close(ch)
 }
+
+func Remove(client *client.Client, ctx context.Context, volumeId string, force bool) error {
+	err := client.VolumeRemove(ctx, volumeId, force)
+	return err
+}
