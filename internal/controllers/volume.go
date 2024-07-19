@@ -73,3 +73,24 @@ func RemoveVolume() gin.HandlerFunc {
 	}
 
 }
+
+func PruneVolumes() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(*models.User)
+
+		if reqUser.Permission != models.Execute {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
+			return
+		}
+
+		report, err := dockerVolume.Prune(conf.DockerClient, ctx)
+		if err != nil {
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, report)
+	}
+}

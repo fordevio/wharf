@@ -10,4 +10,5 @@ func VolumeRoutes(incommingRoutes *gin.Engine) {
 	incommingRoutes.Use(auth.AuthMiddleWare())
 	incommingRoutes.GET("/api/volume/getAll", controllers.GetVolumes())
 	incommingRoutes.DELETE("/api/volume/remove/:id", controllers.RemoveVolume())
+	incommingRoutes.DELETE("/api/volume/prune/:id", controllers.PruneVolumes())
 }
