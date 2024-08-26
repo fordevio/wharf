@@ -16,7 +16,7 @@ func Itob(v int) []byte {
 }
 
 func OpenStore() (*bolt.DB, error) {
-	db, err := bolt.Open(dbPath, 0600, &bolt.Options{Timeout: 1 * time.Second})
+	db, err := bolt.Open(dbPath, 0600, &bolt.Options{Timeout: 100 * time.Second})
 	if err != nil {
 		return nil, err
 	}

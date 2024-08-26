@@ -43,18 +43,21 @@ func CheckInitPassword() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "InitPassword not matched"})
 			return
 		}
+
 		isAdminPresent, err := store.GetAdminUser()
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
+
 		if isAdminPresent != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Admin user already created"})
 			return
 		}
 
 		isUsernamePresent, err := store.GetUserByUsername(adminRequest.Username)
+
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -64,6 +67,7 @@ func CheckInitPassword() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Username already taken"})
 			return
 		}
+		
 
 		var user = models.User{
 			Username:   &adminRequest.Username,
@@ -72,6 +76,7 @@ func CheckInitPassword() gin.HandlerFunc {
 			Permission: models.Execute,
 		}
 		createdUser, err := store.CreateUser(&user)
+
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

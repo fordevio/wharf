@@ -32,7 +32,7 @@ func InitStore() {
 func CreateUser(user *models.User) (*models.User, error) {
 	db, err := helpers.OpenStore()
 	if err != nil {
-		log.Panicln(err)
+		return nil, err
 	}
 	defer db.Close()
 	err = db.Update(func(tx *bolt.Tx) error {
@@ -54,7 +54,7 @@ func CreateUser(user *models.User) (*models.User, error) {
 func UpdateUser(user *models.User) (*models.User, error) {
 	db, err := helpers.OpenStore()
 	if err != nil {
-		log.Panicln(err)
+		return nil, err
 	}
 	defer db.Close()
 	err = db.Update(func(tx *bolt.Tx) error {
@@ -79,7 +79,7 @@ func UpdateUser(user *models.User) (*models.User, error) {
 func DeleteUser(id int) error {
 	db, err := helpers.OpenStore()
 	if err != nil {
-		log.Panicln(err)
+		return err
 	}
 	defer db.Close()
 	err = db.Update(func(tx *bolt.Tx) error {
@@ -101,7 +101,7 @@ func DeleteUser(id int) error {
 func GetUserById(id int) (*models.User, error) {
 	db, err := helpers.OpenStore()
 	if err != nil {
-		log.Panicln(err)
+		return nil, err
 	}
 	var user models.User
 	defer db.Close()
@@ -123,8 +123,9 @@ func GetUserById(id int) (*models.User, error) {
 func GetAllUsers() ([]*models.User, error) {
 	db, err := helpers.OpenStore()
 	if err != nil {
-		log.Panicln(err)
+		return nil, err
 	}
+	defer db.Close()
 	var users []*models.User
 	err = db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("users"))
@@ -148,8 +149,9 @@ func GetAllUsers() ([]*models.User, error) {
 func GetAdminUser() (*models.User, error) {
 	db, err := helpers.OpenStore()
 	if err != nil {
-		log.Panicln(err)
+		return nil, err
 	}
+	defer db.Close()
 	var adminUser *models.User
 	err = db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("users"))
@@ -178,8 +180,9 @@ func GetAdminUser() (*models.User, error) {
 func GetUserByUsername(username string) (*models.User, error) {
 	db, err := helpers.OpenStore()
 	if err != nil {
-		log.Panicln(err)
+		return nil, err
 	}
+	defer db.Close()
 	var finUser *models.User
 	err = db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("users"))
