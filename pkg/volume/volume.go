@@ -42,3 +42,8 @@ func Prune(client *client.Client, ctx context.Context) (types.VolumesPruneReport
 	report, err := client.VolumesPrune(ctx, filters.Args{})
 	return report, err
 }
+
+func Create(client *client.Client, ctx context.Context, opts volume.CreateOptions) (volume.Volume, error) {
+	vol, err := client.VolumeCreate(ctx, opts)
+	return vol, err
+}

@@ -94,3 +94,43 @@ func PruneVolumes() gin.HandlerFunc {
 		c.JSON(http.StatusOK, report)
 	}
 }
+
+func CreateVolume() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var createVolumeRequest dockerVolume.CreateVolumeRequest
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(*models.User)
+		if reqUser.Permission == models.Read {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
+			return
+		}
+		if err := c.BindJSON(&createVolumeRequest); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		validate := validator.New()
+		if err := validate.Struct(createVolumeRequest); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		opts := volume.CreateOptions{
+			Name:   createVolumeRequest.Name,
+			Driver: "local",
+		}
+
+		if createVolumeRequest.Labels != nil {
+			opts.Labels = *createVolumeRequest.Labels
+		}
+
+		vol, err := dockerVolume.Create(conf.DockerClient, ctx, opts)
+		if err != nil {
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, vol)
+	}
+}

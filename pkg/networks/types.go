@@ -10,6 +10,6 @@ type ConnectNetworkRequest struct {
 }
 
 type CreateNetworkRequest struct {
-	Name   string  `json:"name" validate:"required"`
+	Name   string `json:"name" validate:"required"`
 	Driver string `json:"driver" validate:"required"`
 }

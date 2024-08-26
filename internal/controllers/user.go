@@ -208,5 +208,3 @@ func ListUsers() gin.HandlerFunc {
 		c.JSON(http.StatusOK, users)
 	}
 }
-
-

@@ -11,4 +11,5 @@ func VolumeRoutes(incommingRoutes *gin.Engine) {
 	incommingRoutes.GET("/api/volume/getAll", controllers.GetVolumes())
 	incommingRoutes.DELETE("/api/volume/remove/:id", controllers.RemoveVolume())
 	incommingRoutes.DELETE("/api/volume/prune/:id", controllers.PruneVolumes())
+	incommingRoutes.POST("/api/volume/create", controllers.CreateVolume())
 }
