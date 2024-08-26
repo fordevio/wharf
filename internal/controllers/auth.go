@@ -39,7 +39,7 @@ func CheckInitPassword() gin.HandlerFunc {
 			log.Panicln("InitPassword not found in wharf.txt")
 		}
 
-		if adminRequest.Password != *password {
+		if adminRequest.InitPassword != *password {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "InitPassword not matched"})
 			return
 		}

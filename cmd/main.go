@@ -24,7 +24,7 @@ func main() {
 	router.Use(cors.New(corsConfig))
 	router.Use(gin.Logger())
 	api := router.Group("/api")
-    {
+	{
 		api.Use(auth.AuthMiddleWare())
 		routes.UserRoutes(api)
 		routes.ContainerRoutes(api)
@@ -32,8 +32,6 @@ func main() {
 		routes.VolumeRoutes(api)
 		routes.NetworkRoutes(api)
 	}
-	
-	
 
 	routes.AuthRoutes(router)
 	conf.InitDir()
