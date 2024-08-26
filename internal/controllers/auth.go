@@ -67,7 +67,6 @@ func CheckInitPassword() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Username already taken"})
 			return
 		}
-		
 
 		var user = models.User{
 			Username:   &adminRequest.Username,
