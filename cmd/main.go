@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/wharf/wharf/conf"
 	"github.com/wharf/wharf/internal/routes"
+	"github.com/wharf/wharf/pkg/auth"
 	"github.com/wharf/wharf/pkg/store"
 )
 
@@ -22,10 +23,18 @@ func main() {
 	router := gin.New()
 	router.Use(cors.New(corsConfig))
 	router.Use(gin.Logger())
-	routes.ContainerRoutes(router)
-	routes.ImageRoutes(router)
-	routes.VolumeRoutes(router)
-	routes.NetworkRoutes(router)
+	api := router.Group("/api")
+    {
+		api.Use(auth.AuthMiddleWare())
+		routes.UserRoutes(api)
+		routes.ContainerRoutes(api)
+		routes.ImageRoutes(api)
+		routes.VolumeRoutes(api)
+		routes.NetworkRoutes(api)
+	}
+	
+	
+
 	routes.AuthRoutes(router)
 	conf.InitDir()
 	go conf.InitPassword()
