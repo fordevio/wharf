@@ -42,7 +42,7 @@ func PruneNetwork() gin.HandlerFunc {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 		if reqUser.Permission != models.Execute {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
@@ -62,7 +62,7 @@ func RemoveNetwork() gin.HandlerFunc {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 		if reqUser.Permission != models.Execute {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
@@ -88,7 +88,7 @@ func DisconnectNetwork() gin.HandlerFunc {
 		defer cancel()
 		id := c.Param("id")
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 		if reqUser.Permission == models.Execute {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
@@ -127,7 +127,7 @@ func ConnectNetwork() gin.HandlerFunc {
 		defer cancel()
 		id := c.Param("id")
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 
 		if reqUser.Permission == models.Read {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Permission"})
@@ -166,7 +166,7 @@ func CreateNetwork() gin.HandlerFunc {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 		if reqUser.Permission != models.Read {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Permissions"})
 			return

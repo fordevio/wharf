@@ -1,11 +1,12 @@
 package models
 
-type Permission rune
+
+type Permission string
 
 const (
-	Read    Permission = 'r'
-	Write   Permission = 'w'
-	Execute Permission = 'x'
+	Read    Permission = "r"
+	Write   Permission = "w"
+	Execute Permission = "x"
 )
 
 type User struct {
@@ -24,3 +25,6 @@ func (p Permission) IsValid() bool {
 		return false
 	}
 }
+
+
+

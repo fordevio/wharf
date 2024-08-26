@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"context"
+
 	"log"
 	"net/http"
 	"strconv"
@@ -15,6 +16,8 @@ import (
 	"github.com/wharf/wharf/pkg/store"
 	"github.com/wharf/wharf/pkg/user"
 )
+
+
 
 func CreateUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -42,7 +45,7 @@ func CreateUser() gin.HandlerFunc {
 		}
 
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 
 		if !reqUser.IsAdmin {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Request not sent by admin"})
@@ -108,7 +111,7 @@ func UpdateUser() gin.HandlerFunc {
 		}
 
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 
 		if !reqUser.IsAdmin {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Request not sent by admin"})
@@ -160,7 +163,7 @@ func DeleteUser() gin.HandlerFunc {
 		}
 
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 
 		if !reqUser.IsAdmin {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Request not sent by admin"})
@@ -191,9 +194,11 @@ func DeleteUser() gin.HandlerFunc {
 func ListUsers() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var _, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+
 		defer cancel()
+
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 
 		if !reqUser.IsAdmin {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Request not sent by admin"})

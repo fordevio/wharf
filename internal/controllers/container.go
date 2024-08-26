@@ -48,7 +48,7 @@ func StopContainer() gin.HandlerFunc {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 
 		if reqUser.Permission == models.Read {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
@@ -74,7 +74,7 @@ func UnpauseContainer() gin.HandlerFunc {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 
 		if reqUser.Permission == models.Read {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
@@ -114,7 +114,7 @@ func RemoveContainer() gin.HandlerFunc {
 		}
 
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 
 		if reqUser.Permission != models.Execute {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
@@ -143,7 +143,7 @@ func PruneContainers() gin.HandlerFunc {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 
 		if reqUser.Permission != models.Execute {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
@@ -215,7 +215,7 @@ func ContainerRename() gin.HandlerFunc {
 		defer cancel()
 		id := c.Param("id")
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 
 		if reqUser.Permission == models.Read {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
@@ -255,7 +255,7 @@ func ContainerCreate() gin.HandlerFunc {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 
 		if reqUser.Permission == models.Read {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})

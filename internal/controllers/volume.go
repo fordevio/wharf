@@ -44,7 +44,7 @@ func RemoveVolume() gin.HandlerFunc {
 		id := c.Param("id")
 		var reqBody dockerVolume.RemoveVolumeRequest
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 		if reqUser.Permission == models.Read {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
@@ -79,7 +79,7 @@ func PruneVolumes() gin.HandlerFunc {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 
 		if reqUser.Permission != models.Execute {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
@@ -101,7 +101,7 @@ func CreateVolume() gin.HandlerFunc {
 		defer cancel()
 		var createVolumeRequest dockerVolume.CreateVolumeRequest
 		ur, _ := c.Get("user")
-		reqUser, _ := ur.(*models.User)
+		reqUser, _ := ur.(models.User)
 		if reqUser.Permission == models.Read {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return

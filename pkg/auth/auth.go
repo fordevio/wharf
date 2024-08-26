@@ -68,7 +68,7 @@ func AuthMiddleWare() gin.HandlerFunc {
 		if conf.Cache != nil {
 			_ = conf.Cache.Set(strconv.Itoa(uid), *user)
 		}
-		c.Set("user", user)
+		c.Set("user", *user)
 		c.Next()
 	}
 }
