@@ -17,16 +17,11 @@ import (
 	"github.com/wharf/wharf/pkg/user"
 )
 
-
-
 func CreateUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var _, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		var createUserRequest user.CreateUserRequest
 		defer cancel()
-		if err := c.BindJSON(&createUserRequest); err != nil {
-			log.Println()
-		}
 		if err := c.BindJSON(&createUserRequest); err != nil {
 			log.Println(err)
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -90,9 +85,7 @@ func UpdateUser() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
 			return
 		}
-		if err := c.BindJSON(&updateUserRequest); err != nil {
-			log.Println()
-		}
+
 		if err := c.BindJSON(&updateUserRequest); err != nil {
 			log.Println(err)
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -133,7 +126,7 @@ func UpdateUser() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		if isUsernamePresent != nil {
+		if (isUsernamePresent != nil) && (updateUserRequest.Username != *isUser.Username) {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Username already taken"})
 			return
 		}

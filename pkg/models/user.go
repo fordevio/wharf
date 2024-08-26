@@ -1,6 +1,5 @@
 package models
 
-
 type Permission string
 
 const (
@@ -25,6 +24,3 @@ func (p Permission) IsValid() bool {
 		return false
 	}
 }
-
-
-
