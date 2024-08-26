@@ -41,7 +41,8 @@ func AuthMiddleWare() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		uid := claims["sub"].(int)
+		uidFloat := claims["sub"].(float64)
+		uid := int(uidFloat)
 
 		if conf.Cache != nil {
 			userCache := conf.Cache.Get(strconv.Itoa(uid))
