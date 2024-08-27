@@ -59,6 +59,16 @@ func Unpause(client *client.Client, ctx context.Context, containerId string) err
 	return err
 }
 
+func Pause(client *client.Client, ctx context.Context, containerId string) error {
+	err := client.ContainerPause(ctx, containerId)
+	return err
+}
+
+func Start(client *client.Client, ctx context.Context, containerId string) error {
+	err := client.ContainerStart(ctx, containerId, container.StartOptions{})
+	return err
+}
+
 func Remove(client *client.Client, ctx context.Context, containerId string, options container.RemoveOptions) error {
 	err := client.ContainerRemove(ctx, containerId, options)
 	return err
