@@ -15,6 +15,6 @@ func ContainerRoutes(incommingRoutes *gin.RouterGroup) {
 	incommingRoutes.DELETE("/container/prune", controllers.PruneContainers())
 	incommingRoutes.GET("/container/stats/:id", controllers.ContainerStats())
 	incommingRoutes.GET("/container/logs/:id", controllers.ContainerLogs())
-	incommingRoutes.GET("/container/rename/:id", controllers.ContainerRename())
+	incommingRoutes.PUT("/container/rename/:id", controllers.ContainerRename())
 	incommingRoutes.POST("/container/create", controllers.ContainerCreate())
 }
