@@ -28,7 +28,7 @@ func GetContainers() gin.HandlerFunc {
 		errCh := make(chan *errors.Error)
 		containers := []*types.Container{}
 		defer cancel()
-		go dockerContainer.GetAll(conf.DockerClient, ctx, ch, errCh)
+		go dockerContainer.List(conf.DockerClient, ctx, ch, errCh)
 		for err := range errCh {
 			log.Println(err)
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Err})

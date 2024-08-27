@@ -15,8 +15,10 @@ import (
 	"github.com/wharf/wharf/pkg/errors"
 )
 
-func GetAll(client *client.Client, ctx context.Context, ch chan *types.Container, errCh chan *errors.Error) {
-	containers, err := client.ContainerList(ctx, container.ListOptions{})
+func List(client *client.Client, ctx context.Context, ch chan *types.Container, errCh chan *errors.Error) {
+	containers, err := client.ContainerList(ctx, container.ListOptions{
+		All: true,
+	})
 	if err != nil {
 		errStruct := &errors.Error{
 			Name: "Container Listing",
