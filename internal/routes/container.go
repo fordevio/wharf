@@ -8,6 +8,8 @@ import (
 func ContainerRoutes(incommingRoutes *gin.RouterGroup) {
 	incommingRoutes.GET("/container/getAll", controllers.GetContainers())
 	incommingRoutes.PUT("/container/stop/:id", controllers.StopContainer())
+	incommingRoutes.PUT("/container/start/:id", controllers.ContainerStart())
+	incommingRoutes.PUT("/container/pause/:id", controllers.ContainerPause())
 	incommingRoutes.PUT("/container/unpause/:id", controllers.UnpauseContainer())
 	incommingRoutes.DELETE("/container/remove/:id", controllers.RemoveContainer())
 	incommingRoutes.DELETE("/container/prune", controllers.PruneContainers())
