@@ -300,6 +300,7 @@ func ContainerCreate() gin.HandlerFunc {
 			for _, port := range *exposedPorts {
 				portsMap[nat.Port(port)] = struct{}{}
 			}
+			config.ExposedPorts = portsMap
 		}
 		if cmd := requestBody.Cmd; cmd != nil {
 			config.Cmd = *cmd
