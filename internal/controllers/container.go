@@ -122,7 +122,7 @@ func RemoveContainer() gin.HandlerFunc {
 		}
 		err := dockerContainer.Remove(conf.DockerClient, ctx, id, container.RemoveOptions{
 			RemoveVolumes: requestBody.RemoveVolumes,
-			RemoveLinks:   requestBody.RemoveLinks,
+			RemoveLinks:   false,
 			Force:         requestBody.Force,
 		})
 		if err != nil {
