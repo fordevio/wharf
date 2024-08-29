@@ -1,12 +1,12 @@
 
 build:
-	@go build -o bin/build ./cmd
+	@go build -o bin/backend ./cmd && npm --prefix ./pkg/client run build 
 
 hotreload:
 	@nodemon --exec go run cmd/main.go --signal SIGTERM
 
 run:
-	@ /bin/build
+	@nohup ./bin/backend  > ./logs/app.log 2>&1 & npm --prefix ./pkg/client start
 
 format:
 	@gofmt -w .
