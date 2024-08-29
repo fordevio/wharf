@@ -6,8 +6,8 @@ import (
 )
 
 type ContainerRemoveRequest struct {
-	RemoveVolumes bool `json:"removeVolumes" validate:"required"`
-	Force         bool `json:"force" validate:"required"`
+	RemoveVolumes *bool `json:"removeVolumes"`
+	Force         *bool `json:"force" validate:"required"`
 }
 
 type ContainerRenameRequest struct {

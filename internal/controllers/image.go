@@ -82,7 +82,19 @@ func RemoveImage() gin.HandlerFunc {
 			return
 		}
 
-		report, err := dockerImage.Remove(conf.DockerClient, ctx, id, image.RemoveOptions(requestBody))
+		opts := image.RemoveOptions{
+			Force:         false,
+			PruneChildren: false,
+		}
+
+		if requestBody.Force != nil {
+			opts.Force = *requestBody.Force
+		}
+
+		if requestBody.PruneChildren != nil {
+			opts.PruneChildren = *requestBody.PruneChildren
+		}
+		report, err := dockerImage.Remove(conf.DockerClient, ctx, id, opts)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})

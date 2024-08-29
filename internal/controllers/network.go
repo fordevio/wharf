@@ -108,7 +108,12 @@ func DisconnectNetwork() gin.HandlerFunc {
 			return
 		}
 
-		err := dockerNetwork.Disconnect(conf.DockerClient, ctx, id, reqBody.ContainerID, reqBody.Force)
+		forceDisconnect := false
+		if reqBody.Force != nil {
+			forceDisconnect = *reqBody.Force
+		}
+
+		err := dockerNetwork.Disconnect(conf.DockerClient, ctx, id, reqBody.ContainerID, forceDisconnect)
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})

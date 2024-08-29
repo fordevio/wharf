@@ -120,11 +120,19 @@ func RemoveContainer() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
 		}
-		err := dockerContainer.Remove(conf.DockerClient, ctx, id, container.RemoveOptions{
-			RemoveVolumes: requestBody.RemoveVolumes,
+		opts := container.RemoveOptions{
+			RemoveVolumes: false,
 			RemoveLinks:   false,
-			Force:         requestBody.Force,
-		})
+			Force:         false,
+		}
+		if requestBody.Force != nil {
+			opts.Force = *requestBody.Force
+		}
+		if requestBody.RemoveVolumes != nil {
+			opts.RemoveVolumes = *requestBody.RemoveVolumes
+		}
+		err := dockerContainer.Remove(conf.DockerClient, ctx, id, opts)
+
 		if err != nil {
 			if errdefs.IsNotFound(err) {
 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})

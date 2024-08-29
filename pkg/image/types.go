@@ -1,8 +1,8 @@
 package dockerImage
 
 type ImageRemoveRequest struct {
-	Force         bool `json:"force" validate:"required"`
-	PruneChildren bool `json:"pruneChildren" validate:"required"`
+	Force         *bool `json:"force"`
+	PruneChildren *bool `json:"pruneChildren" validate:"required"`
 }
 
 type ImageTagRequest struct {

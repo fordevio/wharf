@@ -60,7 +60,11 @@ func RemoveVolume() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		if err := dockerVolume.Remove(conf.DockerClient, ctx, id, reqBody.Force); err != nil {
+		forceRem := false
+		if reqBody.Force != nil {
+			forceRem = *reqBody.Force
+		}
+		if err := dockerVolume.Remove(conf.DockerClient, ctx, id, forceRem); err != nil {
 			if errdefs.IsNotFound(err) {
 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 				return

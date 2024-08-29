@@ -1,7 +1,7 @@
 package dockerVolume
 
 type RemoveVolumeRequest struct {
-	Force bool `json:"force" validate:"required"`
+	Force *bool `json:"force"`
 }
 
 type CreateVolumeRequest struct {
