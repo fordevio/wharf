@@ -54,12 +54,7 @@ func RemoveVolume() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		validate := validator.New()
-		if err := validate.Struct(reqBody); err != nil {
-			log.Println(err)
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
+
 		forceRem := false
 		if reqBody.Force != nil {
 			forceRem = *reqBody.Force

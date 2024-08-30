@@ -68,12 +68,6 @@ func RemoveImage() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		validate := validator.New()
-		if err := validate.Struct(requestBody); err != nil {
-			log.Println(err)
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
 
 		ur, _ := c.Get("user")
 		reqUser, _ := ur.(models.User)
