@@ -89,7 +89,7 @@ func DisconnectNetwork() gin.HandlerFunc {
 		id := c.Param("id")
 		ur, _ := c.Get("user")
 		reqUser, _ := ur.(models.User)
-		if reqUser.Permission == models.Execute {
+		if reqUser.Permission == models.Read {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
 		}
@@ -172,7 +172,7 @@ func CreateNetwork() gin.HandlerFunc {
 		defer cancel()
 		ur, _ := c.Get("user")
 		reqUser, _ := ur.(models.User)
-		if reqUser.Permission != models.Read {
+		if reqUser.Permission == models.Read {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Permissions"})
 			return
 		}
