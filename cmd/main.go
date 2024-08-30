@@ -41,7 +41,7 @@ func main() {
 
 	router.NoRoute(func(c *gin.Context) {
 		path := c.Request.URL.Path
-		if !strings.HasPrefix(path, "/api") {
+		if !strings.HasPrefix(path, "/api") && !strings.HasPrefix(path, "/docs") {
 			c.File("./bin/frontend/" + path)
 		} else {
 			c.JSON(http.StatusNotFound, gin.H{"error": "Not Found"})
@@ -50,6 +50,10 @@ func main() {
 
 	router.GET("/", func(c *gin.Context) {
 		c.File("./bin/frontend/index.html")
+	})
+
+	router.GET("/docs/api", func(c *gin.Context) {
+		c.File("./docs/api_doc.html")
 	})
 
 	conf.InitDir()

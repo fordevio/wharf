@@ -1,0 +1,984 @@
+{
+    "info": {
+        "_postman_id": "351e66cd-725d-43c3-a9c4-e86a5e83ade8",
+        "name": "wharf",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "auth",
+            "item": [
+                {
+                    "name": "checkInitPassword",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:9001/auth/init",
+                            "path": [
+                                "auth",
+                                "init"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"initPassword\":\"thLaxx7EHTrnHP\",\n  \"username\":\"yash\",\n  \"password\":\"#Yash2004\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "isAdminAvailable",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:9001/auth/isAdmin",
+                            "path": [
+                                "auth",
+                                "isAdmin"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        }
+                    }
+                },
+                {
+                    "name": "login",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:9001/auth/login",
+                            "path": [
+                                "auth",
+                                "login"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"username\":\"yash\",\n  \"password\":\"#Yash2004\"\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "containers",
+            "item": [
+                {
+                    "name": "getAll",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:9001/api/container/getAll",
+                            "path": [
+                                "api",
+                                "container",
+                                "getAll"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ5ODkyODAsImlhdCI6MTcyNDk1MzI4MCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.8ruBMqU41yYRsq6HYL9C_x8UTCRIqXxB8s8U5umAV4Y"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "stop",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "http://localhost:9001/api/container/stop/b9f53d416f09184b7c38bb54389d44a7b3cb61e184d39826f0dd7a6a6024951f",
+                            "path": [
+                                "api",
+                                "container",
+                                "stop",
+                                "b9f53d416f09184b7c38bb54389d44a7b3cb61e184d39826f0dd7a6a6024951f"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ4MDEyODAsImlhdCI6MTcyNDc2NTI4MCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.zb-_XnIUImg-8X0XRXIN_lN-fOUqRtlCH674k_ZE0rE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "unpause",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "http://localhost:9001/api/container/unpause/b9f53d416f09184b7c38bb54389d44a7b3cb61e184d39826f0dd7a6a6024951f",
+                            "path": [
+                                "api",
+                                "container",
+                                "unpause",
+                                "b9f53d416f09184b7c38bb54389d44a7b3cb61e184d39826f0dd7a6a6024951f"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ4MDEyODAsImlhdCI6MTcyNDc2NTI4MCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.zb-_XnIUImg-8X0XRXIN_lN-fOUqRtlCH674k_ZE0rE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "remove",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:9001/api/container/remove/db19e317299f6c27613a8d27881126f4b905d2726c4da44665da1e3f5ddd2975",
+                            "path": [
+                                "api",
+                                "container",
+                                "remove",
+                                "db19e317299f6c27613a8d27881126f4b905d2726c4da44665da1e3f5ddd2975"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ5ODkyODAsImlhdCI6MTcyNDk1MzI4MCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.8ruBMqU41yYRsq6HYL9C_x8UTCRIqXxB8s8U5umAV4Y"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"force\": true,\n  \"removeVolumes\": false\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "pause",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "http://localhost:9001/api/container/pause/b9f53d416f09184b7c38bb54389d44a7b3cb61e184d39826f0dd7a6a6024951f",
+                            "path": [
+                                "api",
+                                "container",
+                                "pause",
+                                "b9f53d416f09184b7c38bb54389d44a7b3cb61e184d39826f0dd7a6a6024951f"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ4MDEyODAsImlhdCI6MTcyNDc2NTI4MCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.zb-_XnIUImg-8X0XRXIN_lN-fOUqRtlCH674k_ZE0rE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "start",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "http://localhost:9001/api/container/start/c6e97f2c96f8a3c52dc9db64cb7666261117675c6fac8dce73911a4112bb584b",
+                            "path": [
+                                "api",
+                                "container",
+                                "start",
+                                "c6e97f2c96f8a3c52dc9db64cb7666261117675c6fac8dce73911a4112bb584b"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "stats",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:9001/api/container/stats/b9f53d416f09184b7c38bb54389d44a7b3cb61e184d39826f0dd7a6a6024951f",
+                            "path": [
+                                "api",
+                                "container",
+                                "stats",
+                                "b9f53d416f09184b7c38bb54389d44a7b3cb61e184d39826f0dd7a6a6024951f"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ4MDEyODAsImlhdCI6MTcyNDc2NTI4MCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.zb-_XnIUImg-8X0XRXIN_lN-fOUqRtlCH674k_ZE0rE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "logs",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:9001/api/container/logs/b9f53d416f09184b7c38bb54389d44a7b3cb61e184d39826f0dd7a6a6024951f",
+                            "path": [
+                                "api",
+                                "container",
+                                "logs",
+                                "b9f53d416f09184b7c38bb54389d44a7b3cb61e184d39826f0dd7a6a6024951f"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ4MDEyODAsImlhdCI6MTcyNDc2NTI4MCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.zb-_XnIUImg-8X0XRXIN_lN-fOUqRtlCH674k_ZE0rE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "rename",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:9001/api/container/rename/b9f53d416f09184b7c38bb54389d44a7b3cb61e184d39826f0dd7a6a6024951f",
+                            "path": [
+                                "api",
+                                "container",
+                                "rename",
+                                "b9f53d416f09184b7c38bb54389d44a7b3cb61e184d39826f0dd7a6a6024951f"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ4MDEyODAsImlhdCI6MTcyNDc2NTI4MCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.zb-_XnIUImg-8X0XRXIN_lN-fOUqRtlCH674k_ZE0rE"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"newName\":\"sudo-nginx\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "prune",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:9001/api/container/prune",
+                            "path": [
+                                "api",
+                                "container",
+                                "prune"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ4MDEyODAsImlhdCI6MTcyNDc2NTI4MCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.zb-_XnIUImg-8X0XRXIN_lN-fOUqRtlCH674k_ZE0rE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "create",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:9001/api/container/create",
+                            "path": [
+                                "api",
+                                "container",
+                                "create"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"name\": \"wharf-nginx\",\n  \"image\": \"nginx\",\n  \"portBindings\": {\n    \"80/tcp\":\"8080\"\n  }\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "user",
+            "item": [
+                {
+                    "name": "getAll",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:9001/api/user/getAll",
+                            "path": [
+                                "api",
+                                "user",
+                                "getAll"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ3NDc4MTMsImlhdCI6MTcyNDcxMTgxMywiaXNzIjoid2hhcmYiLCJzdWIiOjF9.PlS2IyOS6vO9qc_Ieyw04uxf2JaRfp0S1S7SXxXTOU8"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "createUser",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:9001/api/user/create",
+                            "path": [
+                                "api",
+                                "user",
+                                "create"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ3NDc4MTMsImlhdCI6MTcyNDcxMTgxMywiaXNzIjoid2hhcmYiLCJzdWIiOjF9.PlS2IyOS6vO9qc_Ieyw04uxf2JaRfp0S1S7SXxXTOU8"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"username\":\"harry\",\n  \"password\":\"#Yash2004\",\n  \"permission\":\"x\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "updateUser",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "http://localhost:9001/api/user/update/2",
+                            "path": [
+                                "api",
+                                "user",
+                                "update",
+                                "2"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ3NDc4MTMsImlhdCI6MTcyNDcxMTgxMywiaXNzIjoid2hhcmYiLCJzdWIiOjF9.PlS2IyOS6vO9qc_Ieyw04uxf2JaRfp0S1S7SXxXTOU8"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"username\":\"harry\",\n  \"password\":\"#Yash2004\",\n  \"permission\":\"r\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "deleteUser",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:9001/api/user/delete/2",
+                            "path": [
+                                "api",
+                                "user",
+                                "delete",
+                                "2"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjQ4MDEyODAsImlhdCI6MTcyNDc2NTI4MCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.zb-_XnIUImg-8X0XRXIN_lN-fOUqRtlCH674k_ZE0rE"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "images",
+            "item": [
+                {
+                    "name": "List",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:9001/api/protected/image/getAll",
+                            "path": [
+                                "api",
+                                "protected",
+                                "image",
+                                "getAll"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "remove",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:9001/api/protected/image/remove/sha256:a72860cb95fd59e9c696c66441c64f18e66915fa26b249911e83c3854477ed9a",
+                            "path": [
+                                "api",
+                                "protected",
+                                "image",
+                                "remove",
+                                "sha256:a72860cb95fd59e9c696c66441c64f18e66915fa26b249911e83c3854477ed9a"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"force\": true\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "tag",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "http://localhost:9001/api/protected/image/tag/sha256:62f66dcb1cff21b0633fb77d7329fca5efa8fd937ffd94a8562b05d3feee6152",
+                            "path": [
+                                "api",
+                                "protected",
+                                "image",
+                                "tag",
+                                "sha256:62f66dcb1cff21b0633fb77d7329fca5efa8fd937ffd94a8562b05d3feee6152"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"tag\":\"nginx-demo\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "prune",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:9001/api/protected/image/prune",
+                            "path": [
+                                "api",
+                                "protected",
+                                "image",
+                                "prune"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "volume",
+            "item": [
+                {
+                    "name": "getAll",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:9001/api/protected/volume/getAll",
+                            "path": [
+                                "api",
+                                "protected",
+                                "volume",
+                                "getAll"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "remove",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:9001/api/protected/volume/remove/wordpress_db_data",
+                            "path": [
+                                "api",
+                                "protected",
+                                "volume",
+                                "remove",
+                                "wordpress_db_data"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \n}"
+                        }
+                    }
+                },
+                {
+                    "name": "prune",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:9001/api/protected/volume/prune",
+                            "path": [
+                                "api",
+                                "protected",
+                                "volume",
+                                "prune"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "create",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:9001/api/protected/volume/create",
+                            "path": [
+                                "api",
+                                "protected",
+                                "volume",
+                                "create"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"name\":\"nginx-data\",\n  \"labels\":{\n    \"env\":\"test\"\n  }\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "network",
+            "item": [
+                {
+                    "name": "getAll",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:9001/api/protected/network/getAll",
+                            "path": [
+                                "api",
+                                "protected",
+                                "network",
+                                "getAll"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "remove",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:9001/api/protected/network/remove/3b7a8be7045328debebdcd63c8bc4447d99af91415f0748e9b4dcf37bf136b7a",
+                            "path": [
+                                "api",
+                                "protected",
+                                "network",
+                                "remove",
+                                "3b7a8be7045328debebdcd63c8bc4447d99af91415f0748e9b4dcf37bf136b7a"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{}"
+                        }
+                    }
+                },
+                {
+                    "name": "connect",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "http://localhost:9001/api/protected/network/connect/90e0a801a97174c959bf72feb7d2fcc9133f22c3719c99a5388a78b2668716b3",
+                            "path": [
+                                "api",
+                                "protected",
+                                "network",
+                                "connect",
+                                "90e0a801a97174c959bf72feb7d2fcc9133f22c3719c99a5388a78b2668716b3"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"containerId\": \"c2be9cc945c1db113e1b8e9721e2aef44ded47e12eb90d9c374fe9b89aa4dbd8\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "disconnect",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "http://localhost:9001/api/protected/network/disconnect/90e0a801a97174c959bf72feb7d2fcc9133f22c3719c99a5388a78b2668716b3",
+                            "path": [
+                                "api",
+                                "protected",
+                                "network",
+                                "disconnect",
+                                "90e0a801a97174c959bf72feb7d2fcc9133f22c3719c99a5388a78b2668716b3"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"containerId\": \"c2be9cc945c1db113e1b8e9721e2aef44ded47e12eb90d9c374fe9b89aa4dbd8\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "create",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:9001/api/protected/network/create",
+                            "path": [
+                                "api",
+                                "protected",
+                                "network",
+                                "create"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"name\":\"demo2\",\n  \"driver\":\"bridge\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "prune",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:9001/api/protected/network/prune",
+                            "path": [
+                                "api",
+                                "protected",
+                                "network",
+                                "prune"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "9001"
+                        },
+                        "header": [
+                            {
+                                "key": "Token",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUwNDMwMDAsImlhdCI6MTcyNTAwNzAwMCwiaXNzIjoid2hhcmYiLCJzdWIiOjF9.gjTqmbnyCbjuxRnQjLBBFINYDixI94hcDDNrHjNnvc8"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
