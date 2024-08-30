@@ -1,6 +1,9 @@
 package main
 
 import (
+	"net/http"
+	"strings"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/wharf/wharf/conf"
@@ -23,7 +26,8 @@ func main() {
 	router := gin.New()
 	router.Use(cors.New(corsConfig))
 	router.Use(gin.Logger())
-	api := router.Group("/api")
+
+	api := router.Group("/api/protected")
 	{
 		api.Use(auth.AuthMiddleWare())
 		routes.UserRoutes(api)
@@ -34,6 +38,20 @@ func main() {
 	}
 
 	routes.AuthRoutes(router)
+
+	router.NoRoute(func(c *gin.Context) {
+		path := c.Request.URL.Path
+		if !strings.HasPrefix(path, "/api") {
+			c.File("./bin/frontend/" + path)
+		} else {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Not Found"})
+		}
+	})
+
+	router.GET("/", func(c *gin.Context) {
+		c.File("./bin/frontend/index.html")
+	})
+
 	conf.InitDir()
 	go conf.InitPassword()
 	go store.InitStore()

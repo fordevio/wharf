@@ -2,7 +2,7 @@
 build:
 	@go build -o bin/backend ./cmd && npm --prefix ./pkg/client run build 
 
-buildBackend:
+buildGo:
 	@go build -o bin/backend ./cmd
 
 buildFrontend:
@@ -11,11 +11,8 @@ buildFrontend:
 runFrontend:
 	@npm --prefix ./pkg/client start
 
-runBackend:
-	@./bin/backend
-
 run:
-	@nohup ./bin/backend  > ./logs/app.log 2>&1 & npm --prefix ./pkg/client start
+	@./bin/backend  
 
 format:
 	@gofmt -w .
