@@ -8,6 +8,6 @@ import (
 func VolumeRoutes(incommingRoutes *gin.RouterGroup) {
 	incommingRoutes.GET("/volume/getAll", controllers.GetVolumes())
 	incommingRoutes.DELETE("/volume/remove/:id", controllers.RemoveVolume())
-	incommingRoutes.DELETE("/volume/prune/:id", controllers.PruneVolumes())
+	incommingRoutes.DELETE("/volume/prune", controllers.PruneVolumes())
 	incommingRoutes.POST("/volume/create", controllers.CreateVolume())
 }
