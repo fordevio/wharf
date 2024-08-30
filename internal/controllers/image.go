@@ -43,7 +43,7 @@ func PruneImages() gin.HandlerFunc {
 		defer cancel()
 		ur, _ := c.Get("users")
 		reqUser, _ := ur.(models.User)
-		if reqUser.Permission != models.Execute {
+		if reqUser.Permission == models.Read {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid premissions"})
 			return
 		}
