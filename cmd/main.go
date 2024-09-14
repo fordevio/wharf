@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/gin-contrib/cors"
@@ -41,8 +42,14 @@ func main() {
 
 	router.NoRoute(func(c *gin.Context) {
 		path := c.Request.URL.Path
+		filePath := "./bin/frontend/" + path
 		if !strings.HasPrefix(path, "/api") && !strings.HasPrefix(path, "/docs") {
-			c.File("./bin/frontend/" + path)
+			if _, err := os.Stat(filePath); err == nil {
+				c.File(filePath)
+			} else {
+				c.File("./bin/frontend/index.html")
+			}
+
 		} else {
 			c.JSON(http.StatusNotFound, gin.H{"error": "Not Found"})
 		}

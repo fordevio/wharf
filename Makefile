@@ -1,6 +1,6 @@
 
 build:
-	@go build -o bin/backend ./cmd && npm --prefix ./client run build 
+	@go build -o bin/build ./cmd &&  rm -rf ./bin/frontend && npm --prefix ./client run build 
 
 buildGo:
 	@go build -o bin/build ./cmd
