@@ -101,7 +101,6 @@ func IsAdminAvailable() gin.HandlerFunc {
 			return
 		}
 		c.JSON(http.StatusFound, gin.H{"username": isAdminPresent.Username, "userId": isAdminPresent.ID})
-
 	}
 }
 
