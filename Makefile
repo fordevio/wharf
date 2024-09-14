@@ -1,18 +1,18 @@
 
 build:
-	@go build -o bin/backend ./cmd && npm --prefix ./pkg/client run build 
+	@go build -o bin/backend ./cmd && npm --prefix ./client run build 
 
 buildGo:
-	@go build -o bin/backend ./cmd
+	@go build -o bin/build ./cmd
 
 buildFrontend:
-	@npm --prefix ./pkg/client run build
+	@npm --prefix ./client run build
 
 runFrontend:
 	@npm --prefix ./pkg/client start
 
 run:
-	@./bin/backend  
+	@./bin/build  
 
 format:
 	@gofmt -w .
@@ -26,3 +26,6 @@ help:
 	@echo "  make get        - Install dependencies"
 	@echo "  make args ARGS=\"<arguments>\" - Build and run the application with arguments"
 	@echo "  make help       - Show this help message"
+
+
+
