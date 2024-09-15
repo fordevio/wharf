@@ -215,7 +215,12 @@ func GetUser() gin.HandlerFunc {
 
 		ur, _ := c.Get("user")
 		reqUser, _ := ur.(models.User)
-
-		c.JSON(http.StatusOK, reqUser)
+		res := user.GetUserResponse{
+			Username:   *reqUser.Username,
+			Permission: reqUser.Permission,
+			IsAdmin:    reqUser.IsAdmin,
+			Id:         reqUser.ID,
+		}
+		c.JSON(http.StatusOK, res)
 	}
 }
