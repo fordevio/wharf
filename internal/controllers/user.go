@@ -130,6 +130,12 @@ func UpdateUser() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Username already taken"})
 			return
 		}
+
+		if isUser.IsAdmin && updateUserRequest.Username != "admin" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Admin username cannot be other than admin"})
+			return
+		}
+
 		isUser.Username = &updateUserRequest.Username
 		isUser.Password = &updateUserRequest.Password
 		isUser.Permission = updateUserRequest.Permission

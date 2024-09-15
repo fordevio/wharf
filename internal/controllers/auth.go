@@ -12,6 +12,7 @@ import (
 	"github.com/wharf/wharf/pkg/helpers"
 	"github.com/wharf/wharf/pkg/models"
 	"github.com/wharf/wharf/pkg/store"
+	"k8s.io/utils/ptr"
 )
 
 func RegisterAdmin() gin.HandlerFunc {
@@ -56,20 +57,8 @@ func RegisterAdmin() gin.HandlerFunc {
 			return
 		}
 
-		isUsernamePresent, err := store.GetUserByUsername(adminRequest.Username)
-
-		if err != nil {
-			log.Println(err)
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
-		}
-		if isUsernamePresent != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Username already taken"})
-			return
-		}
-
 		var user = models.User{
-			Username:   &adminRequest.Username,
+			Username:   ptr.To("admin"),
 			Password:   &adminRequest.Password,
 			IsAdmin:    true,
 			Permission: models.Execute,
