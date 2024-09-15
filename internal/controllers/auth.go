@@ -14,7 +14,7 @@ import (
 	"github.com/wharf/wharf/pkg/store"
 )
 
-func CheckInitPassword() gin.HandlerFunc {
+func RegisterAdmin() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var _, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		var adminRequest auth.AdminUserRequest
@@ -142,7 +142,7 @@ func Login() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusFound, gin.H{"token": token, "usernam": user.Username, "userId": user.ID})
+		c.JSON(http.StatusFound, gin.H{"token": token, "username": user.Username, "userId": user.ID})
 	}
 }
 
