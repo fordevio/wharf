@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import wharfLogo from '../../assets/wharf.png'
 import './index.css'
-import { isAdminAvailable } from '../../api/login'
+import { isAdminAvailable, login, registerAdmin } from '../../api/login'
 import toast from 'react-hot-toast'
 
 
@@ -29,6 +29,17 @@ const Login = () => {
   useEffect(() => {
      findIsAdmin()
   }, [])
+
+  const adminReg= async()=>{
+   const res = await registerAdmin(username, password, initPassword)
+   return res.data
+  }
+
+
+  const logIn= async() => {
+   const res = await login(username, password)
+   return res
+  }
 
   const SubmitHandler= async()=>{
    if(username===''||password===''||confirmPassword===''){
@@ -62,8 +73,32 @@ const Login = () => {
       toast.error('Passwords do not match confirm password')
       return
    }
+
+   if (!isAdmin) {
+      toast.promise(
+         adminReg(),
+          {
+            loading: 'Registering',
+            success: <b>Admin Registered</b>,
+            error:(data) => <b>{data.error}</b>,
+          }
+        );
+        setIsAdmin(true)
+   }else{
+      toast.promise(
+         logIn(),
+          {
+            loading: 'Loging...',
+            success: <b>Login successfull </b>,
+            error:(data) => <b>{data.error}</b>,
+          }
+        );
+   }
    
   }
+
+
+  
 
   return (
     <>
