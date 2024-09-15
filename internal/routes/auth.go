@@ -9,4 +9,5 @@ func AuthRoutes(incommingRoutes *gin.Engine) {
 	incommingRoutes.POST("/api/auth/init", controllers.CheckInitPassword())
 	incommingRoutes.GET("/api/auth/isAdmin", controllers.IsAdminAvailable())
 	incommingRoutes.POST("/api/auth/login", controllers.Login())
+	incommingRoutes.GET("/api/auth/getAdminPassword", controllers.GetAdminPassword())
 }

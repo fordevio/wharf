@@ -145,3 +145,49 @@ func Login() gin.HandlerFunc {
 		c.JSON(http.StatusFound, gin.H{"token": token, "usernam": user.Username, "userId": user.ID})
 	}
 }
+
+func GetAdminPassword() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var _, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var getPasswordReq auth.GetAdminPasswordRequest
+		if err := c.BindJSON(&getPasswordReq); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		validate := validator.New()
+		if err := validate.Struct(getPasswordReq); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		admin, err := store.GetAdminUser()
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		if admin == nil {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Admin not registered"})
+			return
+		}
+		if getPasswordReq.Username != *admin.Username {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Username"})
+			return
+		}
+
+		initPass, err := helpers.GetInitPassword()
+
+		if err != nil {
+			log.Panicln(err)
+		}
+
+		if getPasswordReq.InitPassword != *initPass {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid InitPassword"})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"password": *admin.Password})
+	}
+}
