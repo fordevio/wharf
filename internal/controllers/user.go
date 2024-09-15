@@ -206,3 +206,16 @@ func ListUsers() gin.HandlerFunc {
 		c.JSON(http.StatusOK, users)
 	}
 }
+
+func GetUser() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		var _, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(models.User)
+
+		c.JSON(http.StatusOK, reqUser)
+	}
+}

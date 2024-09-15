@@ -10,4 +10,5 @@ func UserRoutes(incommingRoutes *gin.RouterGroup) {
 	incommingRoutes.POST("/user/create", controllers.CreateUser())
 	incommingRoutes.PUT("/user/update/:id", controllers.UpdateUser())
 	incommingRoutes.DELETE("/user/delete/:id", controllers.DeleteUser())
+	incommingRoutes.GET("/user/get", controllers.GetUser())
 }
