@@ -12,7 +12,6 @@ import (
 	"github.com/wharf/wharf/pkg/helpers"
 	"github.com/wharf/wharf/pkg/models"
 	"github.com/wharf/wharf/pkg/store"
-	"k8s.io/utils/ptr"
 )
 
 func RegisterAdmin() gin.HandlerFunc {
@@ -57,8 +56,21 @@ func RegisterAdmin() gin.HandlerFunc {
 			return
 		}
 
+		isUsernamePresent, err := store.GetUserByUsername(adminRequest.Username)
+
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+
+		if isUsernamePresent != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Username already taken"})
+			return
+		}
+
 		var user = models.User{
-			Username:   ptr.To("admin"),
+			Username:   &adminRequest.Username,
 			Password:   &adminRequest.Password,
 			IsAdmin:    true,
 			Permission: models.Execute,
@@ -89,7 +101,7 @@ func IsAdminAvailable() gin.HandlerFunc {
 			c.JSON(http.StatusNotFound, gin.H{"msg": "Admin not found"})
 			return
 		}
-		c.JSON(http.StatusFound, gin.H{"username": isAdminPresent.Username, "userId": isAdminPresent.ID})
+		c.JSON(http.StatusOK, gin.H{"username": isAdminPresent.Username, "userId": isAdminPresent.ID})
 	}
 }
 
@@ -131,7 +143,7 @@ func Login() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusFound, gin.H{"token": token, "username": user.Username, "userId": user.ID})
+		c.JSON(http.StatusOK, gin.H{"token": token, "username": user.Username, "userId": user.ID})
 	}
 }
 
@@ -161,10 +173,6 @@ func GetAdminPassword() gin.HandlerFunc {
 			c.JSON(http.StatusNotFound, gin.H{"error": "Admin not registered"})
 			return
 		}
-		if getPasswordReq.Username != *admin.Username {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Username"})
-			return
-		}
 
 		initPass, err := helpers.GetInitPassword()
 
@@ -177,6 +185,6 @@ func GetAdminPassword() gin.HandlerFunc {
 			return
 		}
 
-		c.JSON(http.StatusOK, gin.H{"password": *admin.Password})
+		c.JSON(http.StatusOK, gin.H{"username": *admin.Username, "password": *admin.Password})
 	}
 }

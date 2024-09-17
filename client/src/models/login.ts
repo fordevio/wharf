@@ -11,4 +11,5 @@ export interface LoginRes {
 
 export interface AdminPasswordRes{
     password: string
+    username: string
 }

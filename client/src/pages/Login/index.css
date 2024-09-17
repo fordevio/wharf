@@ -67,3 +67,10 @@
     cursor: pointer;
     
 }
+
+.forPas {
+    cursor: pointer;
+    color: blue;
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+}

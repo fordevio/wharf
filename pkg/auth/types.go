@@ -3,6 +3,7 @@ package auth
 type AdminUserRequest struct {
 	InitPassword string `json:"initPassword" validate:"required"`
 	Password     string `json:"password" validate:"required"`
+	Username     string `json:"username" validate:"required"`
 }
 
 type LoginRequest struct {
@@ -12,5 +13,4 @@ type LoginRequest struct {
 
 type GetAdminPasswordRequest struct {
 	InitPassword string `json:"initPassword" validate:"required"`
-	Username     string `json:"username" validate:"required"`
 }

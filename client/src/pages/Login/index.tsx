@@ -2,8 +2,9 @@
 import { useEffect, useState } from 'react'
 import wharfLogo from '../../assets/wharf.png'
 import './index.css'
-import { isAdminAvailable, login, registerAdmin } from '../../api/login'
+import { forgotAdmin, isAdminAvailable, login, registerAdmin } from '../../api/login'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -14,6 +15,10 @@ const Login = () => {
   const [initPassword, setInitPassword]= useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword]= useState<string>('')
+  const [adminPass, setAdminPass]= useState<string>('')
+  const [adminUname, setAdminUname]= useState<string>('')
+  const [forgotPass, setForgotPass] = useState<boolean>(false)
+  const navigate = useNavigate();
 
   const findIsAdmin= async() =>{
       try{
@@ -22,23 +27,39 @@ const Login = () => {
             setIsAdmin(true)
             return
          }  
-      }catch(e){}
+      }catch(e){
+         console.log(e)
+      }
       setIsAdmin(false)
   }
 
   useEffect(() => {
+   
      findIsAdmin()
   }, [])
 
   const adminReg= async()=>{
-   const res = await registerAdmin(username, password, initPassword)
-   return res.data
+   try{
+      await registerAdmin(username, password, initPassword)
+      navigate('/')
+      return
+   }catch(e:any){
+      throw e.response ? e.response.data : {error: "Request failed"}
+   }
+   
   }
 
 
   const logIn= async() => {
+   try{
    const res = await login(username, password)
-   return res
+
+   localStorage.setItem('token', res.data.token);
+   navigate('/')
+   return res.data
+   }catch(e:any){
+      throw e.response ? e.response.data : {error: "Request failed"}
+   }
   }
 
   const SubmitHandler= async()=>{
@@ -79,8 +100,8 @@ const Login = () => {
          adminReg(),
           {
             loading: 'Registering',
-            success: <b>Admin Registered</b>,
-            error:(data) => <b>{data.error}</b>,
+            success: 'Admin Registered',
+            error:(data) => `${data.error}`,
           }
         );
         setIsAdmin(true)
@@ -89,16 +110,41 @@ const Login = () => {
          logIn(),
           {
             loading: 'Loging...',
-            success: <b>Login successfull </b>,
-            error:(data) => <b>{data.error}</b>,
+            success: 'Login successfull' ,
+            error:(data) => `${data.error}`,
           }
         );
    }
    
   }
 
-
-  
+  const forgotFunc= async()=>{
+     try{
+      const res = await forgotAdmin(initPassword)
+      return res.data
+     }catch(e:any){
+      throw e.response ? e.response.data : {error: "Request failed"}
+     }
+  }
+ 
+  const ForgotHandler = async()=>{
+   if(initPassword===''){
+      toast.error('Please fill all fields')
+      return
+   }
+   toast.promise(
+      forgotFunc(),
+       {
+         loading: 'Loading...',
+         success: (data)=>{
+                             setAdminPass(data.password);
+                             setAdminUname(data.username)
+                             return 'Username Password loaded'} ,
+         error:(data) => `${data.error}`,
+       }
+     );
+   
+  }
 
   return (
     <>
@@ -106,11 +152,10 @@ const Login = () => {
     <div className='logoDiv'>
         <img src={wharfLogo} alt='Wharf Logo' className='wharfLogo'/>
     </div>
-    <div className='loginDiv'>
+    {!forgotPass&&<div className='loginDiv'>
          <div className='iDiv'>
             <p className='loginH'>{isAdmin?'Login':'Register'}</p>
           {!isAdmin&& <div className='inputDiv'>
-           
            <span className='label'>Init-Password</span>
            <input type='text' onChange={(e)=>setInitPassword(e.target.value)} value={initPassword}/>
            <p className='p'>Init-Password can be found in /var/lib/wharf/wharf.txt</p>
@@ -119,6 +164,7 @@ const Login = () => {
             <span className='label'>Username</span>
             <input onChange={(e)=>setUsername(e.target.value)} type='text' value={username}/>
            </div>
+
            <div className='inputDiv'>
             <span className='label'>Password</span>
             <input type='password'  onChange={(e)=>setPassword(e.target.value)} value={password}/>
@@ -127,9 +173,27 @@ const Login = () => {
             <span className='label'>Confirm Password</span>
             <input type='password' onChange={(e)=>setConfirmPassword(e.target.value)} value={confirmPassword}/>
             </div>
+            {isAdmin&&<p className='forPas' onClick={()=>setForgotPass(true)}>For Password</p>}
            <button onClick={SubmitHandler}>Submit</button>
         </div>
-    </div>
+
+    </div>}
+    {forgotPass&&<div className='loginDiv'>
+         <div className='iDiv'>
+            <p className='loginH'></p>
+        <div className='inputDiv'>
+           <span className='label'>Init-Password</span>
+           <input type='text' onChange={(e)=>setInitPassword(e.target.value)} value={initPassword}/>
+           <p className='p'>Init-Password can be found in /var/lib/wharf/wharf.txt</p>
+          </div>
+         {adminUname!==''&&<p><span className='label'>Username: </span> <span className='label'>{adminUname}</span></p>}
+         {adminPass!==''&&<p><span className='label'>Password: </span> <span className='label'>{adminPass}</span></p>}
+         
+            {isAdmin&&<p className='forPas' onClick={()=>setForgotPass(false)}>Login</p>}
+           <button onClick={ForgotHandler}>Submit</button>
+        </div>
+
+    </div>}
     </>
   )
 }
