@@ -39,7 +39,6 @@ export const forgotAdmin= async(initPass: string):Promise<AxiosResponse<AdminPas
     const res = await axios.post<AdminPasswordRes>(url,{
         
         initPassword: initPass
-        
     })
     return res
 }
