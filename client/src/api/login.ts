@@ -43,3 +43,5 @@ export const forgotAdmin= async(initPass: string):Promise<AxiosResponse<AdminPas
     return res
 }
 
+
+
