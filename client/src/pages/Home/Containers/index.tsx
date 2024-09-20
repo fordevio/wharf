@@ -4,8 +4,10 @@ import { DockerContainer } from "../../../models/container"
 import ContainerCard from "./Container-card"
 import './index.css'
 
+
 const Containers = () => {
   const [containers, setContainers]= useState<DockerContainer[]>([])
+  
   const fetchContainers = async () => {
     try{
       const res = await getAllContainers(localStorage.getItem('token') as string)
@@ -23,7 +25,7 @@ const Containers = () => {
       <div className="card-container">
         {containers.map((container, index) => {
           return (
-           <ContainerCard key={index} container={container}/>
+           <ContainerCard key={index} containerId={container.Id} />
           )
         })}
       </div>

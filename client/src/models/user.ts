@@ -11,7 +11,7 @@ export interface User{
     username: string,
     id : number,
     isAdmin: boolean,
-    permission: string,
+    permissions: string,
     password: string
 }
 

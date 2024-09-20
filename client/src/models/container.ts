@@ -44,3 +44,7 @@ export interface DockerContainer {
     DNSNames: any;
   }
   
+
+  export interface MessageRes{
+    message: string
+  }

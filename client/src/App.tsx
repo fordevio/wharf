@@ -11,6 +11,7 @@ import Imges from './pages/Home/Images';
 import Volumes from './pages/Home/Volumes';
 import Networks from './pages/Home/Networks';
 import Users from './pages/Home/Users';
+import ContainerDetail from './pages/Home/ContainerDetail';
 
 
 function App() {
@@ -57,7 +58,7 @@ function App() {
   <Route path='volumes' element={<Volumes/>} />
   <Route path='networks' element={<Networks/>}/>
   <Route path='users' element ={<Users/>} />  
-
+  <Route path='container/:id' element ={<ContainerDetail/>} />  
   </Route>
   <Route path='/login' element={<Login/>} />
   

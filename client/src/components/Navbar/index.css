@@ -30,4 +30,5 @@
     font-weight: bold;
     font-family:'Courier New', Courier, monospace;
     cursor: pointer;
+    text-decoration: none;
 }
