@@ -25,7 +25,11 @@ func RegisterAdmin() gin.HandlerFunc {
 			return
 		}
 		validate := validator.New()
-		validate.RegisterValidation("password", auth.PasswordValidation)
+		if err := validate.RegisterValidation("password", auth.PasswordValidation); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
 		if err := validate.Struct(adminRequest); err != nil {
 			log.Println(err)
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -116,7 +120,11 @@ func Login() gin.HandlerFunc {
 			return
 		}
 		validate := validator.New()
-		validate.RegisterValidation("password", auth.PasswordValidation)
+		if err := validate.RegisterValidation("password", auth.PasswordValidation); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
 		if err := validate.Struct(loginRequest); err != nil {
 			log.Println(err)
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

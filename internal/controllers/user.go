@@ -28,7 +28,11 @@ func CreateUser() gin.HandlerFunc {
 			return
 		}
 		validate := validator.New()
-		validate.RegisterValidation("password", auth.PasswordValidation)
+		if err := validate.RegisterValidation("password", auth.PasswordValidation); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
 		if err := validate.Struct(createUserRequest); err != nil {
 			log.Println(err)
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -92,7 +96,11 @@ func UpdateUser() gin.HandlerFunc {
 			return
 		}
 		validate := validator.New()
-		validate.RegisterValidation("password", auth.PasswordValidation)
+		if err := validate.RegisterValidation("password", auth.PasswordValidation); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
 		if err := validate.Struct(updateUserRequest); err != nil {
 			log.Println(err)
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

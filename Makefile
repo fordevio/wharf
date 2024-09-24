@@ -1,9 +1,11 @@
 
-get: 
-	@go mod download && npm --prefix ./client install
 
 build: get
 	@go build -o bin/build ./cmd &&  rm -rf ./bin/frontend && npm --prefix ./client run build 
+
+get: 
+	@go mod download && npm --prefix ./client install
+
 
 runFrontend: get
 	@npm --prefix ./pkg/client start

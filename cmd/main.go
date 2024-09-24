@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -67,5 +68,9 @@ func main() {
 	go conf.InitPassword()
 	go store.InitStore()
 	conf.InitCache()
-	router.Run(":" + port)
+	err := router.Run(":" + port)
+	if err != nil {
+		log.Fatalf("Failed to start the server: %v", err)
+	}
+
 }
