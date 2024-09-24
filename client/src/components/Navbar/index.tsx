@@ -20,20 +20,20 @@ const Navbar = () => {
       <img src={wharfLogo} className = 'logo' alt='wharf' />
       <div className='nav-cont'>
         <div>
-          <Link  to="/" className='link' style={currentPath==='/'?{color:'rgb(100, 30, 110)'}:{}}
+          <Link  to="/" className='link' style={currentPath==='/'?{color:'blue'}:{}}
           >Containers</Link>
         </div>
         <div>
-          <Link to={"/images"} className='link' style={currentPath==='/images'?{color:'rgb(100, 30, 110)'}:{}}>Images</Link>
+          <Link to={"/images"} className='link' style={currentPath==='/images'?{color:'blue'}:{}}>Images</Link>
         </div>
         <div>
-          <Link to={"/volumes"} className='link' style={currentPath==='/volumes'?{color:'rgb(100, 30, 110)'}:{}}>Volumes</Link>
+          <Link to={"/volumes"} className='link' style={currentPath==='/volumes'?{color:'blue'}:{}}>Volumes</Link>
         </div>
         <div>
-          <Link to={"/networks"} className='link' style={currentPath==='/networks'?{color:'rgb(100, 30, 110)'}:{}}>Networks</Link>
+          <Link to={"/networks"} className='link' style={currentPath==='/networks'?{color:'blue'}:{}}>Networks</Link>
         </div>
         {userContext.curUser.isAdmin===true&& <div>
-          <Link to={"/users"} className='link' style={currentPath==='/users'?{color:'rgb(100, 30, 110)'}:{}}>Users</Link>
+          <Link to={"/users"} className='link' style={currentPath==='/users'?{color:'blue'}:{}}>Users</Link>
         </div>}
       </div>  
     </div>

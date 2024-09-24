@@ -18,7 +18,7 @@ dockerImage:
 	@docker build -t wharf -f deployment/Dockerfile .
 
 runDockerWharf:
-	@docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9002:9001 wharf 
+	@docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9001:9001 wharf --name wharf
 
 help:
 	@echo "Available commands:"
