@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { User } from '../../../../models/user'
 import './index.css'
+import { deleteUser, updateUser } from '../../../../api/user';
+import toast from 'react-hot-toast';
 
 interface Prop {
     user : User
@@ -10,9 +12,9 @@ interface Prop {
 
 const ContainerCard: React.FC<Prop> = ({user, setUsers, users}) => {
     const [open, setOpen] = useState<boolean>(false)
-  const [username, setUsername] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [permissions, setPermissions] = useState<string>('')
+  const [username, setUsername] = useState<string>(user.username)
+  const [password, setPassword] = useState<string>(user.password)
+  const [permissions, setPermissions] = useState<string>(user.permissions)
     const permissionRename = ()=>{
         if (user.permissions === 'x'){
             return "execute"
@@ -22,8 +24,54 @@ const ContainerCard: React.FC<Prop> = ({user, setUsers, users}) => {
         return "read"
     }
 
-    const edit_user = async() =>{
+    const deleteFunc = async() =>{
+        try{
+            await deleteUser(localStorage.getItem('token') as string, user.id)
+            const newUsers = users.filter((u)=> u.id !== user.id)
+            setUsers(newUsers)
+        }catch(e:any){
+            throw e.response ? e.response.data : {error: "Request failed"}
+        }
+    }
 
+
+    const delete_handler = async() =>{
+        toast.promise(deleteFunc(), {
+            loading: 'Deleting...',
+            success: 'User deleted',
+            error: (data) => data.error
+        })
+    }
+
+    const editFunc = async() =>{
+        try{
+         
+            const res = await updateUser(localStorage.getItem('token') as string, user.id, username, permissions, password)
+            const newUsers = users.map((u)=>{
+                if(u.id === user.id){
+                    return res.data
+                }
+                return u
+            })
+            setUsers(newUsers)
+            setOpen(false)
+        }catch(e:any){
+            throw e.response ? e.response.data : {error: "Request failed"}
+        }
+    }
+    const edit_user = async() =>{
+       if(username === "" || password === "" || permissions === ""){
+           toast.error('All fields are required')
+           return
+       }
+       if(permissions !== 'x' && permissions !== 'w' && permissions !== 'r'){
+           toast.error('Invalid permission')
+           return
+       }
+        toast.promise(editFunc(), {
+            loading: 'Updating...',
+            success: 'User updated',
+            error: (data) => data.error})
     }
     
   return (
@@ -43,7 +91,7 @@ const ContainerCard: React.FC<Prop> = ({user, setUsers, users}) => {
        </div>
        <div className="content">
        <button className='btn' onClick={()=>setOpen(true)}>Edit</button>
-       {!user.isAdmin&&<button className='btn' >Delete</button>}
+       {!user.isAdmin&&<button className='btn' onClick={delete_handler} >Delete</button>}
        </div>
     </div>
     <div className="popup-overlay" id="popupOverlay" style={open ? {"display":"block"}: {"display":"none"}} >

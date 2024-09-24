@@ -42,8 +42,8 @@ export const createUser = async(token:string, username: string, permission: stri
     return res
 }
 
-export const updateUser = async(token: string, userId: string, username: string, permission: string, password:string) : Promise<AxiosResponse<User>> => {
-    const url = URL + "/api/protected/user/update/" + userId
+export const updateUser = async(token: string, userId: number, username: string, permission: string, password:string) : Promise<AxiosResponse<User>> => {
+    const url = `${URL}/api/protected/user/update/${userId}`
     const res = await axios.put<User> (url, {
         username: username, 
         permission: permission,
@@ -56,8 +56,8 @@ export const updateUser = async(token: string, userId: string, username: string,
     return res
 }
 
-export const deleteUser =  async(token: string, userId: string) => {
-    const url = URL + "/api/protected/user/delete/" + userId
+export const deleteUser =  async(token: string, userId: number) => {
+    const url = `${URL}/api/protected/user/delete/${userId}`
     const res = await axios.delete(url , {
         headers:{
             "Token": token
