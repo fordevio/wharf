@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { GetUserRes, User } from '../../models/user';
+import { GetUserRes } from '../../models/user';
 
 export interface UserContextType {
   curUser: GetUserRes | null;

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { DockerContainer } from '../../../../models/container';
 import './index.css';
 import {
-  getAllContainers,
   pauseContainer,
   startContainer,
   stopContainer,
@@ -10,7 +9,6 @@ import {
 } from '../../../../api/container';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
-import Containers from '..';
 
 interface Props {
   container: DockerContainer;
