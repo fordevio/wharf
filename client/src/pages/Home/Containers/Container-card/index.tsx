@@ -4,29 +4,16 @@ import './index.css'
 import { getAllContainers, pauseContainer, startContainer, stopContainer, unpauseContainer } from '../../../../api/container'
 import toast from 'react-hot-toast'
 import { Link } from 'react-router-dom'
+import Containers from '..'
 
 interface Props {
-    containerId: string
+    container: DockerContainer
+    containers : DockerContainer[]
+    setContainers: (newContainers: DockerContainer[]) => void
 }
 
-const ContainerCard: React.FC<Props> = ({containerId}) => {
-  const [container, setContainer]= useState<DockerContainer| null>(null)
-
-  const fetchContainer = async () => {
-    try{
-      const res = await getAllContainers(localStorage.getItem('token') as string)
-      res.data.forEach((cont)=>{  
-        if(cont.Id===containerId){
-          setContainer(cont)
-        }
-      }) 
-    }catch(e){
-      console.log(e)  
-    }
-  }
- 
- 
-
+const ContainerCard: React.FC<Props> = ({container, setContainers, containers}) => {
+  
   const stopStartFunc = async()=>{
     const token = localStorage.getItem('token') as string
     
@@ -37,10 +24,26 @@ const ContainerCard: React.FC<Props> = ({containerId}) => {
       let res
       if(container.State==='exited'){
          res = await startContainer(token, container.Id)
+         const newContainers = containers.map((c)=>{
+          if(c.Id === container.Id){
+              const newContainer = {...c, State: 'running', Status: 'Up 1 second'}
+              return newContainer
+          }
+          return c
+      })
+       setContainers(newContainers)
         
         
       }else{
         res = await stopContainer(token, container.Id)
+        const newContainers = containers.map((c)=>{
+          if(c.Id === container.Id){
+              const newContainer = {...c, State: 'exited', Status: 'Exited 1 second'}
+              return newContainer
+          }
+          return c
+      })
+      setContainers(newContainers)
       }
       return res.data
     }catch(e:any){
@@ -59,10 +62,25 @@ const ContainerCard: React.FC<Props> = ({containerId}) => {
       let res
       if(container.State==='paused'){
          res = await unpauseContainer(token, container.Id)
-        
+         const newContainers = containers.map((c)=>{
+          if(c.Id === container.Id){
+              const newContainer = {...c, State: 'running', Status: 'Up 1 second'}
+              return newContainer
+          }
+          return c
+      })
+      setContainers(newContainers)
         
       }else{
         res = await pauseContainer(token, container.Id)
+        const newContainers = containers.map((c)=>{
+          if(c.Id === container.Id){
+              const newContainer = {...c, State: 'paused', Status: 'Paused 1 second'}
+              return newContainer
+          }
+          return c
+      })
+      setContainers(newContainers)
       }
       
       return res.data
@@ -102,10 +120,6 @@ const ContainerCard: React.FC<Props> = ({containerId}) => {
      );
     
   }
-
-  useEffect(()=>{
-    fetchContainer()
-  }  ,[])
 
   if (container==null){
     return <></>

@@ -25,7 +25,7 @@ const Containers = () => {
       <div className="card-container">
         {containers.map((container, index) => {
           return (
-           <ContainerCard key={index} containerId={container.Id} />
+           <ContainerCard key={index} container={container} containers= {containers} setContainers={setContainers}/>
           )
         })}
       </div>
