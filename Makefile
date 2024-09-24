@@ -20,6 +20,9 @@ dockerImage:
 runDockerWharf:
 	@docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9001:9001 wharf --name wharf
 
+unitTest:
+	@go test -v ./...
+
 help:
 	@echo "Available commands:"
 	@echo "  make build         - Build the application"
@@ -29,6 +32,7 @@ help:
 	@echo "  make test          - Test the application"
 	@echo "  make get           - Install dependencies"
 	@echo "  make format        - Format code"
+	@echo "  make unitTest      - Run all unit test"
 	@echo "  make help          - Show this help message"
 
 
