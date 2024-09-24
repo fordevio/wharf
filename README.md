@@ -15,6 +15,11 @@ Currently wharf includes following features:
 ## Project Status
 Currently the first version of the project is in development phase, the api's has been be created, development of some components of user interface is left.
 
+## ⭐️ Support
+
+If you find this project helpful or interesting, please give it a ⭐️ on [GitHub](https://github.com/fordevio/wharf)! Your support helps the project grow and motivates me to keep improving it.
+Also join the [#wharf](https://fordev-io.slack.com/archives/C07NTF2R6KF) slack channel.
+
 ## Quickstart
 
 ### Using source code
