@@ -92,4 +92,5 @@ jobs:
        with:
          node-version: '${{ env.node-version }}'
      - run: npm --prefix ./client install
+     - run: mkdir bin
      - run: npm --prefix ./client run build
