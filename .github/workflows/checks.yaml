@@ -1,0 +1,92 @@
+name: checks
+on: 
+  pull_request:
+    paths-ignore:
+      - '**/*.md'
+  push:
+    branches:
+      - master
+      - main
+      - develop
+      - 'release-*'
+    tags:
+      - 'v*'
+    paths-ignore:
+       - '**/*.md'
+      
+jobs:
+  format-go: 
+    runs-on:  ubuntu-latest
+    name: Format Go code 
+    steps: 
+     - uses: actions/checkout@v4
+     - name: Import environment variables from file
+       run: cat ".github/env" >> $GITHUB_ENV
+     - uses: actions/setup-go@v5
+       with:
+         go-version: '${{ env.golang-version }}'
+         check-latest: true
+     - run: go mod download 
+     - run: go fmt ./... && git diff --exit-code
+
+  format-typescript: 
+    runs-on:  ubuntu-latest
+    name: Format TypeScript code 
+    steps: 
+     - uses: actions/checkout@v4
+     - name: Import environment variables from file
+       run: cat ".github/env" >> $GITHUB_ENV
+     - uses: actions/setup-node@v2
+       with:
+         node-version: '${{ env.node-version }}'
+     - run: npm --prefix ./client install
+     - run: npm --prefix ./client run format
+     - run: git diff --exit-code
+  
+  lint-go:
+    runs-on: ubuntu-latest
+    name: Lint Go code
+    steps:
+      - uses: actions/checkout@v4
+      - name: Import environment variables from file
+        run: cat ".github/env" >> $GITHUB_ENV
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '${{ env.golang-version }}'
+          check-latest: true
+      - run: go mod download 
+      - run: go get -u golang.org/x/lint/golint
+      - run: golint ./...
+  
+  build-go:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+    name: Build wharf go
+    steps:
+    - uses: actions/checkout@v4
+    - name: Import environment variables from file
+      run: cat ".github/env" >> $GITHUB_ENV
+    - uses: actions/setup-go@v5
+      with:
+        go-version: '${{ env.golang-version }}'
+        check-latest: true
+    - run: go mod download
+    - run: go build -o bin/build ./cmd
+
+
+  build-typescript: 
+    runs-on:  ubuntu-latest
+    name: build TypeScript code 
+    steps: 
+     - uses: actions/checkout@v4
+     - name: Import environment variables from file
+       run: cat ".github/env" >> $GITHUB_ENV
+     - uses: actions/setup-node@v2
+       with:
+         node-version: '${{ env.node-version }}'
+     - run: npm --prefix ./client install
+     - run: npm --prefix ./client run build

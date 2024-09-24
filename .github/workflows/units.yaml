@@ -1,0 +1,44 @@
+name: unit
+on: 
+  pull_request:
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.json'
+      - '**/*.txt'
+      - '**/*.sh'
+      - '**/*.tsx'
+      - '**/*.ts'
+      - '**/*.html'
+      - '**/*.css'
+  push:
+    branches:
+      - master
+      - main
+      - develop
+      - 'release-*'
+    tags:
+      - 'v*'
+    paths-ignore:
+       - '**/*.md'
+       - '**/*.json'
+       - '**/*.txt'
+       - '**/*.sh'
+       - '**/*.tsx'
+       - '**/*.ts'
+       - '**/*.html'
+       - '**/*.css'
+      
+jobs:
+  unit-tests: 
+    runs-on:  ubuntu-latest
+    name: Unit tests 
+    steps: 
+     - uses: actions/checkout@v4
+     - name: Import environment variables from file
+       run: cat ".github/env" >> $GITHUB_ENV
+     - uses: actions/setup-go@v5
+       with:
+         go-version: '${{ env.golang-version }}'
+         check-latest: true
+     - run: go mod download 
+     - run: go test -v ./...
