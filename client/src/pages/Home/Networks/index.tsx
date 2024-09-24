@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Networks = () => {
-  return (
-    <div>Networks</div>
-  )
-}
+  return <div>Networks</div>;
+};
 
-export default Networks
+export default Networks;

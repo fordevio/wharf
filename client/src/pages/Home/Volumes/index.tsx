@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Volumes = () => {
-  return (
-    <div>Volumes</div>
-  )
-}
+  return <div>Volumes</div>;
+};
 
-export default Volumes
+export default Volumes;

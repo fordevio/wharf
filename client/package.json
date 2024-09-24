@@ -24,6 +24,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build && mv build ../bin/frontend",
     "test": "react-scripts test",
+    "format": "prettier --write .",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -43,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
   }
 }

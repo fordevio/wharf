@@ -9,7 +9,7 @@ run:
 	@./bin/build  
 
 format:
-	@gofmt -w .
+	@gofmt -w . && npm --prefix ./client run format
 
 get: 
 	@go mod download && npm --prefix ./client install

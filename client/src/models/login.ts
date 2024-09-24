@@ -1,15 +1,15 @@
 export interface IsAdminAvailableRes {
-    username: string ,
-    userId: string
+  username: string;
+  userId: string;
 }
 
 export interface LoginRes {
-    token: string,
-    username: string,
-    userId: string
+  token: string;
+  username: string;
+  userId: string;
 }
 
-export interface AdminPasswordRes{
-    password: string
-    username: string
+export interface AdminPasswordRes {
+  password: string;
+  username: string;
 }

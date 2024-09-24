@@ -1,4 +1,3 @@
-
 import { createContext } from 'react';
 import { GetUserRes, User } from '../../models/user';
 

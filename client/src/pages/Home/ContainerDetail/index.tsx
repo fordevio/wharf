@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const ContainerDetail = () => {
-  return (
-    <div>ContainerDetail</div>
-  )
-}
+  return <div>ContainerDetail</div>;
+};
 
-export default ContainerDetail
+export default ContainerDetail;

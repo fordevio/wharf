@@ -1,17 +1,14 @@
-
-
 export interface GetUserRes {
-    username: string,
-    id : number,
-    isAdmin: boolean,
-    permission: string,
+  username: string;
+  id: number;
+  isAdmin: boolean;
+  permission: string;
 }
 
-export interface User{
-    username: string,
-    id : number,
-    isAdmin: boolean,
-    permissions: string,
-    password: string
+export interface User {
+  username: string;
+  id: number;
+  isAdmin: boolean;
+  permissions: string;
+  password: string;
 }
-
