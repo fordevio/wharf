@@ -4,14 +4,21 @@
   align-items: center;
   background-color: #f5f5f5;
 }
-
-.logoDiv {
-  height: 500px;
-  width: 500px;
+.form-container {
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
+}
+.logoDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .wharfLogo {
+  max-width: 300px;
+}
+.wharfLogo img {
   width: 100%;
   height: 100%;
 }
@@ -37,6 +44,9 @@
 
 .inputDiv {
   padding: 5px 1px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .inputDiv input {
@@ -45,6 +55,9 @@
   color: black;
   font-size: 15px;
   padding: 5px;
+  border: none;
+  margin-top: 5px;
+  height: 30px;
 }
 .p {
   padding: 0;
@@ -52,7 +65,11 @@
 }
 
 .iDiv {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 30px;
 }
 
 .iDiv button {
@@ -60,6 +77,13 @@
   border-radius: 5px;
   font-weight: bold;
   cursor: pointer;
+  background-color: #072330;
+  width: 100%;
+  color: white;
+  margin-top: 10px;
+  height: 40px;
+  margin-bottom: 30px;
+  border: none;
 }
 
 .forPas {
@@ -67,4 +91,23 @@
   color: blue;
   font-weight: bolder;
   font-family: 'Courier New', Courier, monospace;
+}
+@media only screen and (min-width: 1024px) {
+  .form-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    margin: 0 50px;
+  }
+  .wharfLogo {
+    max-width: 500px;
+  }
+}
+
+@media only screen and (min-width: 2560px) {
+  .form-container {
+    max-width: 1900px;
+    margin: auto;
+  }
 }
