@@ -4,7 +4,6 @@ run:
 linters:
   enable:
   - revive
-  - gci
   - depguard
   - godot
   - testifylint
