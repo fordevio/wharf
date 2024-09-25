@@ -68,3 +68,47 @@
   font-weight: bolder;
   font-family: 'Courier New', Courier, monospace;
 }
+
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 500px;
+  }
+
+  .logoDiv {
+    max-width: 400px;
+  }
+
+  .loginH {
+    font-size: 28px;
+  }
+
+  .label {
+    font-size: 18px;
+  }
+
+  .inputDiv input {
+    font-size: 18px;
+  }
+
+  .p {
+    font-size: 14px;
+  }
+
+  .iDiv button {
+    font-size: 18px;
+  }
+
+  .forPas {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 600px;
+  }
+
+  .logoDiv {
+    max-width: 500px;
+  }
+}
