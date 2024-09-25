@@ -1,0 +1,9 @@
+docs
+bin
+assets
+.github
+.gitignore
+LICENSE
+README.md
+client/node-modules
+client/.prettierrc
