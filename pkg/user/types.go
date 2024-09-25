@@ -18,5 +18,5 @@ type GetUserResponse struct {
 	Username   string            `json:"username"`
 	IsAdmin    bool              `json:"isAdmin"`
 	Permission models.Permission `json:"permission"`
-	Id         int               `json:"id"`
+	ID         int               `json:"id"`
 }

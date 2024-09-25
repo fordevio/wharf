@@ -31,7 +31,7 @@ func main() {
 
 	api := router.Group("/api/protected")
 	{
-		api.Use(auth.AuthMiddleWare())
+		api.Use(auth.MiddleWare())
 		routes.UserRoutes(api)
 		routes.ContainerRoutes(api)
 		routes.ImageRoutes(api)

@@ -28,7 +28,6 @@ linters-settings:
     sections:
       - standard
       - default
-      - prefix(github.com/prometheus-operator/prometheus-operator)
   depguard:
     rules:
       forbid-pkg-errors:

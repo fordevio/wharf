@@ -38,9 +38,8 @@ func (l *DoublyLinkedList) Remove(node *Node) *Node {
 		l.len--
 	}()
 
-	tail := l.root.prev
-	l.isolate(tail)
-	return tail
+	l.isolate(node)
+	return node
 }
 
 func (l *DoublyLinkedList) isolate(node *Node) {

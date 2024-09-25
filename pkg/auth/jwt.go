@@ -9,9 +9,9 @@ import (
 
 var secretKey = []byte("secret-key")
 
-func GenerateToken(userId int) (*string, error) {
+func GenerateToken(userID int) (*string, error) {
 	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"sub": userId,                                // Subject (user identifier)
+		"sub": userID,                                // Subject (user identifier)
 		"iss": "wharf",                               // Issuer// Audience (user role)
 		"exp": time.Now().Add(time.Hour * 10).Unix(), // Expiration time = 10Hr
 		"iat": time.Now().Unix(),                     // Issued at
@@ -24,7 +24,7 @@ func GenerateToken(userId int) (*string, error) {
 }
 
 func VerifyToken(tokenString string) (jwt.MapClaims, error) {
-	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.Parse(tokenString, func(_ *jwt.Token) (interface{}, error) {
 		return secretKey, nil
 	})
 	if err != nil {
@@ -35,8 +35,6 @@ func VerifyToken(tokenString string) (jwt.MapClaims, error) {
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		return claims, nil
-
-	} else {
-		return nil, fmt.Errorf("invalid token")
 	}
+	return nil, fmt.Errorf("invalid token")
 }

@@ -62,7 +62,7 @@ func UpdateUser(user *models.User) (*models.User, error) {
 		if b == nil {
 			return errors.ErrBucketNotExists
 		}
-		v := b.Get([]byte(helpers.Itob(user.ID)))
+		v := b.Get(helpers.Itob(user.ID))
 		if v == nil {
 			return errors.ErrUserNotFound
 		}
@@ -87,18 +87,18 @@ func DeleteUser(id int) error {
 		if b == nil {
 			return errors.ErrBucketNotExists
 		}
-		v := b.Get([]byte(helpers.Itob(id)))
+		v := b.Get(helpers.Itob(id))
 		if v == nil {
 			return errors.ErrUserNotFound
 		}
 
-		return b.Delete([]byte(helpers.Itob(id)))
+		return b.Delete(helpers.Itob(id))
 
 	})
 	return err
 }
 
-func GetUserById(id int) (*models.User, error) {
+func GetUserByID(id int) (*models.User, error) {
 	db, err := helpers.OpenStore()
 	if err != nil {
 		return nil, err
@@ -110,7 +110,7 @@ func GetUserById(id int) (*models.User, error) {
 		if b == nil {
 			return errors.ErrBucketNotExists
 		}
-		v := b.Get([]byte(helpers.Itob(id)))
+		v := b.Get(helpers.Itob(id))
 		err = json.Unmarshal(v, &user)
 		if err != nil {
 			return err

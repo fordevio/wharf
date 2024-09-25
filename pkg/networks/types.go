@@ -1,4 +1,4 @@
-package dockerNetwork
+package dockernetwork
 
 type DisconnectNetworkRequest struct {
 	ContainerID string `json:"containerID" validate:"required"`

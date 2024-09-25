@@ -1,4 +1,4 @@
-package dockerContainer
+package dockercontainer
 
 import (
 	"context"
@@ -15,7 +15,7 @@ import (
 	"github.com/wharf/wharf/pkg/errors"
 )
 
-func List(client *client.Client, ctx context.Context, ch chan *types.Container, errCh chan *errors.Error) {
+func List(ctx context.Context, client *client.Client, ch chan *types.Container, errCh chan *errors.Error) {
 	containers, err := client.ContainerList(ctx, container.ListOptions{
 		All: true,
 	})
@@ -38,9 +38,9 @@ func List(client *client.Client, ctx context.Context, ch chan *types.Container, 
 	close(ch)
 }
 
-func Stop(client *client.Client, ctx context.Context, containerId string, errCh chan *errors.Error) {
+func Stop(ctx context.Context, client *client.Client, containerID string, errCh chan *errors.Error) {
 
-	err := client.ContainerStop(ctx, containerId, container.StopOptions{})
+	err := client.ContainerStop(ctx, containerID, container.StopOptions{})
 	if err != nil {
 
 		errStruct := &errors.Error{
@@ -54,33 +54,33 @@ func Stop(client *client.Client, ctx context.Context, containerId string, errCh 
 	close(errCh)
 }
 
-func Unpause(client *client.Client, ctx context.Context, containerId string) error {
-	err := client.ContainerUnpause(ctx, containerId)
+func Unpause(ctx context.Context, client *client.Client, containerID string) error {
+	err := client.ContainerUnpause(ctx, containerID)
 	return err
 }
 
-func Pause(client *client.Client, ctx context.Context, containerId string) error {
-	err := client.ContainerPause(ctx, containerId)
+func Pause(ctx context.Context, client *client.Client, containerID string) error {
+	err := client.ContainerPause(ctx, containerID)
 	return err
 }
 
-func Start(client *client.Client, ctx context.Context, containerId string) error {
-	err := client.ContainerStart(ctx, containerId, container.StartOptions{})
+func Start(ctx context.Context, client *client.Client, containerID string) error {
+	err := client.ContainerStart(ctx, containerID, container.StartOptions{})
 	return err
 }
 
-func Remove(client *client.Client, ctx context.Context, containerId string, options container.RemoveOptions) error {
-	err := client.ContainerRemove(ctx, containerId, options)
+func Remove(ctx context.Context, client *client.Client, containerID string, options container.RemoveOptions) error {
+	err := client.ContainerRemove(ctx, containerID, options)
 	return err
 }
 
-func Prune(client *client.Client, ctx context.Context) (types.ContainersPruneReport, error) {
+func Prune(ctx context.Context, client *client.Client) (types.ContainersPruneReport, error) {
 	report, err := client.ContainersPrune(ctx, filters.Args{})
 	return report, err
 }
 
-func Stats(client *client.Client, ctx context.Context, containerId string) (string, error) {
-	stats, err := client.ContainerStatsOneShot(ctx, containerId)
+func Stats(ctx context.Context, client *client.Client, containerID string) (string, error) {
+	stats, err := client.ContainerStatsOneShot(ctx, containerID)
 	if err != nil {
 		return "", err
 	}
@@ -94,7 +94,7 @@ func Stats(client *client.Client, ctx context.Context, containerId string) (stri
 
 }
 
-func Logs(client *client.Client, ctx context.Context, containerId string, days int) (string, error) {
+func Logs(ctx context.Context, client *client.Client, containerID string, days int) (string, error) {
 
 	since := time.Now().Add(-24 * time.Duration(days) * time.Hour).Format(time.RFC3339)
 
@@ -104,7 +104,7 @@ func Logs(client *client.Client, ctx context.Context, containerId string, days i
 		Since:      since,
 		Timestamps: true,
 	}
-	logs, err := client.ContainerLogs(ctx, containerId, options)
+	logs, err := client.ContainerLogs(ctx, containerID, options)
 	if err != nil {
 		return "", err
 	}
@@ -116,12 +116,12 @@ func Logs(client *client.Client, ctx context.Context, containerId string, days i
 	return string(bodyBytes), nil
 }
 
-func Rename(client *client.Client, ctx context.Context, containerId string, name string) error {
-	err := client.ContainerRename(ctx, containerId, name)
+func Rename(ctx context.Context, client *client.Client, containerID string, name string) error {
+	err := client.ContainerRename(ctx, containerID, name)
 	return err
 }
 
-func Create(client *client.Client, ctx context.Context, config *container.Config, hostConfig *container.HostConfig, containerName string) (container.CreateResponse, error) {
+func Create(ctx context.Context, client *client.Client, config *container.Config, hostConfig *container.HostConfig, containerName string) (container.CreateResponse, error) {
 	res, err := client.ContainerCreate(ctx, config, hostConfig, &network.NetworkingConfig{}, &v1.Platform{}, containerName)
 	return res, err
 }

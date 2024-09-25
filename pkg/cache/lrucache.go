@@ -60,7 +60,7 @@ func (l *LRUCache) Invalidate(key string) {
 	if !exists {
 		return
 	}
-	l.list.Remove(node)
+	l.list.isolate(node)
 	delete(l.items, key)
 }
 

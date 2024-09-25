@@ -118,7 +118,7 @@ func UpdateUser() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Request not sent by admin"})
 			return
 		}
-		isUser, err := store.GetUserById(id)
+		isUser, err := store.GetUserByID(id)
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -176,7 +176,7 @@ func DeleteUser() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Request not sent by admin"})
 			return
 		}
-		isUser, err := store.GetUserById(id)
+		isUser, err := store.GetUserByID(id)
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -233,7 +233,7 @@ func GetUser() gin.HandlerFunc {
 			Username:   *reqUser.Username,
 			Permission: reqUser.Permission,
 			IsAdmin:    reqUser.IsAdmin,
-			Id:         reqUser.ID,
+			ID:         reqUser.ID,
 		}
 		c.JSON(http.StatusOK, res)
 	}

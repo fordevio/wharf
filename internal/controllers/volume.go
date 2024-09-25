@@ -23,7 +23,7 @@ func GetVolumes() gin.HandlerFunc {
 		errCh := make(chan *errors.Error)
 		volumes := []*volume.Volume{}
 		defer cancel()
-		go dockerVolume.GetAll(conf.DockerClient, ctx, ch, errCh)
+		go dockerVolume.GetAll(ctx, conf.DockerClient, ch, errCh)
 		for err := range errCh {
 			log.Println(err.Err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Err})
@@ -59,7 +59,7 @@ func RemoveVolume() gin.HandlerFunc {
 		if reqBody.Force != nil {
 			forceRem = *reqBody.Force
 		}
-		if err := dockerVolume.Remove(conf.DockerClient, ctx, id, forceRem); err != nil {
+		if err := dockerVolume.Remove(ctx, conf.DockerClient, id, forceRem); err != nil {
 			if errdefs.IsNotFound(err) {
 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 				return
@@ -85,7 +85,7 @@ func PruneVolumes() gin.HandlerFunc {
 			return
 		}
 
-		report, err := dockerVolume.Prune(conf.DockerClient, ctx)
+		report, err := dockerVolume.Prune(ctx, conf.DockerClient)
 		if err != nil {
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
@@ -125,7 +125,7 @@ func CreateVolume() gin.HandlerFunc {
 			opts.Labels = *createVolumeRequest.Labels
 		}
 
-		vol, err := dockerVolume.Create(conf.DockerClient, ctx, opts)
+		vol, err := dockerVolume.Create(ctx, conf.DockerClient, opts)
 		if err != nil {
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return

@@ -1,4 +1,4 @@
-package dockerVolume
+package dockervolume
 
 import (
 	"context"
@@ -11,7 +11,7 @@ import (
 	"github.com/wharf/wharf/pkg/errors"
 )
 
-func GetAll(client *client.Client, ctx context.Context, ch chan *volume.Volume, errCh chan *errors.Error) {
+func GetAll(ctx context.Context, client *client.Client, ch chan *volume.Volume, errCh chan *errors.Error) {
 
 	volumes, err := client.VolumeList(ctx, volume.ListOptions{})
 	if err != nil {
@@ -33,17 +33,17 @@ func GetAll(client *client.Client, ctx context.Context, ch chan *volume.Volume, 
 	close(ch)
 }
 
-func Remove(client *client.Client, ctx context.Context, volumeId string, force bool) error {
-	err := client.VolumeRemove(ctx, volumeId, force)
+func Remove(ctx context.Context, client *client.Client, volumeID string, force bool) error {
+	err := client.VolumeRemove(ctx, volumeID, force)
 	return err
 }
 
-func Prune(client *client.Client, ctx context.Context) (types.VolumesPruneReport, error) {
+func Prune(ctx context.Context, client *client.Client) (types.VolumesPruneReport, error) {
 	report, err := client.VolumesPrune(ctx, filters.Args{})
 	return report, err
 }
 
-func Create(client *client.Client, ctx context.Context, opts volume.CreateOptions) (volume.Volume, error) {
+func Create(ctx context.Context, client *client.Client, opts volume.CreateOptions) (volume.Volume, error) {
 	vol, err := client.VolumeCreate(ctx, opts)
 	return vol, err
 }
