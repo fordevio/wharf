@@ -1,4 +1,4 @@
-## Maintainers of Prometheus Operator organization
+## Maintainers of wharf
 
 | Name              | Email                     | Kubernetes Slack     | GitHub                                               | Company                        |
 |-------------------|---------------------------|----------------------|------------------------------------------------------|--------------------------------|
