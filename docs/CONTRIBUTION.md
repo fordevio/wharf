@@ -56,6 +56,16 @@ Before submitting a pull request, make sure that you've executed `make format` a
 
 Thanks for your contributions!
 
+## Directory structure
+- **assets**: contains different assets used in documentation.
+- **client**: contains reactjs code for user interface.
+- **cmd** : contains entrypoint of the application.
+- **conf** : contains configuration files for the application.
+- **deployment** : contains deployments files to be used during deployment.
+- **docs** : contains docs for the application.
+- **internal**: contains internal go packages which contains api definitions.
+- **pkg**: contains go packages to to be used by internal packages.
+- **e2e**: contains integration tests.
 
 ### Format of the Commit Message
 
@@ -94,7 +104,7 @@ See [DEVELOPMENT](./DEVELOPMENT.md)
 
 # Proposal Process
 
-The Prometheus Operator project accepts proposals for new features,
+The wharf project accepts proposals for new features,
 enhancements and design documents. The document should be created in the
 `Documentation/proposals` directory using the template below, prefixed by
 `<YEAR><MONTH>-` and submitted in the form of a GitHub Pull Request.

@@ -21,19 +21,3 @@ _What type of changes does your code introduce to the wharf? Put an `x` in the b
 <!-- How you tested it? How do you know it works? -->
 Please check the [testing guidelines](../docs/TESTING.md) for recommendations about automated tests.
 
-## Changelog entry
-
-_Please put a one-line changelog entry below. This will be copied to the changelog file during the release process._
-
-<!-- 
-Your release note should be written in clear and straightforward sentences. Most often, users aren't familiar with
-the technical details of your PR, so consider what they need to know when you write your release note.
-
-Some brief examples of release notes:
-- Add metadataConfig field to the Prometheus CRD for configuring how remote-write sends metadata information.
-- Generate correct scraping configuration for Probes with empty or unset module parameter.
--->
-
-```release-note
-
-```
