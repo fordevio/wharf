@@ -27,17 +27,11 @@ Also join the [#wharf](https://fordev-io.slack.com/archives/C07NTF2R6KF) slack c
 
 Prerequisite: 
 * Install and run [docker](https://docs.docker.com/engine/install/)
-* Add docker user to sudo group
-```
-sudo groupadd docker
-sudo usermod -aG docker $USER
-newgrp docker
-```
 
 ```
-docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9001:9001 fordevio/wharf:latest --name wharf
+sudo docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9001:9001 fordevio/wharf:latest --name wharf
 ```
-The application can be acessed by the url `http://localhost:9001`
+The application can be acessed by the url `http://localhost:9001` on browser
 
 ## Testing
 See [TESTING](./docs/TESTING.md)
