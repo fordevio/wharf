@@ -1,4 +1,4 @@
-package dockerNetwork
+package dockernetwork
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 	"github.com/wharf/wharf/pkg/errors"
 )
 
-func GetAll(client *client.Client, ctx context.Context, ch chan *types.NetworkResource, errCh chan *errors.Error) {
+func GetAll(ctx context.Context, client *client.Client, ch chan *types.NetworkResource, errCh chan *errors.Error) {
 
 	networks, err := client.NetworkList(ctx, types.NetworkListOptions{})
 	if err != nil {
@@ -33,27 +33,27 @@ func GetAll(client *client.Client, ctx context.Context, ch chan *types.NetworkRe
 	close(ch)
 }
 
-func Prune(client *client.Client, ctx context.Context) (types.NetworksPruneReport, error) {
+func Prune(ctx context.Context, client *client.Client) (types.NetworksPruneReport, error) {
 	pruneReport, err := client.NetworksPrune(ctx, filters.Args{})
 	return pruneReport, err
 }
 
-func Remove(client *client.Client, ctx context.Context, id string) error {
+func Remove(ctx context.Context, client *client.Client, id string) error {
 	err := client.NetworkRemove(ctx, id)
 	return err
 }
 
-func Disconnect(client *client.Client, ctx context.Context, networkId string, containerId string, force bool) error {
-	err := client.NetworkDisconnect(ctx, networkId, containerId, force)
+func Disconnect(ctx context.Context, client *client.Client, networkID string, containerID string, force bool) error {
+	err := client.NetworkDisconnect(ctx, networkID, containerID, force)
 	return err
 }
 
-func Connect(client *client.Client, ctx context.Context, networkId string, containerId string) error {
-	err := client.NetworkConnect(ctx, networkId, containerId, nil)
+func Connect(ctx context.Context, client *client.Client, networkID string, containerID string) error {
+	err := client.NetworkConnect(ctx, networkID, containerID, nil)
 	return err
 }
 
-func Create(client *client.Client, ctx context.Context, name string, options types.NetworkCreate) (types.NetworkCreateResponse, error) {
+func Create(ctx context.Context, client *client.Client, name string, options types.NetworkCreate) (types.NetworkCreateResponse, error) {
 	res, err := client.NetworkCreate(ctx, name, options)
 	return res, err
 }

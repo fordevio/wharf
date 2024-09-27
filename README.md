@@ -1,6 +1,9 @@
 ![Wharf](./assets/wharf.png)
 # wharf 
-
+![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white) ![Github-sponsors](https://img.shields.io/badge/sponsor-30363D?style=for-the-badge&logo=GitHub-Sponsors&logoColor=#EA4AAA)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
 ## Overview
 Wharf is tool which make organizing your monolithic server easy. The purpose of the project to simplify the server management for the team or organization.
 
@@ -17,65 +20,18 @@ Currently the first version of the project is in development phase, the api's ha
 
 ## ⭐️ Support
 
-If you find this project helpful or interesting, please give it a ⭐️ on [GitHub](https://github.com/fordevio/wharf)! Your support helps the project grow and motivates me to keep improving it.
+If you find this project helpful or interesting, please give it a ⭐️ on [GitHub](https://github.com/fordevio/wharf)! Your support helps the project grow and motivates community to keep improving it.
 Also join the [#wharf](https://fordev-io.slack.com/archives/C07NTF2R6KF) slack channel.
 
 ## Quickstart
 
-### Using source code
-
 Prerequisite: 
-* Install and configure path of [go1.22](https://go.dev/doc/install)
-* Install [make](https://ioflood.com/blog/install-make-command-linux/)
-* Install node and npm
-* Install [docker](https://docs.docker.com/engine/install/)
-* Add docker user to sudo group
+* Install and run [docker](https://docs.docker.com/engine/install/)
 
 ```
-cd $GOPATH/src/github.com/fordevio
-
-## Clone the git repository
-git clone https://github.com/fordevio/wharf.git
-
-## Go to the wharf directory
-cd wharf
-
-## Install dependencies
-make get
-
-## Build application
-make 
-
-## Run the application with root privileges
-sudo make run
+sudo docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9001:9001 fordevio/wharf:latest --name wharf
 ```
-
-The application can be acessed by the url `http://localhost:9001`
-
-### Using docker
-
-Prerequisite: 
-* Install [docker](https://docs.docker.com/engine/install/)
-* Add docker user to sudo group
-
-```
-## Clone the git repository
-git clone https://github.com/fordevio/wharf.git
-
-## Go to the wharf directory
-cd wharf
-
-## Make docker image
-make dockerImage
-
-## Run docker container
-docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9001:9001 wharf --name wharf
-
-## You can also run docker container using make (skip if done the previous step)
-make runDockerWharf
-```
-
-The application can be acessed by the url `http://localhost:9001`
+The application can be acessed by the url `http://localhost:9001` on browser
 
 ## Testing
 See [TESTING](./docs/TESTING.md)

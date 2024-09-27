@@ -10,7 +10,7 @@ get:
 runFrontend: get
 	@npm --prefix ./pkg/client start
 
-run: build
+run: 
 	@./bin/build  
 
 format: get

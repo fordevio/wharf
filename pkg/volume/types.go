@@ -1,4 +1,4 @@
-package dockerVolume
+package dockervolume
 
 type RemoveVolumeRequest struct {
 	Force *bool `json:"force"`

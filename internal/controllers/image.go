@@ -23,7 +23,7 @@ func GetImages() gin.HandlerFunc {
 		errCh := make(chan *errors.Error)
 		images := []*image.Summary{}
 		defer cancel()
-		go dockerImage.GetAll(conf.DockerClient, ctx, ch, errCh)
+		go dockerImage.GetAll(ctx, conf.DockerClient, ch, errCh)
 		for err := range errCh {
 			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Err})
@@ -47,7 +47,7 @@ func PruneImages() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid premissions"})
 			return
 		}
-		report, err := dockerImage.Prune(conf.DockerClient, ctx)
+		report, err := dockerImage.Prune(ctx, conf.DockerClient)
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
@@ -88,7 +88,7 @@ func RemoveImage() gin.HandlerFunc {
 		if requestBody.PruneChildren != nil {
 			opts.PruneChildren = *requestBody.PruneChildren
 		}
-		report, err := dockerImage.Remove(conf.DockerClient, ctx, id, opts)
+		report, err := dockerImage.Remove(ctx, conf.DockerClient, id, opts)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
@@ -127,7 +127,7 @@ func TagImage() gin.HandlerFunc {
 			return
 		}
 
-		err := dockerImage.Tag(conf.DockerClient, ctx, id, reqBody.Tag)
+		err := dockerImage.Tag(ctx, conf.DockerClient, id, reqBody.Tag)
 
 		if err != nil {
 			if errdefs.IsNotFound(err) {

@@ -27,7 +27,7 @@ func PasswordValidation(fl validator.FieldLevel) bool {
 	return letter(password) && number(password)
 }
 
-func AuthMiddleWare() gin.HandlerFunc {
+func MiddleWare() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		clientToken := c.Request.Header.Get("token")
 		if clientToken == "" {
@@ -54,7 +54,7 @@ func AuthMiddleWare() gin.HandlerFunc {
 				}
 			}
 		}
-		user, err := store.GetUserById(uid)
+		user, err := store.GetUserByID(uid)
 		if err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 			c.Abort()

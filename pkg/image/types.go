@@ -1,4 +1,4 @@
-package dockerImage
+package dockerimage
 
 type ImageRemoveRequest struct {
 	Force         *bool `json:"force"`

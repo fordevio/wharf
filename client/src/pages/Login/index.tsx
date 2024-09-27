@@ -135,7 +135,7 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div className="form-container">
       <div className="logoDiv">
         <img src={wharfLogo} alt="Wharf Logo" className="wharfLogo" />
       </div>
@@ -183,7 +183,7 @@ const Login = () => {
             </div>
             {isAdmin && (
               <p className="forPas" onClick={() => setForgotPass(true)}>
-                For Password
+                Forgot Password
               </p>
             )}
             <button onClick={SubmitHandler}>Submit</button>
@@ -227,7 +227,7 @@ const Login = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
