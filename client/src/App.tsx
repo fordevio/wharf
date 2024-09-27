@@ -3,7 +3,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Home from './pages/Home';
 import './App.css';
 import { Toaster } from 'react-hot-toast';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { getUser } from './api/user';
 import UserContext from './context/user/userContext';
 import Containers from './pages/Home/Containers';
@@ -12,6 +12,7 @@ import Volumes from './pages/Home/Volumes';
 import Networks from './pages/Home/Networks';
 import Users from './pages/Home/Users';
 import ContainerDetail from './pages/Home/ContainerDetail';
+import { useQuery } from 'react-query';
 
 function App() {
   const location = useLocation();
@@ -41,9 +42,9 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    isLogin();
-  }, []);
+  useQuery('user', isLogin, {
+    retry: false,
+  });
 
   return (
     <>
