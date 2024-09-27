@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { createUser, getAllUser } from '../../../api/user';
 import { User } from '../../../models/user';
 import './index.css';
-import ContainerCard from './container-card';
+import ContainerCard from './card';
 import toast from 'react-hot-toast';
 
 const Users = () => {
