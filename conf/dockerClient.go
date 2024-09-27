@@ -16,5 +16,3 @@ func InitDockerClient() *client.Client {
 	log.Println("DockerClient succefully initialized")
 	return client
 }
-
-var DockerClient = InitDockerClient()

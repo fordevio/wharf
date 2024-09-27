@@ -7,23 +7,24 @@ import (
 	"time"
 
 	"github.com/docker/docker/api/types/image"
+	"github.com/docker/docker/client"
 	"github.com/docker/docker/errdefs"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"github.com/wharf/wharf/conf"
+
 	"github.com/wharf/wharf/pkg/errors"
 	dockerImage "github.com/wharf/wharf/pkg/image"
 	"github.com/wharf/wharf/pkg/models"
 )
 
-func GetImages() gin.HandlerFunc {
+func GetImages(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		ch := make(chan *image.Summary)
 		errCh := make(chan *errors.Error)
 		images := []*image.Summary{}
 		defer cancel()
-		go dockerImage.GetAll(ctx, conf.DockerClient, ch, errCh)
+		go dockerImage.GetAll(ctx, dockerClient, ch, errCh)
 		for err := range errCh {
 			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Err})
@@ -37,7 +38,7 @@ func GetImages() gin.HandlerFunc {
 	}
 }
 
-func PruneImages() gin.HandlerFunc {
+func PruneImages(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -47,7 +48,7 @@ func PruneImages() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid premissions"})
 			return
 		}
-		report, err := dockerImage.Prune(ctx, conf.DockerClient)
+		report, err := dockerImage.Prune(ctx, dockerClient)
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
@@ -57,7 +58,7 @@ func PruneImages() gin.HandlerFunc {
 	}
 }
 
-func RemoveImage() gin.HandlerFunc {
+func RemoveImage(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -88,7 +89,7 @@ func RemoveImage() gin.HandlerFunc {
 		if requestBody.PruneChildren != nil {
 			opts.PruneChildren = *requestBody.PruneChildren
 		}
-		report, err := dockerImage.Remove(ctx, conf.DockerClient, id, opts)
+		report, err := dockerImage.Remove(ctx, dockerClient, id, opts)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
@@ -102,7 +103,7 @@ func RemoveImage() gin.HandlerFunc {
 	}
 }
 
-func TagImage() gin.HandlerFunc {
+func TagImage(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -127,7 +128,7 @@ func TagImage() gin.HandlerFunc {
 			return
 		}
 
-		err := dockerImage.Tag(ctx, conf.DockerClient, id, reqBody.Tag)
+		err := dockerImage.Tag(ctx, dockerClient, id, reqBody.Tag)
 
 		if err != nil {
 			if errdefs.IsNotFound(err) {

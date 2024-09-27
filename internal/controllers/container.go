@@ -11,24 +11,25 @@ import (
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
+	"github.com/docker/docker/client"
 	"github.com/docker/docker/errdefs"
 	"github.com/docker/go-connections/nat"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"github.com/wharf/wharf/conf"
+
 	dockerContainer "github.com/wharf/wharf/pkg/container"
 	"github.com/wharf/wharf/pkg/errors"
 	"github.com/wharf/wharf/pkg/models"
 )
 
-func GetContainers() gin.HandlerFunc {
+func GetContainers(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		ch := make(chan *types.Container)
 		errCh := make(chan *errors.Error)
 		containers := []*types.Container{}
 		defer cancel()
-		go dockerContainer.List(ctx, conf.DockerClient, ch, errCh)
+		go dockerContainer.List(ctx, dockerClient, ch, errCh)
 		for err := range errCh {
 			log.Println(err)
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Err})
@@ -42,7 +43,7 @@ func GetContainers() gin.HandlerFunc {
 	}
 }
 
-func StopContainer() gin.HandlerFunc {
+func StopContainer(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("id")
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
@@ -56,7 +57,7 @@ func StopContainer() gin.HandlerFunc {
 		}
 		errCh := make(chan *errors.Error)
 
-		go dockerContainer.Stop(ctx, conf.DockerClient, id, errCh)
+		go dockerContainer.Stop(ctx, dockerClient, id, errCh)
 		for err := range errCh {
 			if err != nil {
 				log.Println(err)
@@ -68,7 +69,7 @@ func StopContainer() gin.HandlerFunc {
 	}
 }
 
-func UnpauseContainer() gin.HandlerFunc {
+func UnpauseContainer(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("id")
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
@@ -80,7 +81,7 @@ func UnpauseContainer() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
 		}
-		err := dockerContainer.Unpause(ctx, conf.DockerClient, id)
+		err := dockerContainer.Unpause(ctx, dockerClient, id)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
@@ -95,7 +96,7 @@ func UnpauseContainer() gin.HandlerFunc {
 	}
 }
 
-func RemoveContainer() gin.HandlerFunc {
+func RemoveContainer(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("id")
 		var requestBody dockerContainer.ContainerRemoveRequest
@@ -131,7 +132,7 @@ func RemoveContainer() gin.HandlerFunc {
 		if requestBody.RemoveVolumes != nil {
 			opts.RemoveVolumes = *requestBody.RemoveVolumes
 		}
-		err := dockerContainer.Remove(ctx, conf.DockerClient, id, opts)
+		err := dockerContainer.Remove(ctx, dockerClient, id, opts)
 
 		if err != nil {
 			if errdefs.IsNotFound(err) {
@@ -146,7 +147,7 @@ func RemoveContainer() gin.HandlerFunc {
 	}
 }
 
-func PruneContainers() gin.HandlerFunc {
+func PruneContainers(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -157,7 +158,7 @@ func PruneContainers() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
 		}
-		report, err := dockerContainer.Prune(ctx, conf.DockerClient)
+		report, err := dockerContainer.Prune(ctx, dockerClient)
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
@@ -168,12 +169,12 @@ func PruneContainers() gin.HandlerFunc {
 	}
 }
 
-func ContainerStats() gin.HandlerFunc {
+func ContainerStats(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		id := c.Param("id")
 		defer cancel()
-		body, err := dockerContainer.Stats(ctx, conf.DockerClient, id)
+		body, err := dockerContainer.Stats(ctx, dockerClient, id)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
@@ -188,7 +189,7 @@ func ContainerStats() gin.HandlerFunc {
 	}
 }
 
-func ContainerLogs() gin.HandlerFunc {
+func ContainerLogs(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -203,7 +204,7 @@ func ContainerLogs() gin.HandlerFunc {
 			return
 		}
 
-		body, err := dockerContainer.Logs(ctx, conf.DockerClient, id, days)
+		body, err := dockerContainer.Logs(ctx, dockerClient, id, days)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
@@ -217,7 +218,7 @@ func ContainerLogs() gin.HandlerFunc {
 	}
 }
 
-func ContainerRename() gin.HandlerFunc {
+func ContainerRename(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -242,7 +243,7 @@ func ContainerRename() gin.HandlerFunc {
 			return
 		}
 
-		err := dockerContainer.Rename(ctx, conf.DockerClient, id, requestBody.NewName)
+		err := dockerContainer.Rename(ctx, dockerClient, id, requestBody.NewName)
 
 		if err != nil {
 			if errdefs.IsNotFound(err) {
@@ -258,7 +259,7 @@ func ContainerRename() gin.HandlerFunc {
 	}
 }
 
-func ContainerCreate() gin.HandlerFunc {
+func ContainerCreate(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -340,7 +341,7 @@ func ContainerCreate() gin.HandlerFunc {
 			hostConfig.PortBindings = pmap
 		}
 
-		res, err := dockerContainer.Create(ctx, conf.DockerClient, &config, &hostConfig, requestBody.Name)
+		res, err := dockerContainer.Create(ctx, dockerClient, &config, &hostConfig, requestBody.Name)
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
@@ -351,7 +352,7 @@ func ContainerCreate() gin.HandlerFunc {
 	}
 }
 
-func ContainerPause() gin.HandlerFunc {
+func ContainerPause(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("id")
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
@@ -363,7 +364,7 @@ func ContainerPause() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
 		}
-		err := dockerContainer.Pause(ctx, conf.DockerClient, id)
+		err := dockerContainer.Pause(ctx, dockerClient, id)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
@@ -377,7 +378,7 @@ func ContainerPause() gin.HandlerFunc {
 	}
 }
 
-func ContainerStart() gin.HandlerFunc {
+func ContainerStart(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("id")
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
@@ -389,7 +390,7 @@ func ContainerStart() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
 		}
-		err := dockerContainer.Start(ctx, conf.DockerClient, id)
+		err := dockerContainer.Start(ctx, dockerClient, id)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})

@@ -7,23 +7,24 @@ import (
 	"time"
 
 	"github.com/docker/docker/api/types/volume"
+	"github.com/docker/docker/client"
 	"github.com/docker/docker/errdefs"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"github.com/wharf/wharf/conf"
+
 	"github.com/wharf/wharf/pkg/errors"
 	"github.com/wharf/wharf/pkg/models"
 	dockerVolume "github.com/wharf/wharf/pkg/volume"
 )
 
-func GetVolumes() gin.HandlerFunc {
+func GetVolumes(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		ch := make(chan *volume.Volume)
 		errCh := make(chan *errors.Error)
 		volumes := []*volume.Volume{}
 		defer cancel()
-		go dockerVolume.GetAll(ctx, conf.DockerClient, ch, errCh)
+		go dockerVolume.GetAll(ctx, dockerClient, ch, errCh)
 		for err := range errCh {
 			log.Println(err.Err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Err})
@@ -37,7 +38,7 @@ func GetVolumes() gin.HandlerFunc {
 	}
 }
 
-func RemoveVolume() gin.HandlerFunc {
+func RemoveVolume(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -59,7 +60,7 @@ func RemoveVolume() gin.HandlerFunc {
 		if reqBody.Force != nil {
 			forceRem = *reqBody.Force
 		}
-		if err := dockerVolume.Remove(ctx, conf.DockerClient, id, forceRem); err != nil {
+		if err := dockerVolume.Remove(ctx, dockerClient, id, forceRem); err != nil {
 			if errdefs.IsNotFound(err) {
 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 				return
@@ -73,7 +74,7 @@ func RemoveVolume() gin.HandlerFunc {
 
 }
 
-func PruneVolumes() gin.HandlerFunc {
+func PruneVolumes(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -85,7 +86,7 @@ func PruneVolumes() gin.HandlerFunc {
 			return
 		}
 
-		report, err := dockerVolume.Prune(ctx, conf.DockerClient)
+		report, err := dockerVolume.Prune(ctx, dockerClient)
 		if err != nil {
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
@@ -94,7 +95,7 @@ func PruneVolumes() gin.HandlerFunc {
 	}
 }
 
-func CreateVolume() gin.HandlerFunc {
+func CreateVolume(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -125,7 +126,7 @@ func CreateVolume() gin.HandlerFunc {
 			opts.Labels = *createVolumeRequest.Labels
 		}
 
-		vol, err := dockerVolume.Create(ctx, conf.DockerClient, opts)
+		vol, err := dockerVolume.Create(ctx, dockerClient, opts)
 		if err != nil {
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return

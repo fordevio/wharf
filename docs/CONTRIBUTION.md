@@ -65,7 +65,7 @@ Thanks for your contributions!
 - **docs** : contains docs for the application.
 - **internal**: contains internal go packages which contains api definitions.
 - **pkg**: contains go packages to to be used by internal packages.
-- **e2e**: contains integration tests.
+- **test**: contains integration tests.
 
 ### Format of the Commit Message
 

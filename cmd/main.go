@@ -29,14 +29,15 @@ func main() {
 	router.Use(cors.New(corsConfig))
 	router.Use(gin.Logger())
 
+	dockerClient := conf.InitDockerClient()
 	api := router.Group("/api/protected")
 	{
 		api.Use(auth.MiddleWare())
 		routes.UserRoutes(api)
-		routes.ContainerRoutes(api)
-		routes.ImageRoutes(api)
-		routes.VolumeRoutes(api)
-		routes.NetworkRoutes(api)
+		routes.ContainerRoutes(api, dockerClient)
+		routes.ImageRoutes(api, dockerClient)
+		routes.VolumeRoutes(api, dockerClient)
+		routes.NetworkRoutes(api, dockerClient)
 	}
 
 	routes.AuthRoutes(router)

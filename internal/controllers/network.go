@@ -8,23 +8,24 @@ import (
 	"time"
 
 	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/client"
 	"github.com/docker/docker/errdefs"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"github.com/wharf/wharf/conf"
+
 	"github.com/wharf/wharf/pkg/errors"
 	"github.com/wharf/wharf/pkg/models"
 	dockerNetwork "github.com/wharf/wharf/pkg/networks"
 )
 
-func GetNetworks() gin.HandlerFunc {
+func GetNetworks(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		ch := make(chan *types.NetworkResource)
 		errCh := make(chan *errors.Error)
 		networks := []*types.NetworkResource{}
 		defer cancel()
-		go dockerNetwork.GetAll(ctx, conf.DockerClient, ch, errCh)
+		go dockerNetwork.GetAll(ctx, dockerClient, ch, errCh)
 		for err := range errCh {
 			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Err})
@@ -37,7 +38,7 @@ func GetNetworks() gin.HandlerFunc {
 	}
 }
 
-func PruneNetwork() gin.HandlerFunc {
+func PruneNetwork(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -47,7 +48,7 @@ func PruneNetwork() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
 		}
-		report, err := dockerNetwork.Prune(ctx, conf.DockerClient)
+		report, err := dockerNetwork.Prune(ctx, dockerClient)
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
@@ -57,7 +58,7 @@ func PruneNetwork() gin.HandlerFunc {
 	}
 }
 
-func RemoveNetwork() gin.HandlerFunc {
+func RemoveNetwork(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -68,7 +69,7 @@ func RemoveNetwork() gin.HandlerFunc {
 			return
 		}
 		id := c.Param("id")
-		err := dockerNetwork.Remove(ctx, conf.DockerClient, id)
+		err := dockerNetwork.Remove(ctx, dockerClient, id)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
@@ -82,7 +83,7 @@ func RemoveNetwork() gin.HandlerFunc {
 	}
 }
 
-func DisconnectNetwork() gin.HandlerFunc {
+func DisconnectNetwork(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -113,7 +114,7 @@ func DisconnectNetwork() gin.HandlerFunc {
 			forceDisconnect = *reqBody.Force
 		}
 
-		err := dockerNetwork.Disconnect(ctx, conf.DockerClient, id, reqBody.ContainerID, forceDisconnect)
+		err := dockerNetwork.Disconnect(ctx, dockerClient, id, reqBody.ContainerID, forceDisconnect)
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
@@ -126,7 +127,7 @@ func DisconnectNetwork() gin.HandlerFunc {
 	}
 }
 
-func ConnectNetwork() gin.HandlerFunc {
+func ConnectNetwork(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -153,7 +154,7 @@ func ConnectNetwork() gin.HandlerFunc {
 			return
 		}
 
-		err := dockerNetwork.Connect(ctx, conf.DockerClient, id, reqBody.ContainerID)
+		err := dockerNetwork.Connect(ctx, dockerClient, id, reqBody.ContainerID)
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
@@ -166,7 +167,7 @@ func ConnectNetwork() gin.HandlerFunc {
 	}
 }
 
-func CreateNetwork() gin.HandlerFunc {
+func CreateNetwork(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -198,7 +199,7 @@ func CreateNetwork() gin.HandlerFunc {
 			CheckDuplicate: true,
 		}
 
-		res, err := dockerNetwork.Create(ctx, conf.DockerClient, reqBody.Name, options)
+		res, err := dockerNetwork.Create(ctx, dockerClient, reqBody.Name, options)
 		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
