@@ -183,7 +183,7 @@ const Login = () => {
             </div>
             {isAdmin && (
               <p className="forPas" onClick={() => setForgotPass(true)}>
-                For Password
+                Forgot Password
               </p>
             )}
             <button onClick={SubmitHandler}>Submit</button>
