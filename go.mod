@@ -11,6 +11,7 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/opencontainers/image-spec v1.1.0
 	go.etcd.io/bbolt v1.3.10
+	k8s.io/utils v0.0.0-20240921022957-49e7df575cb6
 )
 
 require (
