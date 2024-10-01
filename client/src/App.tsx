@@ -11,8 +11,9 @@ import Imges from './pages/Home/Images';
 import Volumes from './pages/Home/Volumes';
 import Networks from './pages/Home/Networks';
 import Users from './pages/Home/Users';
-import ContainerDetail from './pages/Home/ContainerDetail';
+import ContainerDetail from './pages/ContainerDetail';
 import { useQuery } from 'react-query';
+import Navbar from './components/Navbar';
 
 function App() {
   const location = useLocation();
@@ -49,6 +50,7 @@ function App() {
   return (
     <>
       <Toaster />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />}>
           <Route index element={<Containers />} />
@@ -56,8 +58,8 @@ function App() {
           <Route path="volumes" element={<Volumes />} />
           <Route path="networks" element={<Networks />} />
           <Route path="users" element={<Users />} />
-          <Route path="container/:id" element={<ContainerDetail />} />
         </Route>
+        <Route path="/container/:id" element={<ContainerDetail />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </>

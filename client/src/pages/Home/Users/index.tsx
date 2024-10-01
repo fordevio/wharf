@@ -71,65 +71,67 @@ const Users = () => {
   }, []);
 
   return (
-    <div className="user-page">
-      <div className="func">
-        <button className="btn" onClick={() => setOpen(true)}>
-          Add User
-        </button>
-      </div>
-      <div className="users-cont">
-        {users.map(user => {
-          return (
-            <ContainerCard
-              key={user.id}
-              user={user}
-              users={users}
-              setUsers={setUsers}
-            />
-          );
-        })}
-      </div>
-      <div
-        className="popup-overlay"
-        id="popupOverlay"
-        style={open ? { display: 'block' } : { display: 'none' }}
-      >
-        <div className="popup" id="popup">
-          <span
-            className="close"
-            id="closePopup"
-            onClick={() => setOpen(false)}
-          >
-            &times;
-          </span>
+    <>
+      <div className="user-page">
+        <div className="func">
+          <button className="btn" onClick={() => setOpen(true)}>
+            Add User
+          </button>
+        </div>
+        <div className="users-cont">
+          {users.map(user => {
+            return (
+              <ContainerCard
+                key={user.id}
+                user={user}
+                users={users}
+                setUsers={setUsers}
+              />
+            );
+          })}
+        </div>
+        <div
+          className="popup-overlay"
+          id="popupOverlay"
+          style={open ? { display: 'block' } : { display: 'none' }}
+        >
+          <div className="popup" id="popup">
+            <span
+              className="close"
+              id="closePopup"
+              onClick={() => setOpen(false)}
+            >
+              &times;
+            </span>
 
-          <div className="popup-content">
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={e => setUsername(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Permission"
-              value={permissions}
-              onChange={e => setPermissions(e.target.value)}
-            />
-            <p>x -execute | w -write | r -read</p>
-            <button className="submit" onClick={add_user}>
-              Submit
-            </button>
+            <div className="popup-content">
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Permission"
+                value={permissions}
+                onChange={e => setPermissions(e.target.value)}
+              />
+              <p>x -execute | w -write | r -read</p>
+              <button className="submit" onClick={add_user}>
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

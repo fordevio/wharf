@@ -1,6 +1,7 @@
-import React from 'react';
+import Navbar from '../../../components/Navbar';
 
 const Volumes = () => {
+  <Navbar />;
   return <div>Volumes</div>;
 };
 
