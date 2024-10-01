@@ -5,9 +5,8 @@ import (
 	"testing"
 )
 
-func testGetContainers(t *testing.T) {
-	// Test code here
-
+func testGetContainers(_ *testing.T) {
+	// Test code her
 	fmt.Println("Test Get Containers")
 
 }

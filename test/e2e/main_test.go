@@ -1,8 +1,9 @@
 package e2e
 
 import (
-	"github.com/wharf/wharf/test/framework"
 	"testing"
+
+	"github.com/wharf/wharf/test/framework"
 )
 
 func TestAll(t *testing.T) {
