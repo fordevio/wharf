@@ -5,6 +5,17 @@
   display: flex;
 }
 
+.nav-button {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.close-button {
+  display: none;
+}
+
 .logo {
   height: 100%;
   width: 80px;
@@ -14,7 +25,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 200px;
+  transition: left 0.3s ease-in-out;
+}
+
+.nav-cont.show {
+  left: 0;
 }
 
 .nav-cont div {
@@ -28,4 +43,33 @@
   font-family: 'Courier New', Courier, monospace;
   cursor: pointer;
   text-decoration: none;
+}
+
+@media only screen and (max-width: 1068px) {
+  .nav {
+    position: relative;
+  }
+
+  .nav-cont {
+    padding: 20px;
+    flex-direction: column;
+    position: fixed;
+    left: -300px;
+    height: 100%;
+    background-color: rgb(65, 146, 223);
+  }
+
+  .close-button {
+    display: block;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: rgb(73, 7, 148);
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+  }
 }

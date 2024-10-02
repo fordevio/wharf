@@ -1,7 +1,7 @@
 import './index.css';
 import wharfLogo from '../../assets/wharf.png';
 import { Link, useLocation } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
 
 interface Props {
   id: string;
@@ -10,11 +10,23 @@ interface Props {
 const ContainerNavbar: React.FC<Props> = ({ id }) => {
   const location = useLocation();
   const currentPath = location.pathname;
+  const [navVisible, setNavVisible] = useState(false);
+
+  const toggleNav = () => {
+    setNavVisible(!navVisible);
+  };
 
   return (
     <div className="nav">
-      <img src={wharfLogo} className="logo" alt="wharf" />
-      <div className="nav-cont">
+      <button className="nav-button" onClick={toggleNav}>
+        <img src={wharfLogo} className="logo" alt="wharf" />
+      </button>
+      <div className={`nav-cont ${navVisible ? 'show' : ''}`}>
+        {navVisible && (
+          <button className="close-button" onClick={toggleNav}>
+            x
+          </button>
+        )}
         <div>
           <Link
             to="/"

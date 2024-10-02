@@ -10,17 +10,6 @@
   width: 80px;
 }
 
-.nav-cont {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 200px;
-}
-
-.nav-cont div {
-  padding: 10px 20px;
-}
-
 .link {
   color: rgb(73, 7, 148);
   font-size: 20px;
