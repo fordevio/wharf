@@ -15,12 +15,11 @@ export interface DockerContainer {
 }
 
 export interface DockerPort {
-  IP?: string;            // Optional, as it may not be present in all ports
+  IP?: string; // Optional, as it may not be present in all ports
   PrivatePort: number;
-  PublicPort?: number;   // Optional, as it may not be present in all ports
+  PublicPort?: number; // Optional, as it may not be present in all ports
   Type: string;
 }
-
 
 export interface DockerHostConfig {
   NetworkMode: string;
@@ -51,16 +50,12 @@ export interface DockerMount {
   Type: string;
   Source: string;
   Destination: string;
-  Mode?: string;          // Optional, as it may not be present
+  Mode?: string; // Optional, as it may not be present
   RW: boolean;
-  Propagation?: string;   // Optional, as it may not be present
-  Name?: string;          // Optional, only for volume mounts
-  Driver?: string;        // Optional, only for volume mounts
+  Propagation?: string; // Optional, as it may not be present
+  Name?: string; // Optional, only for volume mounts
+  Driver?: string; // Optional, only for volume mounts
 }
-
-
-
-
 
 export interface MessageRes {
   message: string;

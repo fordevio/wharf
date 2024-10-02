@@ -1,12 +1,15 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useParams } from 'react-router-dom';
+import ContainerNavbar from '../../components/ContainerNavbar';
 
 const ContainerInside = () => {
+  const { id } = useParams();
+
   return (
     <>
-    <Outlet/>
+      {id !== undefined && <ContainerNavbar id={id} />}
+      <Outlet />
     </>
-  )
-}
+  );
+};
 
-export default ContainerInside
+export default ContainerInside;

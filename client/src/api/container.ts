@@ -83,3 +83,42 @@ export const unpauseContainer = async (
   );
   return res;
 };
+
+export const renameContainer = async (
+  token: string,
+  id: string,
+  name: string
+): Promise<AxiosResponse<MessageRes>> => {
+  const url = URL + '/api/protected/container/rename/' + id;
+  const res = await axios.put<MessageRes>(
+    url,
+    {
+      newName: name,
+    },
+    {
+      headers: {
+        Token: token,
+      },
+    }
+  );
+  return res;
+};
+
+export const removeContainer = async (
+  token: string,
+  id: string,
+  force: boolean,
+  removeVolumes: boolean
+): Promise<AxiosResponse<MessageRes>> => {
+  const url = URL + '/api/protected/container/remove/' + id;
+  const res = await axios.delete<MessageRes>(url, {
+    data: {
+      force: force,
+      removeVolumes: removeVolumes,
+    },
+    headers: {
+      Token: token,
+    },
+  });
+  return res;
+};
