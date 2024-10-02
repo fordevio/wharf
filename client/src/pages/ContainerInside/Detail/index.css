@@ -1,0 +1,61 @@
+.container-det {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px;
+}
+
+.cont-div {
+  padding: 5px;
+}
+
+.cont {
+  font-size: 50px;
+  font-family: cursive;
+  color: rgb(5, 5, 82);
+}
+
+.pad {
+  padding-top: 20px;
+}
+
+.cont-l {
+  font-size: 30px;
+  font-family: cursive;
+  color: rgb(5, 5, 82);
+}
+
+.sp {
+  color: rgb(4, 4, 158);
+}
+
+.lab {
+  padding: 2px 2px;
+}
+
+.del-btn {
+  background-color: red;
+}
+
+.btn {
+  display: inline;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+input[type='checkbox'] {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  accent-color: #007bff; /* Custom color for the checkbox (modern browsers) */
+}
+
+label {
+  font-size: 16px;
+  color: #333;
+}

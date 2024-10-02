@@ -11,8 +11,14 @@ import Imges from './pages/Home/Images';
 import Volumes from './pages/Home/Volumes';
 import Networks from './pages/Home/Networks';
 import Users from './pages/Home/Users';
-import ContainerDetail from './pages/ContainerDetail';
+
 import { useQuery } from 'react-query';
+import ContainerInside from './pages/ContainerInside';
+import ContainerDetail from './pages/ContainerInside/Detail';
+import ContainerVolumes from './pages/ContainerInside/Volume';
+import ContainerNetworks from './pages/ContainerInside/Network';
+import ContainerStats from './pages/ContainerInside/Stats';
+import ContainerLogs from './pages/ContainerInside/Logs';
 
 function App() {
   const location = useLocation();
@@ -57,7 +63,13 @@ function App() {
           <Route path="networks" element={<Networks />} />
           <Route path="users" element={<Users />} />
         </Route>
-        <Route path="/container/:id" element={<ContainerDetail />} />
+        <Route path="/container/:id" element={<ContainerInside />}>
+          <Route index element={<ContainerDetail />} />
+          <Route path="volumes" element={<ContainerVolumes />} />
+          <Route path="networks" element={<ContainerNetworks />} />
+          <Route path="stats" element={<ContainerStats />} />
+          <Route path="logs" element={<ContainerLogs />} />
+        </Route>
         <Route path="/login" element={<Login />} />
       </Routes>
     </>
