@@ -13,7 +13,6 @@ import Networks from './pages/Home/Networks';
 import Users from './pages/Home/Users';
 import ContainerDetail from './pages/ContainerDetail';
 import { useQuery } from 'react-query';
-import Navbar from './components/Navbar';
 
 function App() {
   const location = useLocation();
@@ -50,7 +49,6 @@ function App() {
   return (
     <>
       <Toaster />
-      <Navbar />
       <Routes>
         <Route path="/" element={<Home />}>
           <Route index element={<Containers />} />
