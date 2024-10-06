@@ -55,7 +55,7 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
                 : {}
             }
           >
-            Network -details
+            Network-details
           </Link>
         </div>
         <div>

@@ -117,7 +117,7 @@ const ContainerDetail = () => {
           <span className="cont"> {container.Names[0].replace(/^\//, '')}</span>
         </div>
         <div className="cont-div">
-          <span className="cont sp">Image: </span>{' '}
+          <span className="cont sp cont-span">Image: </span>{' '}
           <span className="cont"> {container.Image.split('@')[0]}</span>
         </div>
         <div className="cont-div pad">

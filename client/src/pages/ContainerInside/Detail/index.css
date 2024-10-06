@@ -8,12 +8,22 @@
 
 .cont-div {
   padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .cont {
   font-size: 50px;
   font-family: cursive;
   color: rgb(5, 5, 82);
+  word-break: break-word;
+}
+
+.cont-span {
+  display: flex;
+  justify-content: center;
 }
 
 .pad {
@@ -24,6 +34,7 @@
   font-size: 30px;
   font-family: cursive;
   color: rgb(5, 5, 82);
+  word-break: break-word;
 }
 
 .sp {
@@ -32,6 +43,7 @@
 
 .lab {
   padding: 2px 2px;
+  text-align: center;
 }
 
 .del-btn {
@@ -58,4 +70,20 @@ input[type='checkbox'] {
 label {
   font-size: 16px;
   color: #333;
+}
+
+@media (max-width: 768px) {
+  .cont {
+    font-size: 30px;
+    word-break: break-word;
+  }
+
+  .cont .sp {
+    font-size: 25px;
+  }
+
+  .cont-l {
+    font-size: 23px;
+    word-break: break-word;
+  }
 }
