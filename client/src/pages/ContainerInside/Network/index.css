@@ -1,0 +1,14 @@
+.con-net-det {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: rgb(5, 5, 82);
+}
+
+.title {
+  font-size: 25px;
+  font-weight: bolder;
+}
