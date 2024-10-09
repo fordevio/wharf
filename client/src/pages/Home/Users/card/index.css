@@ -9,6 +9,7 @@
 .label {
   font-size: 20px;
   font-weight: 500;
+  word-break: break-word;
 }
 
 .content {
