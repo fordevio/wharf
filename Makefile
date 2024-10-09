@@ -8,7 +8,7 @@ get:
 
 
 runFrontend: get
-	@npm --prefix ./client start
+	@npm --prefix ./pkg/client start
 
 run: 
 	@./bin/build  
