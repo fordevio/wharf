@@ -4,11 +4,11 @@
 
 Prerequisite:
 * Operating system: Linux or macos, for windows install [wsl](https://learn.microsoft.com/en-us/windows/wsl/install)  with ubuntu-24.04
-* Install and configure path of [go1.22](https://go.dev/doc/install)
+* Install and configure path of [go1.23](https://go.dev/doc/install)
 ```
 ## commands only for linux os and wsl
-curl -o https://go.dev/dl/go1.22.0.linux-amd64.tar.gz
-rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.0.linux-amd64.tar.gz
+curl -o https://go.dev/dl/go1.23.0.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.23.0.linux-amd64.tar.gz
 
 ## Add following line to ~/.bashrc
 export PATH=$PATH:/usr/local/go/bin
