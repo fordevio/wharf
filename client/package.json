@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && mv build ../bin/frontend",
+    "build": "react-scripts build && rm -rf ../static && mv build ../static",
     "test": "react-scripts test",
     "format": "prettier --write .",
     "eject": "react-scripts eject"
