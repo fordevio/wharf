@@ -1,7 +1,7 @@
 
 
 build: get
-	@go build -o bin/build ./cmd &&  rm -rf ./bin/frontend && npm --prefix ./client run build 
+	@go build -o bin/build ./cmd &&  rm -rf ./static && npm --prefix ./client run build 
 
 get: 
 	@go mod download && npm --prefix ./client install
@@ -28,7 +28,7 @@ test-integration: testDockerImage
 	@docker run --rm wharf-test -v /var/run/docker.sock:/var/run/docker.sock -it wharf-test 
 
 runDockerWharf: 
-	@docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9001:9001 wharf --name wharf
+	@docker run --name wharf -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9001:9001 wharf 
 
 test-unit: get
 	@go test -v ./pkg/...

@@ -44,12 +44,12 @@ func main() {
 
 	router.NoRoute(func(c *gin.Context) {
 		path := c.Request.URL.Path
-		filePath := "./bin/frontend/" + path
+		filePath := "./static/" + path
 		if !strings.HasPrefix(path, "/api") && !strings.HasPrefix(path, "/docs") {
 			if _, err := os.Stat(filePath); err == nil {
 				c.File(filePath)
 			} else {
-				c.File("./bin/frontend/index.html")
+				c.File("./static/index.html")
 			}
 
 		} else {
@@ -58,7 +58,7 @@ func main() {
 	})
 
 	router.GET("/", func(c *gin.Context) {
-		c.File("./bin/frontend/index.html")
+		c.File("./static/index.html")
 	})
 
 	router.GET("/docs/api", func(c *gin.Context) {

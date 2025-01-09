@@ -1,4 +1,4 @@
-FROM golang:1.22-alpine AS buildgo
+FROM golang:1.23-alpine AS buildgo
 WORKDIR /app
 COPY ../go.mod ../go.sum ./
 RUN go mod download
@@ -18,6 +18,6 @@ RUN npm run build --prefix client
 FROM alpine:edge
 WORKDIR /app
 COPY --from=buildgo /app/bin/build ./bin/build
-COPY --from=builderjs /app/bin/frontend ./bin/frontend
+COPY --from=builderjs /app/static ./static
 EXPOSE 9001
 ENTRYPOINT ["./bin/build"]
