@@ -136,3 +136,17 @@ export const pruneContainers = async (
   });
   return res;
 };
+
+export const containerStats = async (
+  token: string,
+  id: string
+): Promise<AxiosResponse<string>> => {
+  const url = URL + '/api/protected/container/stats/' + id;
+
+  const res = await axios.get<string>(url, {
+    headers: {
+      Token: token,
+    },
+  });
+  return res;
+};
