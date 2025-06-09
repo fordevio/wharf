@@ -34,7 +34,7 @@ const Containers = () => {
       loading: 'Pruning containers...',
       success: data => {
         fetchContainers();
-        return `Successfully pruned ${data.ContainersDeleted?data.ContainersDeleted.length:0} containers and reclaimed ${data.SpaceReclaimed} bytes of space.`;
+        return `Successfully pruned ${data.ContainersDeleted ? data.ContainersDeleted.length : 0} containers and reclaimed ${data.SpaceReclaimed} bytes of space.`;
       },
       error: error => {
         return `${error.message}`;

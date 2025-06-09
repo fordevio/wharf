@@ -48,12 +48,42 @@ const ContainerNetworks = () => {
           <div className="port-container">
             {container?.Ports.map((port, index) => (
               <div key={index} className="port">
-                <div className="port-name">{port.Type}</div>
-                <div className="port-name">{port?.IP}</div>
-                <div className="port-name">{port?.PrivatePort}</div>
-                <div className="port-name">{port?.PublicPort}</div>
+                <div className="port-name">Port Type: {port.Type}</div>
+                <div className="port-name">Port IP: {port?.IP}</div>
+                <div className="port-name">
+                  PrivatePort: {port?.PrivatePort}
+                </div>
+                <div className="port-name">PublicPort: {port?.PublicPort}</div>
               </div>
             ))}
+          </div>
+
+          <div className="title mode">
+            Network Mode: {container?.HostConfig.NetworkMode}
+          </div>
+          <div className="title">Network Settings</div>
+          <div className="port-container">
+            {Object.entries(container?.NetworkSettings.Networks || {}).map(
+              ([networkName, network], index) => (
+                <div key={index} className="port">
+                  <div className="port-name">Network Name: {networkName}</div>
+                  <div className="network-details">
+                    <div>IPAM Config: {JSON.stringify(network.IPAMConfig)}</div>
+                    <div>Mac Address: {network.MacAddress}</div>
+                    <div>Network ID: {network.NetworkID}</div>
+                    <div>Endpoint ID: {network.EndpointID}</div>
+                    <div>Gateway: {network.Gateway}</div>
+                    <div>IPAddress: {network.IPAddress}</div>
+                    <div>IPPrefixLen: {network.IPPrefixLen}</div>
+                    <div>IPv6 Gateway: {network.IPv6Gateway}</div>
+                    <div>Global IPv6 Address: {network.GlobalIPv6Address}</div>
+                    <div>
+                      Global IPv6 Prefix Len: {network.GlobalIPv6PrefixLen}
+                    </div>
+                  </div>
+                </div>
+              )
+            )}
           </div>
         </div>
       </div>

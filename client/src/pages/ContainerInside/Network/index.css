@@ -11,4 +11,49 @@
 .title {
   font-size: 25px;
   font-weight: bolder;
+  text-align: center;
+}
+
+.port-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  gap: 20px; /* space between items */
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.port {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #6e99b2;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.port-name {
+  font-size: 25px;
+  font-weight: bold;
+  color: #033f7c;
+  margin-bottom: 10px;
+}
+
+.mode {
+  font-size: 20px;
+  color: #fff;
+  background-color: #033f7c;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+
+.network-details {
+  font-size: 20px;
+  /* font-weight: bold; */
 }
