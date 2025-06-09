@@ -1,0 +1,26 @@
+.title {
+  font-size: 30px;
+  font-weight: bolder;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.stats-container {
+  margin-top: 20px;
+  padding: 30px 30px;
+  margin-bottom: 20px;
+}
+
+.stats-data {
+  width: 100%;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: white;
+  background-color: black;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 20px;
+}

@@ -150,3 +150,17 @@ export const containerStats = async (
   });
   return res;
 };
+
+export const containerLogs = async (
+  token: string,
+  id: string
+): Promise<AxiosResponse<string>> => {
+  const url = URL + '/api/protected/container/logs/' + id;
+
+  const res = await axios.get<string>(url, {
+    headers: {
+      Token: token,
+    },
+  });
+  return res;
+};

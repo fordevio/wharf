@@ -6,6 +6,8 @@ build: get
 get: 
 	@go mod download && npm --prefix ./client install
 
+generate: get 
+	@rm -rf ./static && npm --prefix ./client run build
 
 runFrontend: get
 	@npm --prefix ./pkg/client start
@@ -42,6 +44,7 @@ help:
 	@echo "  make get           - Install dependencies"
 	@echo "  make format        - Format code"
 	@echo "  make test-unit     - Run all unit test"
+	@echo "  make generate      - Generate static files for the frontend"
 	@echo "  make help          - Show this help message"
 
 
