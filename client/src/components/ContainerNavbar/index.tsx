@@ -10,24 +10,23 @@ interface Props {
 const ContainerNavbar: React.FC<Props> = ({ id }) => {
   const location = useLocation();
   const currentPath = location.pathname;
-  const [navVisible, setNavVisible] = useState(false);
-
-  const toggleNav = () => {
-    setNavVisible(!navVisible);
-  };
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="nav">
-      <button className="nav-button" onClick={toggleNav}>
-        <img src={wharfLogo} className="logo" alt="wharf" />
-      </button>
-      <div className={`nav-cont ${navVisible ? 'show' : ''}`}>
-        {navVisible && (
-          <button className="close-button" onClick={toggleNav}>
-            x
-          </button>
-        )}
-        <div>
+    <nav className="nav">
+      <img src={wharfLogo} className="logo" alt="wharf" />
+
+      <div
+        className={`menu ${menuOpen ? 'open' : ''}`}
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <ul className={menuOpen ? 'open' : ''}>
+        <li>
           <Link
             to="/"
             className="link"
@@ -35,17 +34,17 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
           >
             Home
           </Link>
-        </div>
-        <div>
+        </li>
+        <li>
           <Link
             to={`/container/${id}`}
             className="link"
-            style={currentPath === '/container/' + id ? { color: 'blue' } : {}}
+            style={currentPath === `/container/${id}` ? { color: 'blue' } : {}}
           >
             Container-Details
           </Link>
-        </div>
-        <div>
+        </li>
+        <li>
           <Link
             to={`/container/${id}/networks`}
             className="link"
@@ -55,10 +54,10 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
                 : {}
             }
           >
-            Network-details
+            Network-Details
           </Link>
-        </div>
-        <div>
+        </li>
+        <li>
           <Link
             to={`/container/${id}/volumes`}
             className="link"
@@ -68,10 +67,10 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
                 : {}
             }
           >
-            Volumes-details
+            Volume-Details
           </Link>
-        </div>
-        <div>
+        </li>
+        <li>
           <Link
             to={`/container/${id}/stats`}
             className="link"
@@ -81,8 +80,8 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
           >
             Stats
           </Link>
-        </div>
-        <div>
+        </li>
+        <li>
           <Link
             to={`/container/${id}/logs`}
             className="link"
@@ -92,9 +91,9 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
           >
             Logs
           </Link>
-        </div>
-      </div>
-    </div>
+        </li>
+      </ul>
+    </nav>
   );
 };
 
