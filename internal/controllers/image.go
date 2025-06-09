@@ -140,7 +140,7 @@ func TagImage(dockerClient *client.Client) gin.HandlerFunc {
 			return
 		}
 
-		c.JSON(http.StatusOK, id+" tagged successfully")
+		c.JSON(http.StatusOK, gin.H{"message": id + " tagged successfully"})
 
 	}
 }
