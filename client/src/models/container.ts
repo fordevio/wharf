@@ -60,3 +60,8 @@ export interface DockerMount {
 export interface MessageRes {
   message: string;
 }
+
+export interface ContainersPruneReport {
+  ContainersDeleted: string[];
+  SpaceReclaimed: number;
+}

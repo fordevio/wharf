@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { getAllContainers } from '../../../api/container';
+import { getAllContainers, pruneContainers } from '../../../api/container';
 import { DockerContainer } from '../../../models/container';
 import ContainerCard from './Container-card';
 import './index.css';
+import toast from 'react-hot-toast';
 
 const Containers = () => {
   const [containers, setContainers] = useState<DockerContainer[]>([]);
@@ -17,12 +18,41 @@ const Containers = () => {
       console.log(e);
     }
   };
+
+  const prune = async () => {
+    try {
+      const token = localStorage.getItem('token') as string;
+      const containerRes = await pruneContainers(token);
+      return containerRes.data;
+    } catch (e: any) {
+      throw e.response ? e.response.data : { error: 'Request failed' };
+    }
+  };
+
+  const pruneHandler = async () => {
+    toast.promise(prune(), {
+      loading: 'Pruning containers...',
+      success: data => {
+        fetchContainers();
+        return `Successfully pruned ${data.ContainersDeleted?data.ContainersDeleted.length:0} containers and reclaimed ${data.SpaceReclaimed} bytes of space.`;
+      },
+      error: error => {
+        return `${error.message}`;
+      },
+    });
+  };
+
   useEffect(() => {
     fetchContainers();
   }, []);
 
   return (
     <>
+      <div className="prune-btn">
+        <button onClick={pruneHandler} className="btn">
+          Prune Containers
+        </button>
+      </div>
       <div className="card-container">
         {containers.map((container, index) => {
           return (

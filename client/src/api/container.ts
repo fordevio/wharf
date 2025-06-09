@@ -1,6 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
 import { hostUrl } from '../utils/util';
-import { DockerContainer, MessageRes } from '../models/container';
+import {
+  ContainersPruneReport,
+  DockerContainer,
+  MessageRes,
+} from '../models/container';
 
 const URL = hostUrl();
 
@@ -119,6 +123,16 @@ export const removeContainer = async (
     headers: {
       Token: token,
     },
+  });
+  return res;
+};
+
+export const pruneContainers = async (
+  token: string
+): Promise<AxiosResponse<ContainersPruneReport>> => {
+  const url = URL + '/api/protected/container/prune';
+  const res = await axios.delete<ContainersPruneReport>(url, {
+    headers: { Token: token },
   });
   return res;
 };

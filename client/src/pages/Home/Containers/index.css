@@ -6,3 +6,9 @@
   justify-content: space-evenly;
   align-content: center;
 }
+
+.prune-btn {
+  padding: 5px 5px;
+  width: 100%;
+  text-align: center;
+}
