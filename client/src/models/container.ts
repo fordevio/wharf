@@ -57,10 +57,6 @@ export interface DockerMount {
   Driver?: string; // Optional, only for volume mounts
 }
 
-export interface MessageRes {
-  message: string;
-}
-
 export interface ContainersPruneReport {
   ContainersDeleted: string[];
   SpaceReclaimed: number;

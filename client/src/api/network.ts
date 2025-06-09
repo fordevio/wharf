@@ -5,7 +5,7 @@ import {
   NetworksPruneReport,
 } from '../models/network';
 import { hostUrl } from '../utils/util';
-import { MessageRes } from '../models/container';
+import { MessageRes } from '../models/common';
 
 const URL = hostUrl();
 

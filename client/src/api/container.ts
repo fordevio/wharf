@@ -3,8 +3,8 @@ import { hostUrl } from '../utils/util';
 import {
   ContainersPruneReport,
   DockerContainer,
-  MessageRes,
 } from '../models/container';
+import { MessageRes } from '../models/common';
 
 const URL = hostUrl();
 
