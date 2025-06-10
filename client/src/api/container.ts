@@ -1,6 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
 import { hostUrl } from '../utils/util';
-import { ContainersPruneReport, DockerContainer } from '../models/container';
+import {
+  ContainerCreateRequest,
+  ContainersPruneReport,
+  CreateResponse,
+  DockerContainer,
+} from '../models/container';
 import { MessageRes } from '../models/common';
 
 const URL = hostUrl();
@@ -155,6 +160,19 @@ export const containerLogs = async (
   const url = URL + '/api/protected/container/logs/' + id;
 
   const res = await axios.get<string>(url, {
+    headers: {
+      Token: token,
+    },
+  });
+  return res;
+};
+
+export const containerCreate = async (
+  token: string,
+  containerCreateRequest: ContainerCreateRequest
+): Promise<AxiosResponse<CreateResponse>> => {
+  const url = URL + '/api/protected/container/create';
+  const res = await axios.post<CreateResponse>(url, containerCreateRequest, {
     headers: {
       Token: token,
     },

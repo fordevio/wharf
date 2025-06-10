@@ -61,3 +61,111 @@ export interface ContainersPruneReport {
   ContainersDeleted: string[];
   SpaceReclaimed: number;
 }
+
+export type RestartPolicyMode =
+  | 'no'
+  | 'always'
+  | 'on-failure'
+  | 'unless-stopped';
+
+export interface RestartPolicy {
+  /**
+   * Restart policy name.
+   * One of: "no", "always", "on-failure", "unless-stopped".
+   */
+  name: RestartPolicyMode;
+
+  /**
+   * Maximum number of retry attempts for "on-failure" policy.
+   */
+  maximumRetryCount: number;
+}
+
+export interface ContainerCreateRequest {
+  /**
+   * Container name (required).
+   */
+  name: string;
+
+  /**
+   * Image name (required).
+   */
+  image: string;
+
+  /**
+   * Optional volumes in the form of mount paths as keys.
+   */
+  volumes?: Record<string, unknown>;
+
+  /**
+   * Optional list of environment variables.
+   */
+  env?: string[];
+
+  /**
+   * Optional user.
+   */
+  user?: string;
+
+  /**
+   * Optional domain name.
+   */
+  domainName?: string;
+
+  /**
+   * Optional list of exposed ports.
+   */
+  exposedPorts?: string[];
+
+  /**
+   * Optional command to run.
+   */
+  cmd?: string[];
+
+  /**
+   * Optional working directory.
+   */
+  workingDir?: string;
+
+  /**
+   * Optional entry point command.
+   */
+  entryPoint?: string[];
+
+  /**
+   * Optional bind mount configurations.
+   */
+  bind?: string[];
+
+  /**
+   * Optional Docker network mode (e.g., "bridge", "host", "none").
+   */
+  networkMode?: string;
+
+  /**
+   * Optional port bindings (containerPort: hostPort).
+   */
+  portBindings?: Record<string, string>;
+
+  /**
+   * Optional flag to remove container after it exits.
+   */
+  autoRemove?: boolean;
+
+  /**
+   * Optional restart policy.
+   */
+  restartPolicy?: RestartPolicy;
+}
+
+export interface CreateResponse {
+  /**
+   * The ID of the created container.
+   */
+  Id: string;
+
+  /**
+   * Warnings encountered when creating the container.
+   */
+  Warnings: string[];
+}
