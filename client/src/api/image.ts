@@ -35,7 +35,7 @@ export const deleteImagge = async (
   force: boolean,
   pruneChildren: boolean
 ): Promise<AxiosResponse<DeleteResponse[]>> => {
-  const url = URL + '/api/protected/image/delete/' + id;
+  const url = URL + '/api/protected/image/remove/' + id;
   const res = await axios.delete<DeleteResponse[]>(url, {
     headers: {
       Token: token,
