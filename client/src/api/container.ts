@@ -1,9 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { hostUrl } from '../utils/util';
-import {
-  ContainersPruneReport,
-  DockerContainer,
-} from '../models/container';
+import { ContainersPruneReport, DockerContainer } from '../models/container';
 import { MessageRes } from '../models/common';
 
 const URL = hostUrl();
