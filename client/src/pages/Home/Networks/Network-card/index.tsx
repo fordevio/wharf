@@ -13,13 +13,7 @@ interface Props {
 }
 
 const NetworkCard: React.FC<Props> = ({ network, networks, setNetworks }) => {
-  if (
-    network.Name == 'none' ||
-    network.Name == 'host' ||
-    network.Name == 'bridge'
-  ) {
-    return <></>;
-  }
+ 
   const delNet = async () => {
     try {
       const res = await deleteNetwork(
