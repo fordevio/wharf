@@ -22,7 +22,7 @@ export const deleteVolume = async (
   id: string,
   force: boolean
 ): Promise<AxiosResponse<MessageRes>> => {
-  const url = URL + '/api/protected/volume/delete/' + id;
+  const url = URL + '/api/protected/volume/remove/' + id;
   const res = await axios.delete<MessageRes>(url, {
     data: {
       force: force,

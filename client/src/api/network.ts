@@ -37,7 +37,7 @@ export const deleteNetwork = async (
   token: string,
   id: string
 ): Promise<AxiosResponse<MessageRes>> => {
-  const url = URL + '/api/protected/network/delete/' + id;
+  const url = URL + '/api/protected/network/remove/' + id;
   const res = await axios.delete<MessageRes>(url, {
     headers: {
       Token: token,

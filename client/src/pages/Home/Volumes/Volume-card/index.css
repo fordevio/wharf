@@ -62,3 +62,21 @@
   text-overflow: ellipsis;
   max-width: 100%;
 }
+
+.btn {
+  background-color: rgb(4, 24, 110);
+  color: white;
+  padding: 5px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 500;
+  margin: 2px 2px;
+  border: 1px solid black;
+}
+
+.detail {
+  text-decoration: none;
+  padding: 3px 3px;
+  border: 1px solid black;
+}

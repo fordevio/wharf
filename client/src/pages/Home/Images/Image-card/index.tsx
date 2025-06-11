@@ -75,10 +75,7 @@ const ImageCard: React.FC<Props> = ({ image, images, setImages }) => {
     <>
       <div className="cont-card">
         <div className="name">{image.RepoTags[0]}</div>
-        <div className="content">
-          <span className="label">Id: </span>{' '}
-          <span className="label">{image.Id.split('@')[0]}</span>
-        </div>
+  
         <div className="content">
           <span className="label">Created: </span>{' '}
           <span className="label">
