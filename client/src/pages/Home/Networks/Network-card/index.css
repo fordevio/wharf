@@ -1,0 +1,82 @@
+.cont-card {
+  height: 800px;
+  width: 800px;
+  background-color: rgb(92, 141, 153);
+  border-radius: 10px;
+  border: 2px solid rgb(4, 24, 110);
+  padding: 10px 10px;
+  color: rgb(4, 24, 110);
+}
+
+.name {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  word-break: break-all; /* Break long words */
+  white-space: normal; /* Allow wrapping */
+  overflow-wrap: anywhere;
+}
+
+.label {
+  font-size: 20px;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.content {
+  padding: 4px 0;
+  box-sizing: border-box;
+}
+
+.btn {
+  background-color: rgb(4, 24, 110);
+  color: white;
+  padding: 5px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 500;
+  margin: 2px 2px;
+  border: 1px solid black;
+}
+
+.detail {
+  text-decoration: none;
+  padding: 3px 3px;
+  border: 1px solid black;
+}
+
+.labels-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.label-item {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.btn {
+  background-color: rgb(4, 24, 110);
+  color: white;
+  padding: 5px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 500;
+  margin: 2px 2px;
+  border: 1px solid black;
+}
+
+.detail {
+  text-decoration: none;
+  padding: 3px 3px;
+  border: 1px solid black;
+}
