@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import { Volume } from '../../../../models/volume';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { deleteVolume } from '../../../../api/volume';
 import toast from 'react-hot-toast';
 import { NetworkResource } from '../../../../models/network';
 import { deleteNetwork } from '../../../../api/network';
@@ -13,7 +11,6 @@ interface Props {
 }
 
 const NetworkCard: React.FC<Props> = ({ network, networks, setNetworks }) => {
- 
   const delNet = async () => {
     try {
       const res = await deleteNetwork(

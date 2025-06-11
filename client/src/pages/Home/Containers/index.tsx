@@ -4,6 +4,8 @@ import { DockerContainer } from '../../../models/container';
 import ContainerCard from './Container-card';
 import './index.css';
 import toast from 'react-hot-toast';
+import { create } from 'domain';
+import { Link } from 'react-router-dom';
 
 const Containers = () => {
   const [containers, setContainers] = useState<DockerContainer[]>([]);
@@ -52,6 +54,9 @@ const Containers = () => {
         <button onClick={pruneHandler} className="btn">
           Prune Containers
         </button>
+        <Link to={'/container/create'} className="btn">
+          Create
+        </Link>
       </div>
       <div className="card-container">
         {containers.map((container, index) => {

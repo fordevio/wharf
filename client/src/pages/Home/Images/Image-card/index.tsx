@@ -3,6 +3,7 @@ import './index.css';
 import { Image } from '../../../../models/image';
 import { deleteImagge, tagImage } from '../../../../api/image';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 interface Props {
   image: Image;
@@ -93,6 +94,9 @@ const ImageCard: React.FC<Props> = ({ image, images, setImages }) => {
           <button className="btn" onClick={() => setOpenTg(true)}>
             New Tag
           </button>
+          <Link className="btn detail" to={'/image/' + image.Id}>
+            Details
+          </Link>
         </div>
 
         <div></div>
