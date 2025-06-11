@@ -1,0 +1,14 @@
+.card-container {
+  display: grid;
+  gap: 50px 50px;
+  padding: 50px 50px;
+  grid-template-columns: auto auto auto auto;
+  justify-content: space-evenly;
+  align-content: center;
+}
+
+.prune-btn {
+  padding: 5px 5px;
+  width: 100%;
+  text-align: center;
+}
