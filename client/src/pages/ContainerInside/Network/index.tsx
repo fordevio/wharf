@@ -4,10 +4,14 @@ import { DockerContainer } from '../../../models/container';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getAllContainers } from '../../../api/container';
 import { useQuery } from 'react-query';
+import { disconnectContainerFromNetwork } from '../../../api/network';
+import toast from 'react-hot-toast';
 
 const ContainerNetworks = () => {
   const [container, setContainer] = useState<DockerContainer | null>(null);
+  const [openDl, setOpenDl] = useState(false);
   const navigate = useNavigate();
+  const [force, setForce] = useState<boolean>(false);
   const { id } = useParams();
   const fetchContainer = async () => {
     try {
@@ -32,11 +36,43 @@ const ContainerNetworks = () => {
     }
   };
 
+  const disconnectNet = async (netId: string) => {
+    if (container === null) {
+      return;
+    }
+    try {
+      const res = await disconnectContainerFromNetwork(
+        localStorage.getItem('token') as string,
+        netId,
+        container?.Id,
+        force
+      );
+      return res.data;
+    } catch (e: any) {
+      throw e.response ? e.response.data : { error: 'Request failed' };
+    }
+  };
+
+  const DisconnectHandler = async (netId: string) => {
+    toast.promise(disconnectNet(netId), {
+      loading: 'Disconnecting from network...',
+      success: data => {
+        setOpenDl(false);
+        fetchContainer();
+        return `Successfully disconnected from network `;
+      },
+      error: error => {
+        setOpenDl(false);
+        return `${error.error}`;
+      },
+    });
+  };
+
   useQuery('container' + id, fetchContainer, {
     retry: false,
   });
 
-  if (id === undefined) {
+  if (id === undefined || container === null) {
     return <></>;
   }
 
@@ -79,6 +115,46 @@ const ContainerNetworks = () => {
                     <div>Global IPv6 Address: {network.GlobalIPv6Address}</div>
                     <div>
                       Global IPv6 Prefix Len: {network.GlobalIPv6PrefixLen}
+                    </div>
+                  </div>
+                  <div>
+                    <button className="btn" onClick={() => setOpenDl(true)}>
+                      Disconnect{' '}
+                    </button>
+                  </div>
+                  <div
+                    className="popup-overlay"
+                    id="popupOverlay"
+                    style={openDl ? { display: 'block' } : { display: 'none' }}
+                  >
+                    <div className="popup" id="popup">
+                      <span
+                        className="close"
+                        id="closePopup"
+                        onClick={() => setOpenDl(false)}
+                      >
+                        &times;
+                      </span>
+
+                      <div className="popup-content">
+                        <div className="checkbox-container">
+                          <label>
+                            <input
+                              type="checkbox"
+                              checked={force}
+                              onChange={() => setForce(!force)}
+                            />
+                            force Disconnect
+                          </label>
+                        </div>
+
+                        <button
+                          className="submit"
+                          onClick={() => DisconnectHandler(network.NetworkID)}
+                        >
+                          Submit
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>

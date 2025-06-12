@@ -54,7 +54,7 @@ const Containers = () => {
         <button onClick={pruneHandler} className="btn">
           Prune Containers
         </button>
-        <Link to={'/container/create'} className="btn">
+        <Link to={'/container/create'} className="btn create-btn">
           Create
         </Link>
       </div>
