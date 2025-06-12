@@ -57,3 +57,14 @@
   font-size: 20px;
   /* font-weight: bold; */
 }
+
+.connect-btn {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.cn {
+  background-color: green;
+}
