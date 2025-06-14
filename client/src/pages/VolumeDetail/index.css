@@ -1,0 +1,45 @@
+.back-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.volume-detail {
+  background-color: #f0f8ff; /* AliceBlue */
+  color: #003366;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 24px;
+  margin: 40px auto;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+}
+
+.volume-detail h2 {
+  color: #005bb5;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #cce5ff;
+  padding-bottom: 4px;
+}
+
+.volume-detail h3 {
+  color: #0077cc;
+  margin-top: 20px;
+}
+
+.volume-detail p {
+  margin: 6px 0;
+}
+
+.volume-detail strong {
+  color: #004080;
+}
+
+.volume-detail ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.volume-detail li {
+  margin: 4px 0;
+}

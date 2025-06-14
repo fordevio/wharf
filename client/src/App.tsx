@@ -22,6 +22,7 @@ import ContainerLogs from './pages/ContainerInside/Logs';
 import ContainerCreate from './pages/ContainerCreate';
 import VolumeCreate from './pages/VolumeCreate';
 import ImageDetail from './pages/ImageDetail';
+import VolumeDetail from './pages/VolumeDetail';
 
 function App() {
   const location = useLocation();
@@ -76,6 +77,7 @@ function App() {
         <Route path="/container/create" element={<ContainerCreate />} />
         <Route path="/volume/create" element={<VolumeCreate />} />
         <Route path="/image/:id" element={<ImageDetail />} />
+        <Route path="/volume/:id" element={<VolumeDetail />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </>
