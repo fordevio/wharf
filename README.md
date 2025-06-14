@@ -16,7 +16,8 @@ Currently wharf includes following features:
 * Managing users with RBAC.
 
 ## Project Status
-Currently the first version of the project is in development phase, the api's has been be created, development of some components of user interface is left.
+
+Currently the version 1.0.0 is released.
 
 ## ⭐️ Support
 
