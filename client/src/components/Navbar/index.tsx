@@ -15,6 +15,12 @@ const Navbar = () => {
     return null;
   }
 
+  const logout = () => {
+    localStorage.removeItem('token');
+    userContext.setCurUser({} as any); // Reset user context
+    window.location.href = '/login'; // Redirect to login page
+  };
+
   return (
     <nav className="nav">
       <img src={wharfLogo} className="logo" alt="wharf" />
@@ -76,6 +82,9 @@ const Navbar = () => {
           </li>
         )}
       </ul>
+      <button className="logout-btn" onClick={logout}>
+        Logout
+      </button>
     </nav>
   );
 };
