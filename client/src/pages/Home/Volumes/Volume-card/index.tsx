@@ -20,6 +20,7 @@ const VolumeCard: React.FC<Props> = ({ volume, volumes, setVolumes }) => {
         volume.Name,
         force
       );
+      setOpenDl(false);
       setVolumes(volumes.filter(vol => vol.Name !== volume.Name));
       return res.data;
     } catch (e: any) {

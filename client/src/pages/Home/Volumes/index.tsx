@@ -4,6 +4,7 @@ import { Volume } from '../../../models/volume';
 import { getAllVolumes, pruneVolumes } from '../../../api/volume';
 import toast from 'react-hot-toast';
 import VolumeCard from './Volume-card';
+import { Link } from 'react-router-dom';
 
 const Volumes = () => {
   const [volumes, setVolumes] = useState<Volume[]>([]);
@@ -50,6 +51,9 @@ const Volumes = () => {
         <button onClick={pruneHandler} className="btn">
           Prune Volumes
         </button>
+        <Link to="/volume/create" className="btn create-btn">
+          Create
+        </Link>
       </div>
       <div className="card-container">
         {volumes.map((vol, index) => {
