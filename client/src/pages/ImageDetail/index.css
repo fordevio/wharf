@@ -1,0 +1,46 @@
+.image-detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-details {
+  padding: 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f8ff; /* Alice Blue */
+  color: #003366;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 102, 204, 0.2);
+}
+
+.image-details h2 {
+  color: #0066cc;
+  border-bottom: 2px solid #cce5ff;
+  padding-bottom: 4px;
+  margin-bottom: 16px;
+}
+
+.image-details p {
+  margin: 6px 0;
+}
+
+.image-details strong {
+  color: #004080;
+}
+
+.image-details h3 {
+  margin-top: 20px;
+  color: #0059b3;
+}
+
+.image-details ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.image-details li {
+  margin: 4px 0;
+}

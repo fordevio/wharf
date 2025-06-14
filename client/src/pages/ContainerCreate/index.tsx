@@ -10,13 +10,6 @@ const ContainerCreate = () => {
   const [form, setForm] = useState<ContainerCreateRequest>({
     name: '',
     image: '',
-    // env: undefined,
-    // cmd: [''],
-    // entryPoint: [''],
-    // bind: [''],
-    // exposedPorts: [''],
-    // portBindings: { '': '' },
-    // volumes: { '': '' },
     restartPolicy: { name: 'no', maximumRetryCount: 0 },
     autoRemove: false,
   });

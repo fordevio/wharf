@@ -4,6 +4,7 @@ import { Image } from '../../../../models/image';
 import { deleteImagge, tagImage } from '../../../../api/image';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { formatBytes } from '../../../../utils/util';
 
 interface Props {
   image: Image;
@@ -85,7 +86,7 @@ const ImageCard: React.FC<Props> = ({ image, images, setImages }) => {
         </div>
         <div className="content">
           <span className="label">Size: </span>{' '}
-          <span className="label">{image.Size} bytes</span>
+          <span className="label">{formatBytes(image.Size)}</span>
         </div>
         <div>
           <button className="btn" onClick={() => setOpenDl(true)}>

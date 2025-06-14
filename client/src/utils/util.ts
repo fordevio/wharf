@@ -25,3 +25,10 @@ export const convertToIndianDateTime = (unixTimestamp: number): string => {
   // Format the date and time
   return date.toLocaleString('en-IN', options);
 };
+
+export const formatBytes = (bytes: number) => {
+  if (bytes < 0) return 'Not calculated';
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+  return `${(bytes / Math.pow(1024, i)).toFixed(2)} ${sizes[i]}`;
+};
