@@ -30,7 +30,7 @@ Prerequisite:
 * Install and run [docker](https://docs.docker.com/engine/install/)
 
 ```
-sudo docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9001:9001 fordevio/wharf:latest --name wharf
+sudo docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9001:9001 fordevio/wharf:v1.0.0 --name wharf
 ```
 The application can be acessed by the url `http://localhost:9001` on browser
 
