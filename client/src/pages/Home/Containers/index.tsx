@@ -4,7 +4,6 @@ import { DockerContainer } from '../../../models/container';
 import ContainerCard from './Container-card';
 import './index.css';
 import toast from 'react-hot-toast';
-import { create } from 'domain';
 import { Link } from 'react-router-dom';
 
 const Containers = () => {
