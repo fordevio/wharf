@@ -5,15 +5,26 @@
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
 ## Overview
-Wharf is tool which make organizing your monolithic server easy. The purpose of the project to simplify the server management for the team or organization.
 
-Currently wharf includes following features:
-* Managing docker containers on the server.
-* Managing docker volumes on the server.
-* Managing docker images on the server.
-* Managing docker networks on the server.
-* Monitoring and logs of the containers.
-* Managing users with RBAC.
+Wharf is a full-stack web application designed to simplify Docker management on monolithic servers for teams and organizations. The platform provides a centralized interface for managing Docker resources through a web browser, eliminating the need for direct command-line Docker operations.
+
+### Core Capabilities:
+
+* `Container Management`: Start, stop, pause, create, delete, and monitor Docker containers
+* `Image Management`: List, tag, delete, and prune Docker images
+* `Volume Management`: Create, delete, list, and prune Docker volumes
+* `Network Management`: Create, delete, and manage Docker networks and container connections
+* `User Management`: Role-based access control (RBAC) with Read, Write, and Execute permissions
+* `Monitoring`: Real-time container statistics and log viewing
+* `Web Interface`: Complete React-based single-page application
+
+### Security and Authentication
+
+Wharf implements JWT-based authentication with role-based access control. Users have three permission levels:
+
+* `Read`: View containers, images, volumes, networks
+* `Write`: Start, stop, pause, create resources
+* `Execute`: Delete, prune, remove resources
 
 ## Project Status
 
@@ -34,12 +45,18 @@ sudo docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/ru
 ```
 The application can be acessed by the url `http://localhost:9001` on browser
 
-## Testing
+## AI Generated Docs
+
+https://deepwiki.com/fordevio/wharf
+
+## Testing 
+
 See [TESTING](./docs/TESTING.md)
 
 ## Contribution
+
 See [CONTRIBUTION](./docs/CONTRIBUTION.md)
 
-
 ## Acknowledgements
+
 Wharf logo has been created using ChatGPT.
