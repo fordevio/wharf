@@ -32,6 +32,18 @@ Prerequisite:
 ```
 sudo docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9001:9001 fordevio/wharf:latest --name wharf
 ```
+
+- For Apple Silicon (arm64) users:
+
+```
+sudo docker run --platform linux/amd64 \
+  -v /var/lib/wharf:/var/lib/wharf \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -dp 9001:9001 \
+  --name wharf \
+  fordevio/wharf:latest
+```
+
 The application can be acessed by the url `http://localhost:9001` on browser
 
 ## Testing
