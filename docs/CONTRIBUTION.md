@@ -28,8 +28,8 @@ contribution. See the [DCO](DCO) file for details.
 
 # Email and Chat
 
-The project currently uses the [forDEV-io Slack](https://fordev-io.slack.com):
-- [#wharf](https://fordev-io.slack.com/archives/C07NTF2R6KF)
+The project currently uses the [forDEV-io Slack](https://join.slack.com/t/fordev-io/shared_invite/zt-37ixcb48j-o9AnvibyCSc0PCRQdIZIHg):
+- Join `#wharf` channel
 
 Please avoid emailing maintainers found in the MAINTAINERS file directly. They
 are very busy and read the mailing lists.
