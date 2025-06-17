@@ -33,7 +33,7 @@ Currently the version 1.0.0 is released.
 ## ⭐️ Support
 
 If you find this project helpful or interesting, please give it a ⭐️ on [GitHub](https://github.com/fordevio/wharf)! Your support helps the project grow and motivates community to keep improving it.
-Also join the [#wharf](https://fordev-io.slack.com/archives/C07NTF2R6KF) slack channel.
+Also join the [#wharf](https://join.slack.com/t/fordev-io/shared_invite/zt-37ixcb48j-o9AnvibyCSc0PCRQdIZIHg) slack channel.
 
 ## Quickstart
 
