@@ -29,10 +29,22 @@ contribution. See the [DCO](DCO) file for details.
 # Email and Chat
 
 The project currently uses the [forDEV-io Slack](https://join.slack.com/t/fordev-io/shared_invite/zt-37ixcb48j-o9AnvibyCSc0PCRQdIZIHg):
-- Join `#wharf` channel
+- Join `#wharf` channel 
 
 Please avoid emailing maintainers found in the MAINTAINERS file directly. They
 are very busy and read the mailing lists.
+
+
+# Office Hour Meetings
+
+The project also holds bi-weekly public meetings where maintainers,
+contributors and users of the Wharf can
+discuss issues, pull requests or any topic related to the projects. The
+meetings happen at 4:00 PM IST (Indian Standard Time) or 10:30 AM UTC on Sundays, check the [online
+notes](https://docs.google.com/document/d/1Eb5ARim3rbuwpPDcWD12ZXOlN0Fu0CsApDAfe_UbFE8/edit?usp=sharing)
+to know the exact dates and the connection details.
+
+An invite is also available on the [project's public calendar](https://calendar.app.google/riYQ51L51dkkj8gA8).
 
 
 ## Getting Started
