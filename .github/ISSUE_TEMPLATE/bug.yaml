@@ -1,0 +1,59 @@
+name: 🐞 Bug
+description: Report a bug related to the Prometheus operator
+labels: ["bug"]
+body:
+- type: checkboxes
+  attributes:
+    label: Is there an existing issue for this?
+    description: |
+      Before filing a bug, please be sure you have searched through [existing bugs](https://github.com/fordevio/wharf/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug) to see if an existing issue covers your bug.
+    options:
+    - label: I have searched the existing issues
+      required: true
+- type: textarea
+  attributes:
+    label: What happened?
+    description: A concise description of what you're experiencing.
+    value: |
+      ## Description
+
+      ## Steps to Reproduce
+
+      ## Expected Result
+
+      ## Actual Result
+
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Wharf Version
+    description: |
+      Provide the wharf version used
+      This will be automatically formatted into code, so no need for backticks.
+    placeholder: |
+     ```
+     version: 
+     ```
+    render: shell
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: wharf log output
+    description: |
+      Please provide wharf log output
+      This will be automatically formatted into code, so no need for backticks.
+    render: shell
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Anything else?
+    description: |
+      Links? References? Anything that will give us more context about the issue you are encountering!
+
+      Tip: You can attach images or any other relevant log files by clicking this area to highlight it and then dragging files in.
+  validations:
+    required: false
