@@ -1,0 +1,18 @@
+name: 🚀 Feature
+description: Propose a new feature or enhancement to the Wharf
+labels: ["feature"]
+body:
+
+- type: textarea
+  attributes:
+    label: What is missing? Please describe.
+    description: A clear and concise description of what is missing currently.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+      label: Describe alternatives you've considered.
+      description: A clear and concise description of any alternative solutions or features you've considered.
+- type: markdown
+  attributes: 
+    value: Feel free to ask questions in [\#wharf](https://join.slack.com/t/fordev-io/shared_invite/zt-37ixcb48j-o9AnvibyCSc0PCRQdIZIHg) on fordev-io Slack!
