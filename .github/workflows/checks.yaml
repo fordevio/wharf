@@ -29,9 +29,9 @@ jobs:
      - run: go mod download 
      - run: go fmt ./... && git diff --exit-code
 
-  format-typescript: 
+  format-generate-typescript: 
     runs-on:  ubuntu-latest
-    name: Format TypeScript code 
+    name: Format and Generate TypeScript code 
     steps: 
      - uses: actions/checkout@v4
      - name: Import environment variables from file
@@ -41,6 +41,7 @@ jobs:
          node-version: '${{ env.node-version }}'
      - run: npm --prefix ./client install
      - run: npm --prefix ./client run format
+     - run: npm --prefix ./client run build
      - run: git diff --exit-code
   
   lint-go:
@@ -94,3 +95,4 @@ jobs:
      - run: npm --prefix ./client install
      - run: mkdir bin
      - run: npm --prefix ./client run build
+

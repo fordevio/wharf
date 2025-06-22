@@ -64,7 +64,7 @@ This is a rough outline of what a contributor's workflow looks like:
 - Make sure the tests pass, and add any new tests as appropriate. ([Testing guidelines](TESTING.md))
 - Submit a pull request to the original repository.
 
-Before submitting a pull request, make sure that you've executed `make format` and committed the format changes.
+Before submitting a pull request, make sure that you've executed `make format`, `make generate` and committed the changes.
 
 Thanks for your contributions!
 
