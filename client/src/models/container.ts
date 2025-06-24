@@ -107,11 +107,6 @@ export interface ContainerCreateRequest {
   image: string;
 
   /**
-   * Optional volumes in the form of mount paths as keys.
-   */
-  volumes?: Record<string, unknown>;
-
-  /**
    * Optional list of environment variables.
    */
   env?: string[];
