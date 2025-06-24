@@ -40,7 +40,6 @@
 
 /* Container Creation Form Styles */
 
-
 /* Base styles and resets */
 * {
   box-sizing: border-box;
@@ -100,18 +99,6 @@ body {
   min-height: 100vh;
 }
 
-.bg-gradient-to-br {
-  background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
-}
-
-.from-blue-50 {
-  --tw-gradient-from: #eff6ff;
-}
-
-.to-sky-100 {
-  --tw-gradient-to: #e0f2fe;
-}
-
 .p-6 {
   padding: 1.5rem;
 }
@@ -135,7 +122,9 @@ body {
 }
 
 .shadow-xl {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .border {
@@ -289,7 +278,7 @@ body {
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  
+
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -312,8 +301,8 @@ label {
   color: #1d4ed8;
 }
 
-input[type="text"],
-input[type="number"],
+input[type='text'],
+input[type='number'],
 select {
   width: 100%;
   padding: 0.75rem 1rem;
@@ -324,15 +313,15 @@ select {
   background-color: white;
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus,
+input[type='text']:focus,
+input[type='number']:focus,
 select:focus {
   outline: none;
   border-color: transparent;
   box-shadow: 0 0 0 2px #3b82f6;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   width: 1.25rem;
   height: 1.25rem;
   color: #2563eb;
@@ -340,7 +329,7 @@ input[type="checkbox"] {
   border-radius: 0.25rem;
 }
 
-input[type="checkbox"]:focus {
+input[type='checkbox']:focus {
   box-shadow: 0 0 0 2px #3b82f6;
 }
 
@@ -398,7 +387,10 @@ input[type="checkbox"]:focus {
 }
 
 .transition-colors {
-  transition: color, background-color, border-color 0.2s ease-in-out;
+  transition:
+    color,
+    background-color,
+    border-color 0.2s ease-in-out;
 }
 
 /* Buttons */
@@ -500,11 +492,15 @@ code {
 }
 
 .shadow-lg {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .hover\:shadow-xl:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* Disabled state */
@@ -521,15 +517,15 @@ select:disabled {
   .container-create {
     padding-top: 4rem;
   }
-  
+
   .p-6 {
     padding: 1rem;
   }
-  
+
   .p-8 {
     padding: 1.5rem;
   }
-  
+
   .text-3xl {
     font-size: 1.5rem;
     line-height: 2rem;
