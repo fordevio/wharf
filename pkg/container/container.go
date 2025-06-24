@@ -105,7 +105,6 @@ func Stats(ctx context.Context, client *client.Client, containerID string) (stri
 		return "", err
 	}
 	return string(bodyBytes), nil
-
 }
 
 func Logs(ctx context.Context, client *client.Client, containerID string, days int) (string, error) {
