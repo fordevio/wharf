@@ -31,7 +31,6 @@ type ContainerRenameRequest struct {
 type ContainerCreateRequest struct {
 	Name          string                   `json:"name" validate:"required"`
 	Image         string                   `json:"image" validate:"required"`
-	Volumes       *map[string]struct{}     `json:"volume"`
 	Env           *[]string                `json:"env"`
 	User          *string                  `json:"user"`
 	DomainName    *string                  `json:"domainName"`

@@ -301,9 +301,7 @@ func ContainerCreate(dockerClient *client.Client) gin.HandlerFunc {
 		}
 
 		hostConfig := container.HostConfig{}
-		if vol := requestBody.Volumes; vol != nil {
-			config.Volumes = *vol
-		}
+
 		if user := requestBody.User; user != nil {
 			config.User = *user
 		}
