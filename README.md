@@ -1,9 +1,11 @@
 ![Wharf](./assets/wharf.png)
 # wharf 
+
 ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white) ![Github-sponsors](https://img.shields.io/badge/sponsor-30363D?style=for-the-badge&logo=GitHub-Sponsors&logoColor=#EA4AAA)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
+
 ## Overview
 
 Wharf is a full-stack web application designed to simplify Docker management on monolithic servers for teams and organizations. The platform provides a centralized interface for managing Docker resources through a web browser, eliminating the need for direct command-line Docker operations.
@@ -38,13 +40,16 @@ Also join the [#wharf](https://join.slack.com/t/fordev-io/shared_invite/zt-37ixc
 ## Quickstart
 
 Prerequisite: 
+
 * Install and run [docker](https://docs.docker.com/engine/install/)
 
+* For Linux and Windows 
+
 ```
-sudo docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9001:9001 fordevio/wharf:latest --name wharf
+sudo docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9001:9001 --name wharf fordevio/wharf:latest 
 ```
 
-- For Apple Silicon (arm64) users:
+* For Apple Silicon (arm64) users:
 
 ```
 sudo docker run --platform linux/amd64 \
