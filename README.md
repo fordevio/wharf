@@ -37,34 +37,26 @@ Currently the version 1.0.0 is released.
 If you find this project helpful or interesting, please give it a ⭐️ on [GitHub](https://github.com/fordevio/wharf)! Your support helps the project grow and motivates community to keep improving it.
 Also join the [#wharf](https://join.slack.com/t/fordev-io/shared_invite/zt-37ixcb48j-o9AnvibyCSc0PCRQdIZIHg) slack channel.
 
-## Quickstart
+## Quickstart (on your Linux servers)
 
 Prerequisite: 
 
 * Install and run [docker](https://docs.docker.com/engine/install/)
 
-* For Linux and Windows 
+* Run the wharf container 
 
 ```
 sudo docker run -v /var/lib/wharf:/var/lib/wharf -v /var/run/docker.sock:/var/run/docker.sock -dp 9001:9001 --name wharf fordevio/wharf:latest 
 ```
 
-* For Apple Silicon (arm64) users:
-
-```
-sudo docker run --platform linux/amd64 \
-  -v /var/lib/wharf:/var/lib/wharf \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -dp 9001:9001 \
-  --name wharf \
-  fordevio/wharf:latest
-```
-
 The application can be acessed by the url `http://localhost:9001` on browser
+
+For running the application locally visit [DEVELOPMENT](./docs/DEVELOPMENT.md)
 
 ## AI Generated Docs
 
 https://deepwiki.com/fordevio/wharf
+
 
 ## Testing 
 
