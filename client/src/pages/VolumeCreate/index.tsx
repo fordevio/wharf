@@ -21,9 +21,7 @@ import { createVolume } from '../../api/volume';
 const VolumeCreate = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');
-  const [labels, setLabels] = useState<Record<string, string> | undefined>(
-    undefined
-  );
+  const [labels, setLabels] = useState<Record<string, string>>({});
 
   const create = async () => {
     try {
@@ -43,42 +41,45 @@ const VolumeCreate = () => {
     toast.promise(create(), {
       loading: 'Creating container...',
       success: data => {
-        setName('');
-        setLabels(undefined);
-
-        navigate('/volumes');
+        navigate(`/volume/${data.Name}`);
         return `Volume created successfully!`;
       },
       error: data => `Error creating volume: ${data.error}`,
     });
   };
 
-  const handleLabelChange = (key: string, value: string) => {
-    setLabels(prev => ({
-      ...(prev || {}),
-      [key]: value,
-    }));
-  };
-
   const handleLabelAdd = () => {
-    setLabels(prev => ({
-      ...(prev || {}),
-      '': '',
-    }));
+    const newKey = `label-${Date.now()}`;
+    setLabels(prev => ({ ...prev, [newKey]: '' }));
   };
 
-  const handleLabelDelete = (keyToRemove: string) => {
+  const handleLabelKeyChange = (oldKey: string, newKey: string) => {
+    if (oldKey === newKey) return; // Prevent unnecessary updates
+
     setLabels(prev => {
-      if (!prev) return prev;
       const newLabels = { ...prev };
-      delete newLabels[keyToRemove];
-      return Object.keys(newLabels).length > 0 ? newLabels : undefined;
+      const value = newLabels[oldKey];
+      delete newLabels[oldKey];
+      newLabels[newKey] = value;
+      return newLabels;
+    });
+  };
+
+  const handleLabelValueChange = (key: string, value: string) => {
+    setLabels(prev => ({ ...prev, [key]: value }));
+  };
+
+  const handleLabelDelete = (keyToDelete: string) => {
+    setLabels(prev => {
+      const newLabels = { ...prev };
+      delete newLabels[keyToDelete];
+      return newLabels;
     });
   };
 
   return (
     <>
-      <div className="container-create">
+      <div className="volume-create-container">
         <div className="back-button-container">
           <button
             className="btn back-button"
@@ -87,73 +88,87 @@ const VolumeCreate = () => {
             <i className="fa-solid fa-arrow-left"></i> Back
           </button>
         </div>
+        <div className="volume-create-wrapper">
+          <form className="volume-create-form" onSubmit={handleSubmit}>
+            <h2 className="form-title">Create Volume</h2>
 
-        <div className="">
-          <div>
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-4 p-4 max-w-2xl mx-auto"
-            >
-              <h2 className="text-xl font-bold">Container Create Request</h2>
-
-              <label>Name*</label>
+            <div className="form-group">
+              <label className="form-label" htmlFor="volume-name">
+                Volume Name*
+              </label>
               <input
+                id="volume-name"
+                className="form-input"
                 type="text"
                 name="name"
                 value={name}
                 onChange={e => setName(e.target.value)}
+                placeholder="Enter volume name"
                 required
               />
+            </div>
 
-              <div>
-                <label>Labels</label>
-                {labels &&
+            <div className="form-group">
+              <label className="form-label">Labels</label>
+              <div className="labels-container">
+                {Object.keys(labels).length === 0 ? (
+                  <p className="labels-empty">No labels added yet</p>
+                ) : (
                   Object.entries(labels).map(([key, value], index) => (
-                    <div
-                      key={index}
-                      style={{ display: 'flex', marginBottom: '4px' }}
-                    >
+                    <div className="label-row" key={index}>
                       <input
+                        className="label-input label-key"
                         type="text"
                         placeholder="Key"
                         value={key}
-                        onChange={e => {
-                          const newKey = e.target.value;
-                          setLabels(prev => {
-                            if (!prev) return prev;
-                            const newLabels = { ...prev };
-                            const val = newLabels[key];
-                            delete newLabels[key];
-                            newLabels[newKey] = val;
-                            return newLabels;
-                          });
-                        }}
-                        style={{ marginRight: '8px' }}
+                        onChange={e =>
+                          handleLabelKeyChange(key, e.target.value)
+                        }
                       />
                       <input
+                        className="label-input label-value"
                         type="text"
                         placeholder="Value"
                         value={value}
-                        onChange={e => handleLabelChange(key, e.target.value)}
-                        style={{ marginRight: '8px' }}
+                        onChange={e =>
+                          handleLabelValueChange(key, e.target.value)
+                        }
                       />
-                      <button onClick={() => handleLabelDelete(key)}>
+                      <button
+                        className="delete-button"
+                        type="button"
+                        onClick={() => handleLabelDelete(key)}
+                        aria-label={`Delete label ${key}`}
+                      >
+                        <span className="delete-icon">🗑️</span>
                         Delete
                       </button>
                     </div>
-                  ))}
-                <button onClick={handleLabelAdd}>Add Label</button>
-              </div>
+                  ))
+                )}
 
-              <button
-                type="submit"
-                className="bg-blue-600 text-white p-2 rounded"
-                onClick={handleSubmit}
-              >
-                Submit
+                <button
+                  className="add-label-button"
+                  type="button"
+                  onClick={handleLabelAdd}
+                >
+                  <span className="add-icon">+</span>
+                  Add Label
+                </button>
+              </div>
+            </div>
+
+            <div className="form-actions">
+              <button className="submit-button" type="submit">
+                {
+                  <>
+                    <span className="submit-icon">📁</span>
+                    Create Volume
+                  </>
+                }
               </button>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </>
