@@ -18,7 +18,7 @@ import {
   ContainerCreateRequest,
   RestartPolicyMode,
 } from '../../models/container';
-import { containerCreate } from '../../api/container';
+import { containerCreate, startContainer } from '../../api/container';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
@@ -110,6 +110,11 @@ const ContainerCreate = () => {
       const res = await containerCreate(
         localStorage.getItem('token') as string,
         formData
+      );
+
+      await startContainer(
+        localStorage.getItem('token') as string,
+        res.data.Id
       );
       return res.data;
     } catch (e: any) {
