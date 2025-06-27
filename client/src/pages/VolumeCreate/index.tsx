@@ -21,14 +21,12 @@ import { createVolume } from '../../api/volume';
 const VolumeCreate = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');
-  const [labels, setLabels] = useState<Record<string, string>>({});
 
   const create = async () => {
     try {
       const res = await createVolume(
         localStorage.getItem('token') as string,
-        name,
-        labels
+        name
       );
       return res.data;
     } catch (e: any) {
@@ -45,35 +43,6 @@ const VolumeCreate = () => {
         return `Volume created successfully!`;
       },
       error: data => `Error creating volume: ${data.error}`,
-    });
-  };
-
-  const handleLabelAdd = () => {
-    const newKey = `label-${Date.now()}`;
-    setLabels(prev => ({ ...prev, [newKey]: '' }));
-  };
-
-  const handleLabelKeyChange = (oldKey: string, newKey: string) => {
-    if (oldKey === newKey) return; // Prevent unnecessary updates
-
-    setLabels(prev => {
-      const newLabels = { ...prev };
-      const value = newLabels[oldKey];
-      delete newLabels[oldKey];
-      newLabels[newKey] = value;
-      return newLabels;
-    });
-  };
-
-  const handleLabelValueChange = (key: string, value: string) => {
-    setLabels(prev => ({ ...prev, [key]: value }));
-  };
-
-  const handleLabelDelete = (keyToDelete: string) => {
-    setLabels(prev => {
-      const newLabels = { ...prev };
-      delete newLabels[keyToDelete];
-      return newLabels;
     });
   };
 
@@ -107,65 +76,10 @@ const VolumeCreate = () => {
                 required
               />
             </div>
-
-            <div className="form-group">
-              <label className="form-label">Labels</label>
-              <div className="labels-container">
-                {Object.keys(labels).length === 0 ? (
-                  <p className="labels-empty">No labels added yet</p>
-                ) : (
-                  Object.entries(labels).map(([key, value], index) => (
-                    <div className="label-row" key={index}>
-                      <input
-                        className="label-input label-key"
-                        type="text"
-                        placeholder="Key"
-                        value={key}
-                        onChange={e =>
-                          handleLabelKeyChange(key, e.target.value)
-                        }
-                      />
-                      <input
-                        className="label-input label-value"
-                        type="text"
-                        placeholder="Value"
-                        value={value}
-                        onChange={e =>
-                          handleLabelValueChange(key, e.target.value)
-                        }
-                      />
-                      <button
-                        className="delete-button"
-                        type="button"
-                        onClick={() => handleLabelDelete(key)}
-                        aria-label={`Delete label ${key}`}
-                      >
-                        <span className="delete-icon">🗑️</span>
-                        Delete
-                      </button>
-                    </div>
-                  ))
-                )}
-
-                <button
-                  className="add-label-button"
-                  type="button"
-                  onClick={handleLabelAdd}
-                >
-                  <span className="add-icon">+</span>
-                  Add Label
-                </button>
-              </div>
-            </div>
-
             <div className="form-actions">
               <button className="submit-button" type="submit">
-                {
-                  <>
-                    <span className="submit-icon">📁</span>
-                    Create Volume
-                  </>
-                }
+                <span className="submit-icon">📁</span>
+                Create Volume
               </button>
             </div>
           </form>
