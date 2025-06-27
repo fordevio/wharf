@@ -62,15 +62,13 @@ export const pruneVolumes = async (
 
 export const createVolume = async (
   token: string,
-  name: string,
-  labels?: Record<string, string>
+  name: string
 ): Promise<AxiosResponse<Volume>> => {
   const url = URL + '/api/protected/volume/create';
   const res = await axios.post<Volume>(
     url,
     {
       name: name,
-      labels: labels,
     },
     {
       headers: {

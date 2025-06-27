@@ -19,6 +19,5 @@ type RemoveVolumeRequest struct {
 }
 
 type CreateVolumeRequest struct {
-	Name   string             `json:"name" validate:"required"`
-	Labels *map[string]string `json:"labels"`
+	Name string `json:"name" validate:"required"`
 }

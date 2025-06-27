@@ -136,10 +136,6 @@ func CreateVolume(dockerClient *client.Client) gin.HandlerFunc {
 			Driver: "local",
 		}
 
-		if createVolumeRequest.Labels != nil {
-			opts.Labels = *createVolumeRequest.Labels
-		}
-
 		vol, err := dockerVolume.Create(ctx, dockerClient, opts)
 		if err != nil {
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
