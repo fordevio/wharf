@@ -32,9 +32,21 @@ Wharf implements JWT-based authentication with role-based access control. Users 
 
 Currently the version 1.0.0 is released.
 
-## ⭐️ Support
+## Support
 
-If you find this project helpful or interesting, please give it a ⭐️ on [GitHub](https://github.com/fordevio/wharf)! Your support helps the project grow and motivates community to keep improving it.
+We’re building and maintaining this project to serve the community as a free and open source solution. However, there are ongoing costs involved, such as:
+
+   * 🌐 Domain registrations
+
+   * 🧪 Testing servers and infrastructure
+
+   * 🛠️ Paid services/tools required during development
+
+If you find this project useful, please consider supporting its development by sponsoring us. Your support will help us cover these expenses and continue to improve and maintain the project.
+
+[💸 Sponsor this project](https://github.com/sponsors/fordevio)
+
+Also If you find this project helpful or interesting, give it a ⭐️ on [GitHub](https://github.com/fordevio/wharf)! Your support helps the project grow and motivates community to keep improving it.
 Also join the [#wharf](https://join.slack.com/t/fordev-io/shared_invite/zt-37ixcb48j-o9AnvibyCSc0PCRQdIZIHg) slack channel.
 
 ## Quickstart (on your Linux servers)
