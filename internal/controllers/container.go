@@ -415,3 +415,42 @@ func ContainerStart(dockerClient *client.Client) gin.HandlerFunc {
 		c.JSON(http.StatusOK, gin.H{"message": id + " container started"})
 	}
 }
+
+func UpdateContainerLabels(dockerClient *client.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		id := c.Param("id")
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(models.User)
+
+		if reqUser.Permission == models.Read {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
+			return
+		}
+		var requestBody dockerContainer.ContainerLabelsUpdateRequest
+		if err := c.BindJSON(&requestBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		validate := validator.New()
+		if err := validate.Struct(requestBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		res, err := dockerContainer.UpdateLabels(ctx, dockerClient, id, requestBody.Labels)
+		if err != nil {
+			if errdefs.IsNotFound(err) {
+				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				return
+			}
+			log.Println(err)
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, *res)
+	}
+}

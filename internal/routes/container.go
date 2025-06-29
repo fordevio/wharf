@@ -32,4 +32,5 @@ func ContainerRoutes(incommingRoutes *gin.RouterGroup, dockerClient *client.Clie
 	incommingRoutes.GET("/container/logs/:id", controllers.ContainerLogs(dockerClient))
 	incommingRoutes.PUT("/container/rename/:id", controllers.ContainerRename(dockerClient))
 	incommingRoutes.POST("/container/create", controllers.ContainerCreate(dockerClient))
+	incommingRoutes.PUT("/container/updateLabels/:id", controllers.UpdateContainerLabels(dockerClient))
 }
