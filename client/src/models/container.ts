@@ -178,3 +178,15 @@ export interface CreateResponse {
    */
   Warnings: string[];
 }
+
+export interface LabelsUpdateResponse {
+  /**
+   * The ID of the created container.
+   */
+  Id: string;
+
+  /**
+   * Warnings encountered when creating the container.
+   */
+  Warnings: string[];
+}

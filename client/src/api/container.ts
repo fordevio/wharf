@@ -19,6 +19,7 @@ import {
   ContainersPruneReport,
   CreateResponse,
   DockerContainer,
+  LabelsUpdateResponse,
 } from '../models/container';
 import { MessageRes } from '../models/common';
 
@@ -29,6 +30,19 @@ export const getAllContainers = async (
 ): Promise<AxiosResponse<DockerContainer[]>> => {
   const url = URL + '/api/protected/container/getAll';
   const res = await axios.get<DockerContainer[]>(url, {
+    headers: {
+      Token: token,
+    },
+  });
+  return res;
+};
+
+export const getContainer = async (
+  token: string,
+  id: string
+): Promise<AxiosResponse<DockerContainer>> => {
+  const url = URL + '/api/protected/container/get/' + id;
+  const res = await axios.get<DockerContainer>(url, {
     headers: {
       Token: token,
     },
@@ -191,5 +205,23 @@ export const containerCreate = async (
       Token: token,
     },
   });
+  return res;
+};
+
+export const containerLabelsUpdate = async (
+  token: string,
+  id: string,
+  labels: Record<string, string>
+): Promise<AxiosResponse<LabelsUpdateResponse>> => {
+  const url = URL + '/api/protected/container/updateLabels/' + id;
+  const res = await axios.put<LabelsUpdateResponse>(
+    url,
+    { labels },
+    {
+      headers: {
+        Token: token,
+      },
+    }
+  );
   return res;
 };

@@ -16,8 +16,8 @@ package dockercontainer
 
 import (
 	"context"
-	"fmt"
 	"io"
+	"reflect"
 	"time"
 
 	"github.com/docker/docker/api/types"
@@ -26,46 +26,20 @@ import (
 	"github.com/docker/docker/api/types/network"
 	"github.com/docker/docker/client"
 	"github.com/opencontainers/image-spec/specs-go/v1"
-	"github.com/wharf/wharf/pkg/errors"
+
+	"k8s.io/utils/ptr"
 )
 
-func List(ctx context.Context, client *client.Client, ch chan *types.Container, errCh chan *errors.Error) {
+func List(ctx context.Context, client *client.Client) ([]types.Container, error) {
 	containers, err := client.ContainerList(ctx, container.ListOptions{
 		All: true,
 	})
-	if err != nil {
-		errStruct := &errors.Error{
-			Name: "Container Listing",
-			Err:  fmt.Errorf("error while docker containers listing: %w", err),
-		}
-		errCh <- errStruct
-		close(errCh)
-		close(ch)
-		return
-	}
-	close(errCh)
-
-	for _, container := range containers {
-
-		ch <- &container
-	}
-	close(ch)
+	return containers, err
 }
 
-func Stop(ctx context.Context, client *client.Client, containerID string, errCh chan *errors.Error) {
-
+func Stop(ctx context.Context, client *client.Client, containerID string) error {
 	err := client.ContainerStop(ctx, containerID, container.StopOptions{})
-	if err != nil {
-
-		errStruct := &errors.Error{
-			Name: err.Error(),
-			Err:  fmt.Errorf("error while docker container stoping: %w", err),
-		}
-		errCh <- errStruct
-		close(errCh)
-		return
-	}
-	close(errCh)
+	return err
 }
 
 func Unpause(ctx context.Context, client *client.Client, containerID string) error {
@@ -137,4 +111,40 @@ func Rename(ctx context.Context, client *client.Client, containerID string, name
 func Create(ctx context.Context, client *client.Client, config *container.Config, hostConfig *container.HostConfig, containerName string) (container.CreateResponse, error) {
 	res, err := client.ContainerCreate(ctx, config, hostConfig, &network.NetworkingConfig{}, &v1.Platform{}, containerName)
 	return res, err
+}
+
+func UpdateLabels(ctx context.Context, client *client.Client, containerID string, labels map[string]string) (*container.CreateResponse, error) {
+	// Get the current container configuration
+	containerJSON, err := client.ContainerInspect(ctx, containerID)
+	if err != nil {
+		return nil, err
+	}
+
+	config := containerJSON.Config
+	hostConfig := containerJSON.HostConfig
+	networkingEndpoint := containerJSON.NetworkSettings.Networks
+
+	if reflect.DeepEqual(config.Labels, labels) {
+		return nil, err
+	}
+
+	config.Labels = labels
+
+	if err = client.ContainerStop(ctx, containerID, container.StopOptions{}); err != nil {
+		return nil, err
+	}
+
+	if err = client.ContainerRemove(ctx, containerID, container.RemoveOptions{Force: true}); err != nil {
+		return nil, err
+	}
+
+	res, err := client.ContainerCreate(ctx, config, hostConfig, &network.NetworkingConfig{
+		EndpointsConfig: networkingEndpoint,
+	}, &v1.Platform{}, containerJSON.Name)
+	if err != nil {
+		return nil, err
+	}
+
+	err = client.ContainerStart(ctx, res.ID, container.StartOptions{})
+	return ptr.To(res), err
 }

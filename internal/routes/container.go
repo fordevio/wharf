@@ -23,6 +23,7 @@ import (
 func ContainerRoutes(incommingRoutes *gin.RouterGroup, dockerClient *client.Client) {
 	incommingRoutes.GET("/container/getAll", controllers.GetContainers(dockerClient))
 	incommingRoutes.PUT("/container/stop/:id", controllers.StopContainer(dockerClient))
+	incommingRoutes.GET("/container/get/:id", controllers.GetContainer(dockerClient))
 	incommingRoutes.PUT("/container/start/:id", controllers.ContainerStart(dockerClient))
 	incommingRoutes.PUT("/container/pause/:id", controllers.ContainerPause(dockerClient))
 	incommingRoutes.PUT("/container/unpause/:id", controllers.UnpauseContainer(dockerClient))
@@ -32,4 +33,5 @@ func ContainerRoutes(incommingRoutes *gin.RouterGroup, dockerClient *client.Clie
 	incommingRoutes.GET("/container/logs/:id", controllers.ContainerLogs(dockerClient))
 	incommingRoutes.PUT("/container/rename/:id", controllers.ContainerRename(dockerClient))
 	incommingRoutes.POST("/container/create", controllers.ContainerCreate(dockerClient))
+	incommingRoutes.PUT("/container/updateLabels/:id", controllers.UpdateContainerLabels(dockerClient))
 }

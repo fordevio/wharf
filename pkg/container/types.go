@@ -44,3 +44,7 @@ type ContainerCreateRequest struct {
 	AutoRemove    *bool                    `json:"autoRemove"`
 	RestartPolicy *container.RestartPolicy `json:"restartPolicy"`
 }
+
+type ContainerLabelsUpdateRequest struct {
+	Labels map[string]string `json:"labels" validate:"required"`
+}
