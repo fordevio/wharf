@@ -48,7 +48,7 @@ export const getContainer = async (
     },
   });
   return res;
-}
+};
 
 export const stopContainer = async (
   token: string,
@@ -209,15 +209,19 @@ export const containerCreate = async (
 };
 
 export const containerLabelsUpdate = async (
-  token: string, 
+  token: string,
   id: string,
   labels: Record<string, string>
 ): Promise<AxiosResponse<LabelsUpdateResponse>> => {
   const url = URL + '/api/protected/container/updateLabels/' + id;
-  const res = await axios.put<LabelsUpdateResponse>(url, { labels }, {
-    headers: {
-      Token: token,
-    },
-  });
+  const res = await axios.put<LabelsUpdateResponse>(
+    url,
+    { labels },
+    {
+      headers: {
+        Token: token,
+      },
+    }
+  );
   return res;
-}
+};

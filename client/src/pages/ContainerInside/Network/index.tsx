@@ -16,7 +16,7 @@ import { useState } from 'react';
 import './index.css';
 import { DockerContainer } from '../../../models/container';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getAllContainers } from '../../../api/container';
+import { getAllContainers, getContainer } from '../../../api/container';
 import { useQuery } from 'react-query';
 import {
   connectContainerToNetwork,
@@ -34,21 +34,11 @@ const ContainerNetworks = () => {
   const { id } = useParams();
   const fetchContainer = async () => {
     try {
-      const containers = await getAllContainers(
-        localStorage.getItem('token') as string
+      const res = await getContainer(
+        localStorage.getItem('token') as string,
+        id as string
       );
-      let s = 0;
-      containers.data.forEach(cont => {
-        if (cont.Id === id) {
-          console.log(cont);
-          setContainer(cont);
-          s = 1;
-          return;
-        }
-      });
-      if (s === 0) {
-        navigate('/');
-      }
+      setContainer(res.data);
     } catch (e) {
       console.log(e);
       return navigate('/');
