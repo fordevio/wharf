@@ -23,7 +23,6 @@ import (
 
 	"time"
 
-	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
 	"github.com/docker/docker/errdefs"
@@ -32,30 +31,42 @@ import (
 	"github.com/go-playground/validator/v10"
 
 	dockerContainer "github.com/wharf/wharf/pkg/container"
-	"github.com/wharf/wharf/pkg/errors"
 	"github.com/wharf/wharf/pkg/models"
 )
 
 func GetContainers(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
-		ch := make(chan *types.Container)
-		errCh := make(chan *errors.Error)
-		containers := []*types.Container{}
-		defer cancel()
-		go dockerContainer.List(ctx, dockerClient, ch, errCh)
-		for err := range errCh {
-			log.Println(err)
-			c.JSON(http.StatusForbidden, gin.H{"error": err.Err})
-			return
-		}
 
-		for cont := range ch {
-			containers = append(containers, cont)
+		defer cancel()
+		containers, err := dockerContainer.List(ctx, dockerClient)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
 		}
 		c.JSON(200, containers)
 	}
 }
+
+// func GetContainer(dockerClient *client.Client) gin.HandlerFunc {
+// 	return func(c *gin.Context) {
+// 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+// 		defer cancel()
+// 		id := c.Param("id")
+
+// 		body, err := dockerContainer.Get(ctx, dockerClient, id)
+// 		if err != nil {
+// 			if errdefs.IsNotFound(err) {
+// 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+// 				return
+// 			}
+// 			log.Println(err)
+// 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+// 			return
+// 		}
+// 		c.JSON(http.StatusOK, body)
+// 	}
+// }
 
 func StopContainer(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -69,15 +80,16 @@ func StopContainer(dockerClient *client.Client) gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
 			return
 		}
-		errCh := make(chan *errors.Error)
 
-		go dockerContainer.Stop(ctx, dockerClient, id, errCh)
-		for err := range errCh {
-			if err != nil {
-				log.Println(err)
-				c.JSON(http.StatusBadRequest, gin.H{"error": err.Name})
+		err := dockerContainer.Stop(ctx, dockerClient, id)
+		if err != nil {
+			if errdefs.IsNotFound(err) {
+				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 				return
 			}
+			log.Println(err)
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
 		}
 		c.JSON(200, gin.H{"message": id + " container stopped"})
 	}
