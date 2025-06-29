@@ -1,15 +1,10 @@
 import { useParams } from 'react-router-dom';
-import './index.css'
+import './index.css';
 
 const ContainerUpdate = () => {
-    const {id} = useParams();
-    
+  const { id } = useParams();
 
-  return (
-    <>
-    
-    </>
-  )
-}
+  return <></>;
+};
 
-export default ContainerUpdate
+export default ContainerUpdate;
