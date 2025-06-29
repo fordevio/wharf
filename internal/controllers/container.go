@@ -41,32 +41,35 @@ func GetContainers(dockerClient *client.Client) gin.HandlerFunc {
 		defer cancel()
 		containers, err := dockerContainer.List(ctx, dockerClient)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			log.Println(err)
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
 		}
 		c.JSON(200, containers)
 	}
 }
 
-// func GetContainer(dockerClient *client.Client) gin.HandlerFunc {
-// 	return func(c *gin.Context) {
-// 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
-// 		defer cancel()
-// 		id := c.Param("id")
+func GetContainer(dockerClient *client.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		id := c.Param("id")
 
-// 		body, err := dockerContainer.Get(ctx, dockerClient, id)
-// 		if err != nil {
-// 			if errdefs.IsNotFound(err) {
-// 				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-// 				return
-// 			}
-// 			log.Println(err)
-// 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
-// 			return
-// 		}
-// 		c.JSON(http.StatusOK, body)
-// 	}
-// }
+		containers, err := dockerContainer.List(ctx, dockerClient)
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
+		}
+		for _, container := range containers {
+			if container.ID == id {
+				c.JSON(http.StatusOK, container)
+				return
+			}
+		}
+		c.JSON(http.StatusNotFound, gin.H{"error": "Container not found"})
+	}
+}
 
 func StopContainer(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
