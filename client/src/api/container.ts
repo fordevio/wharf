@@ -19,6 +19,7 @@ import {
   ContainersPruneReport,
   CreateResponse,
   DockerContainer,
+  LabelsUpdateResponse,
 } from '../models/container';
 import { MessageRes } from '../models/common';
 
@@ -193,3 +194,17 @@ export const containerCreate = async (
   });
   return res;
 };
+
+export const containerLabelsUpdate = async (
+  token: string, 
+  id: string,
+  labels: Record<string, string>
+): Promise<AxiosResponse<LabelsUpdateResponse>> => {
+  const url = URL + '/api/protected/container/updateLabels/' + id;
+  const res = await axios.put<LabelsUpdateResponse>(url, { labels }, {
+    headers: {
+      Token: token,
+    },
+  });
+  return res;
+}
