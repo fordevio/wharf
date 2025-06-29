@@ -18,6 +18,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"reflect"
 	"time"
 
 	"github.com/docker/docker/api/types"
@@ -27,6 +28,7 @@ import (
 	"github.com/docker/docker/client"
 	"github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/wharf/wharf/pkg/errors"
+	"k8s.io/utils/ptr"
 )
 
 func List(ctx context.Context, client *client.Client, ch chan *types.Container, errCh chan *errors.Error) {
@@ -139,34 +141,38 @@ func Create(ctx context.Context, client *client.Client, config *container.Config
 	return res, err
 }
 
-func EditLabels(ctx context.Context, client *client.Client, containerID string, labels map[string]string) error {
+func UpdateLabels(ctx context.Context, client *client.Client, containerID string, labels map[string]string) (*container.CreateResponse, error) {
 	// Get the current container configuration
 	containerJSON, err := client.ContainerInspect(ctx, containerID)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	config := containerJSON.Config
 	hostConfig := containerJSON.HostConfig
 	networkingEndpoint := containerJSON.NetworkSettings.Networks
 
+	if reflect.DeepEqual(config.Labels, labels) {
+		return nil, err
+	}
+
 	config.Labels = labels
 
 	if err = client.ContainerStop(ctx, containerID, container.StopOptions{}); err != nil {
-		return err
+		return nil, err
 	}
 
 	if err = client.ContainerRemove(ctx, containerID, container.RemoveOptions{Force: true}); err != nil {
-		return err
+		return nil, err
 	}
 
-	_, err = client.ContainerCreate(ctx, config, hostConfig, &network.NetworkingConfig{
+	res, err := client.ContainerCreate(ctx, config, hostConfig, &network.NetworkingConfig{
 		EndpointsConfig: networkingEndpoint,
 	}, &v1.Platform{}, containerJSON.Name)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	err = client.ContainerStart(ctx, containerID, container.StartOptions{})
-	return err
+	return ptr.To(res), err
 }
