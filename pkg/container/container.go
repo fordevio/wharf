@@ -173,6 +173,6 @@ func UpdateLabels(ctx context.Context, client *client.Client, containerID string
 		return nil, err
 	}
 
-	err = client.ContainerStart(ctx, containerID, container.StartOptions{})
+	err = client.ContainerStart(ctx, res.ID, container.StartOptions{})
 	return ptr.To(res), err
 }
