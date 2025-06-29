@@ -39,6 +39,7 @@ import ImageDetail from './pages/ImageDetail';
 import VolumeDetail from './pages/VolumeDetail';
 import NetworkDetail from './pages/NetworkDetail';
 import NetworkCreate from './pages/NetworkCreate';
+import ContainerUpdate from './pages/ContainerUpdate';
 
 function App() {
   const location = useLocation();
@@ -91,6 +92,7 @@ function App() {
           <Route path="logs" element={<ContainerLogs />} />
         </Route>
         <Route path="/container/create" element={<ContainerCreate />} />
+         <Route path="/container/update/:id" element={<ContainerUpdate />} />
         <Route path="/volume/create" element={<VolumeCreate />} />
         <Route path="/network/create" element={<NetworkCreate />} />
         <Route path="/image/:id" element={<ImageDetail />} />
