@@ -18,6 +18,7 @@ import { DockerContainer } from '../../../models/container';
 import { useState } from 'react';
 import {
   getAllContainers,
+  getContainer,
   removeContainer,
   renameContainer,
 } from '../../../api/container';
@@ -37,20 +38,11 @@ const ContainerDetail = () => {
 
   const fetchContainer = async () => {
     try {
-      const containers = await getAllContainers(
-        localStorage.getItem('token') as string
+      const res = await getContainer(
+        localStorage.getItem('token') as string,
+        id as string
       );
-      let s = 0;
-      containers.data.forEach(cont => {
-        if (cont.Id === id) {
-          setContainer(cont);
-          s = 1;
-          return;
-        }
-      });
-      if (s === 0) {
-        navigate('/');
-      }
+      setContainer(res.data);
     } catch (e) {
       console.log(e);
       return navigate('/');
