@@ -138,3 +138,35 @@ func Create(ctx context.Context, client *client.Client, config *container.Config
 	res, err := client.ContainerCreate(ctx, config, hostConfig, &network.NetworkingConfig{}, &v1.Platform{}, containerName)
 	return res, err
 }
+
+func EditLabels(ctx context.Context, client *client.Client, containerID string, labels map[string]string) error {
+	// Get the current container configuration
+	containerJSON, err := client.ContainerInspect(ctx, containerID)
+	if err != nil {
+		return err
+	}
+
+	config := containerJSON.Config
+	hostConfig := containerJSON.HostConfig
+	networkingEndpoint := containerJSON.NetworkSettings.Networks
+
+	config.Labels = labels
+
+	if err = client.ContainerStop(ctx, containerID, container.StopOptions{}); err != nil {
+		return err
+	}
+
+	if err = client.ContainerRemove(ctx, containerID, container.RemoveOptions{Force: true}); err != nil {
+		return err
+	}
+
+	_, err = client.ContainerCreate(ctx, config, hostConfig, &network.NetworkingConfig{
+		EndpointsConfig: networkingEndpoint,
+	}, &v1.Platform{}, containerJSON.Name)
+	if err != nil {
+		return err
+	}
+
+	err = client.ContainerStart(ctx, containerID, container.StartOptions{})
+	return err
+}
