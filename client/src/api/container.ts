@@ -37,6 +37,19 @@ export const getAllContainers = async (
   return res;
 };
 
+export const getContainer = async (
+  token: string,
+  id: string
+): Promise<AxiosResponse<DockerContainer>> => {
+  const url = URL + '/api/protected/container/get/' + id;
+  const res = await axios.get<DockerContainer>(url, {
+    headers: {
+      Token: token,
+    },
+  });
+  return res;
+}
+
 export const stopContainer = async (
   token: string,
   id: string
