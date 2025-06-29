@@ -16,7 +16,6 @@ package dockercontainer
 
 import (
 	"context"
-	"fmt"
 	"io"
 	"reflect"
 	"time"
@@ -27,47 +26,20 @@ import (
 	"github.com/docker/docker/api/types/network"
 	"github.com/docker/docker/client"
 	"github.com/opencontainers/image-spec/specs-go/v1"
-	"github.com/wharf/wharf/pkg/errors"
+
 	"k8s.io/utils/ptr"
 )
 
-func List(ctx context.Context, client *client.Client, ch chan *types.Container, errCh chan *errors.Error) {
+func List(ctx context.Context, client *client.Client) ([]types.Container, error) {
 	containers, err := client.ContainerList(ctx, container.ListOptions{
 		All: true,
 	})
-	if err != nil {
-		errStruct := &errors.Error{
-			Name: "Container Listing",
-			Err:  fmt.Errorf("error while docker containers listing: %w", err),
-		}
-		errCh <- errStruct
-		close(errCh)
-		close(ch)
-		return
-	}
-	close(errCh)
-
-	for _, container := range containers {
-
-		ch <- &container
-	}
-	close(ch)
+	return containers, err
 }
 
-func Stop(ctx context.Context, client *client.Client, containerID string, errCh chan *errors.Error) {
-
+func Stop(ctx context.Context, client *client.Client, containerID string) error {
 	err := client.ContainerStop(ctx, containerID, container.StopOptions{})
-	if err != nil {
-
-		errStruct := &errors.Error{
-			Name: err.Error(),
-			Err:  fmt.Errorf("error while docker container stoping: %w", err),
-		}
-		errCh <- errStruct
-		close(errCh)
-		return
-	}
-	close(errCh)
+	return err
 }
 
 func Unpause(ctx context.Context, client *client.Client, containerID string) error {
