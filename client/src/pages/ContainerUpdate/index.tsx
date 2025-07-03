@@ -16,7 +16,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './index.css';
 import { useState } from 'react';
 import { DockerContainer } from '../../models/container';
-import { getContainer } from '../../api/container';
+import {  getContainer, renameContainer, containerLabelsUpdate } from '../../api/container';
 import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
 
@@ -68,6 +68,33 @@ const ContainerUpdate = () => {
     }
   };
 
+  const update= async()=>{
+    if(!container){
+      return
+    }
+    try{
+       
+        if(name.trim()!=""&&name!=container?.Names[0]){
+          await renameContainer(localStorage.getItem("token") as string, container?.Id, name.trim())
+        }
+        if(labels != Object.fromEntries(container.Labels.entries())){
+          const res = await containerLabelsUpdate(localStorage.getItem("token") as string, container?.Id, labels)
+          navigate('/containers/' + res.data.Id);
+        }
+        
+    }catch(e:any){
+      throw e.response ? e.response.data : { error: 'Request failed' };
+    }
+  }
+
+  const handleSubmit = async () => {
+    toast.promise(update(), {
+      loading: 'Updating container...',
+      success: 'Container updated successfully',
+      error: data => `Error updating container: ${data.error}`,
+    });
+  };
+
   const fetchContainer = async () => {
     if (id === undefined || id === null) {
       return;
@@ -116,7 +143,6 @@ const ContainerUpdate = () => {
           </div>
           <div>
             <h3>Labels</h3>
-
             <div>
               <input
                 type="text"
@@ -150,7 +176,7 @@ const ContainerUpdate = () => {
               ))}
             </div>
           </div>
-          <button type="button">Submit</button>
+          <button type="button" onClick={handleSubmit}>Submit</button>
         </div>
       </div>
     </>
