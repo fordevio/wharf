@@ -140,52 +140,63 @@ const ContainerUpdate = () => {
             <i className="fa-solid fa-arrow-left"></i> Back
           </button>
         </div>
-        <div>
-          <div>
-            <input
-              type="text"
-              placeholder="Container Name"
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
-          </div>
-          <div>
-            <h3>Labels</h3>
-            <div>
-              <input
-                type="text"
-                value={labelKey}
-                onChange={e => setLabelKey(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Label key (environment)"
-              />
-              <input
-                type="text"
-                value={labelValue}
-                onChange={e => setLabelValue(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Label value (production)"
-              />
-              <button type="button" onClick={addLabel}>
-                Add
+       <div>
+            <div className="container-form">
+      <div className="form-group">
+         <h3>Name</h3>
+        <input
+          type="text"
+          className="form-input"
+          placeholder="Container Name"
+          value={name}
+          onChange={e => setName(e.target.value)}
+        />
+      </div>
+      
+      <div className="form-group">
+        <h3>Labels</h3>
+        <div className="label-inputs">
+          <input
+            type="text"
+            className="form-input"
+            value={labelKey}
+            onChange={e => setLabelKey(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="Label key (environment)"
+          />
+          <input
+            type="text"
+            className="form-input"
+            value={labelValue}
+            onChange={e => setLabelValue(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="Label value (production)"
+          />
+          <button type="button" className="add-btn" onClick={addLabel}>
+            Add
+          </button>
+        </div>
+        
+        <div className="labels-list">
+          {Object.entries(labels).map(([key, value]) => (
+            <div key={key} className="label-item">
+              <span>
+                {key}: {value}
+              </span>
+              <button type="button" className="remove-btn" onClick={() => removeLabel(key)}>
+                Remove
               </button>
             </div>
-
-            <div>
-              {Object.entries(labels).map(([key, value]) => (
-                <div key={key}>
-                  <span>
-                    {key}: {value}
-                  </span>
-                  <button type="button" onClick={() => removeLabel(key)}>
-                    Remove
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-          <button type="button" onClick={handleSubmit}>Save</button>
+          ))}
         </div>
+      </div>
+      
+      <button type="button" className="save-btn" onClick={handleSubmit}>
+        Save
+      </button>
+    </div>
+
+       </div>
       </div>
     </>
   );
