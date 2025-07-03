@@ -16,17 +16,19 @@ import { useState } from 'react';
 import './index.css';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { createVolume } from '../../api/volume';
+import { createNetwork } from '../../api/network';
 
-const VolumeCreate = () => {
+const NetworkCreate = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');
+  const [driver, setDriver] = useState('bridge');
 
   const create = async () => {
     try {
-      const res = await createVolume(
+      const res = await createNetwork(
         localStorage.getItem('token') as string,
-        name
+        name,
+        driver
       );
       return res.data;
     } catch (e: any) {
@@ -35,20 +37,28 @@ const VolumeCreate = () => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
+    if (
+      driver.toLowerCase() !== 'bridge' &&
+      driver.toLowerCase() !== 'host' &&
+      driver.toLowerCase() !== 'none'
+    ) {
+      toast.error('Invalid driver specified. Use "bridge", "host", or "none".');
+      return;
+    }
     e.preventDefault();
     toast.promise(create(), {
-      loading: 'Creating volume...',
+      loading: 'Creating network...',
       success: data => {
-        navigate(`/volume/${data.Name}`);
-        return `Volume created successfully!`;
+        navigate(`/network/${data.Id}`);
+        return `Network created successfully!`;
       },
-      error: data => `Error creating volume: ${data.error}`,
+      error: data => `Error creating network: ${data.error}`,
     });
   };
 
   return (
     <>
-      <div className="volume-create-container">
+      <div className="network-create-container">
         <div className="back-button-container">
           <button
             className="btn back-button"
@@ -57,29 +67,44 @@ const VolumeCreate = () => {
             <i className="fa-solid fa-arrow-left"></i> Back
           </button>
         </div>
-        <div className="volume-create-wrapper">
-          <form className="volume-create-form" onSubmit={handleSubmit}>
-            <h2 className="form-title">Create Volume</h2>
+        <div className="network-create-wrapper">
+          <form className="network-create-form" onSubmit={handleSubmit}>
+            <h2 className="form-title">Create network</h2>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="volume-name">
-                Volume Name*
+              <label className="form-label" htmlFor="network-name">
+                network Name*
               </label>
               <input
-                id="volume-name"
+                id="network-name"
                 className="form-input"
                 type="text"
                 name="name"
                 value={name}
                 onChange={e => setName(e.target.value)}
-                placeholder="Enter volume name"
+                placeholder="Enter network name"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor="network-name">
+                Driver*
+              </label>
+              <input
+                id="network-name"
+                className="form-input"
+                type="text"
+                name="name"
+                value={driver}
+                onChange={e => setDriver(e.target.value)}
+                placeholder="bridge | host | none"
                 required
               />
             </div>
             <div className="form-actions">
               <button className="submit-button" type="submit">
-                <span className="submit-icon">📁</span>
-                Create Volume
+                <span className="submit-icon">🌐</span>
+                Create network
               </button>
             </div>
           </form>
@@ -89,4 +114,4 @@ const VolumeCreate = () => {
   );
 };
 
-export default VolumeCreate;
+export default NetworkCreate;

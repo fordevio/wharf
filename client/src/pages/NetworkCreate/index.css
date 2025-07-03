@@ -1,10 +1,10 @@
-/* Volume Create Form Styles - Blue Theme */
+/* network Create Form Styles - Blue Theme */
 
 * {
   box-sizing: border-box;
 }
 
-.volume-create-container {
+.network-create-container {
   min-height: 100vh;
   padding: 20px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -14,7 +14,7 @@
   justify-content: center;
 }
 
-.volume-create-wrapper {
+.network-create-wrapper {
   width: 100%;
   max-width: 700px;
   background: rgba(255, 255, 255, 0.95);
@@ -28,7 +28,7 @@
   overflow: hidden;
 }
 
-.volume-create-form {
+.network-create-form {
   padding: 40px;
 }
 
@@ -413,13 +413,13 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .volume-create-container {
+  .network-create-container {
     padding: 16px;
     align-items: flex-start;
     padding-top: 40px;
   }
 
-  .volume-create-form {
+  .network-create-form {
     padding: 32px 24px;
   }
 
@@ -444,7 +444,7 @@
 }
 
 @media (max-width: 480px) {
-  .volume-create-form {
+  .network-create-form {
     padding: 24px 20px;
   }
 
@@ -473,7 +473,7 @@
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .volume-create-wrapper {
+  .network-create-wrapper {
     border: 2px solid #1976d2;
   }
 

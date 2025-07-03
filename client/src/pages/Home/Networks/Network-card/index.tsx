@@ -39,9 +39,9 @@ const NetworkCard: React.FC<Props> = ({ network, networks, setNetworks }) => {
   };
   const deleteHandler = async () => {
     toast.promise(delNet(), {
-      loading: 'Deleting volume...',
+      loading: 'Deleting network...',
       success: data => {
-        return `Volume deleted successfully!`;
+        return `network deleted successfully!`;
       },
       error: err => {
         return err.error;

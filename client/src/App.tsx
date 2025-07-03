@@ -38,6 +38,7 @@ import VolumeCreate from './pages/VolumeCreate';
 import ImageDetail from './pages/ImageDetail';
 import VolumeDetail from './pages/VolumeDetail';
 import NetworkDetail from './pages/NetworkDetail';
+import NetworkCreate from './pages/NetworkCreate';
 
 function App() {
   const location = useLocation();
@@ -91,6 +92,7 @@ function App() {
         </Route>
         <Route path="/container/create" element={<ContainerCreate />} />
         <Route path="/volume/create" element={<VolumeCreate />} />
+        <Route path="/network/create" element={<NetworkCreate />} />
         <Route path="/image/:id" element={<ImageDetail />} />
         <Route path="/volume/:id" element={<VolumeDetail />} />
         <Route path="/network/:id" element={<NetworkDetail />} />
