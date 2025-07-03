@@ -122,7 +122,6 @@ const ContainerCreate = () => {
     }
   };
   const handleSubmit = async () => {
-    console.log('Container configuration:', formData);
     toast.promise(create(), {
       loading: 'Creating container...',
       success: data => {
