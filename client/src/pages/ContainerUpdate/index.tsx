@@ -16,7 +16,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './index.css';
 import { useState } from 'react';
 import { DockerContainer } from '../../models/container';
-import {  getContainer, renameContainer, containerLabelsUpdate } from '../../api/container';
+import {
+  getContainer,
+  renameContainer,
+  containerLabelsUpdate,
+} from '../../api/container';
 import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
 
@@ -68,32 +72,46 @@ const ContainerUpdate = () => {
     }
   };
 
-  const update= async()=>{
-    if(!container){
-      return
-    }
-    try{
-        if(name.trim()!==""&&name!==container?.Names[0].replace(/^\//, '')){
-          await renameContainer(localStorage.getItem("token") as string, container?.Id, name.trim())
-        }
-        if(JSON.stringify(labels) !== JSON.stringify(container.Labels)){
-          const res = await containerLabelsUpdate(localStorage.getItem("token") as string, container?.Id, labels)
-          navigate('/container/' + res.data.Id);
-          return;
-        }
-        navigate("/container/"+id)
-    }catch(e:any){
-      throw e.response ? e.response.data : { error: 'Request failed' };
-    }
-  }
-
-  const handleSubmit = async () => {
-    if(name.trim()===""){
-      toast.error("Container name cannot be empty.");
+  const update = async () => {
+    if (!container) {
       return;
     }
-    if (name===container?.Names[0].replace(/^\//, '') && JSON.stringify(labels) === JSON.stringify(container?.Labels)){
-      toast.error("No changes made.");
+    try {
+      if (
+        name.trim() !== '' &&
+        name !== container?.Names[0].replace(/^\//, '')
+      ) {
+        await renameContainer(
+          localStorage.getItem('token') as string,
+          container?.Id,
+          name.trim()
+        );
+      }
+      if (JSON.stringify(labels) !== JSON.stringify(container.Labels)) {
+        const res = await containerLabelsUpdate(
+          localStorage.getItem('token') as string,
+          container?.Id,
+          labels
+        );
+        navigate('/container/' + res.data.Id);
+        return;
+      }
+      navigate('/container/' + id);
+    } catch (e: any) {
+      throw e.response ? e.response.data : { error: 'Request failed' };
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (name.trim() === '') {
+      toast.error('Container name cannot be empty.');
+      return;
+    }
+    if (
+      name === container?.Names[0].replace(/^\//, '') &&
+      JSON.stringify(labels) === JSON.stringify(container?.Labels)
+    ) {
+      toast.error('No changes made.');
       return;
     }
     toast.promise(update(), {
@@ -140,63 +158,66 @@ const ContainerUpdate = () => {
             <i className="fa-solid fa-arrow-left"></i> Back
           </button>
         </div>
-       <div>
-            <div className="container-form">
-      <div className="form-group">
-         <h3>Name</h3>
-        <input
-          type="text"
-          className="form-input"
-          placeholder="Container Name"
-          value={name}
-          onChange={e => setName(e.target.value)}
-        />
-      </div>
-      
-      <div className="form-group">
-        <h3>Labels</h3>
-        <div className="label-inputs">
-          <input
-            type="text"
-            className="form-input"
-            value={labelKey}
-            onChange={e => setLabelKey(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Label key (environment)"
-          />
-          <input
-            type="text"
-            className="form-input"
-            value={labelValue}
-            onChange={e => setLabelValue(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Label value (production)"
-          />
-          <button type="button" className="add-btn" onClick={addLabel}>
-            Add
-          </button>
-        </div>
-        
-        <div className="labels-list">
-          {Object.entries(labels).map(([key, value]) => (
-            <div key={key} className="label-item">
-              <span>
-                {key}: {value}
-              </span>
-              <button type="button" className="remove-btn" onClick={() => removeLabel(key)}>
-                Remove
-              </button>
+        <div>
+          <div className="container-form">
+            <div className="form-group">
+              <h3>Name</h3>
+              <input
+                type="text"
+                className="form-input"
+                placeholder="Container Name"
+                value={name}
+                onChange={e => setName(e.target.value)}
+              />
             </div>
-          ))}
-        </div>
-      </div>
-      
-      <button type="button" className="save-btn" onClick={handleSubmit}>
-        Save
-      </button>
-    </div>
 
-       </div>
+            <div className="form-group">
+              <h3>Labels</h3>
+              <div className="label-inputs">
+                <input
+                  type="text"
+                  className="form-input"
+                  value={labelKey}
+                  onChange={e => setLabelKey(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Label key (environment)"
+                />
+                <input
+                  type="text"
+                  className="form-input"
+                  value={labelValue}
+                  onChange={e => setLabelValue(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Label value (production)"
+                />
+                <button type="button" className="add-btn" onClick={addLabel}>
+                  Add
+                </button>
+              </div>
+
+              <div className="labels-list">
+                {Object.entries(labels).map(([key, value]) => (
+                  <div key={key} className="label-item">
+                    <span>
+                      {key}: {value}
+                    </span>
+                    <button
+                      type="button"
+                      className="remove-btn"
+                      onClick={() => removeLabel(key)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <button type="button" className="save-btn" onClick={handleSubmit}>
+              Save
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );
