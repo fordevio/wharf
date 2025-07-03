@@ -79,6 +79,7 @@ const ContainerUpdate = () => {
         if(JSON.stringify(labels) !== JSON.stringify(container.Labels)){
           const res = await containerLabelsUpdate(localStorage.getItem("token") as string, container?.Id, labels)
           navigate('/container/' + res.data.Id);
+          return;
         }
         navigate("/container/"+id)
     }catch(e:any){
@@ -183,7 +184,7 @@ const ContainerUpdate = () => {
               ))}
             </div>
           </div>
-          <button type="button" onClick={handleSubmit}>Submit</button>
+          <button type="button" onClick={handleSubmit}>Save</button>
         </div>
       </div>
     </>
