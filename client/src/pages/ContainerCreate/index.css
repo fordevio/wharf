@@ -6,21 +6,12 @@
   gap: 1rem;
 }
 
-.back-button-container {
-  padding: 10px 10px;
-}
-
 /* Container outer layout */
 .container-create {
   /* background-color: #e6f2ff;  */
   min-height: 100vh;
   padding: 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Back button container */
-.back-button-container {
-  margin-bottom: 1rem;
 }
 
 .back-button {
@@ -64,10 +55,8 @@ body {
 }
 
 .back-button-container {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 10;
+  /* position: absolute; */
+  margin: 10px 10px;
 }
 
 .btn {

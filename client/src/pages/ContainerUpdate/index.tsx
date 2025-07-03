@@ -73,15 +73,14 @@ const ContainerUpdate = () => {
       return
     }
     try{
-       
-        if(name.trim()!=""&&name!=container?.Names[0]){
+        if(name.trim()!==""&&name!==container?.Names[0].replace(/^\//, '')){
           await renameContainer(localStorage.getItem("token") as string, container?.Id, name.trim())
         }
-        if(labels != Object.fromEntries(container.Labels.entries())){
+        if(labels !== Object.fromEntries(Object.entries(container.Labels))){
           const res = await containerLabelsUpdate(localStorage.getItem("token") as string, container?.Id, labels)
-          navigate('/containers/' + res.data.Id);
+          navigate('/container/' + res.data.Id);
         }
-        
+        navigate("/container/"+id)
     }catch(e:any){
       throw e.response ? e.response.data : { error: 'Request failed' };
     }
@@ -105,11 +104,11 @@ const ContainerUpdate = () => {
         id as string
       );
       setContainer(res.data);
-      setLabels(Object.fromEntries(res.data.Labels.entries()));
-      setName(res.data.Names[0]);
+      setLabels(Object.fromEntries(Object.entries(res.data.Labels)));
+      setName(res.data.Names[0].replace(/^\//, ''));
     } catch (e) {
       console.log(e);
-      return navigate('/containers');
+      return navigate('/container/' + id);
     }
   };
 
