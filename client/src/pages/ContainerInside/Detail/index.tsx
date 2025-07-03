@@ -17,10 +17,8 @@ import './index.css';
 import { DockerContainer } from '../../../models/container';
 import { useState } from 'react';
 import {
-  getAllContainers,
   getContainer,
   removeContainer,
-  renameContainer,
 } from '../../../api/container';
 import { useQuery } from 'react-query';
 import { convertToIndianDateTime } from '../../../utils/util';
@@ -30,9 +28,7 @@ const ContainerDetail = () => {
   const [container, setContainer] = useState<DockerContainer | null>(null);
   const navigate = useNavigate();
   const { id } = useParams();
-  const [openRn, setOpenRn] = useState(false);
   const [openDl, setOpenDl] = useState(false);
-  const [newName, setNewName] = useState('');
   const [force, setForce] = useState(true);
   const [volumesRemoved, setVolumesRemoved] = useState(true);
 
@@ -56,36 +52,6 @@ const ContainerDetail = () => {
   if (id === undefined) {
     return <></>;
   }
-  const edit_func = async () => {
-    try {
-      const res = await renameContainer(
-        localStorage.getItem('token') as string,
-        id,
-        newName
-      );
-      setNewName('');
-      setOpenRn(false);
-      setContainer({ ...container!, Names: [newName] });
-      return res.data;
-    } catch (e: any) {
-      throw e.response ? e.response.data : { error: 'Request failed' };
-    }
-  };
-  const EditNameHandler = async () => {
-    if (newName === '') {
-      toast.error('Please fill all fields');
-      return;
-    }
-    if (newName === container?.Names[0].replace(/^\//, '')) {
-      toast.error('Name is same as previous');
-      return;
-    }
-    toast.promise(edit_func(), {
-      loading: 'Editing name...',
-      success: data => `${data.message.replace(id, '').trim()}`,
-      error: data => `${data.error}`,
-    });
-  };
 
   const delete_func = async () => {
     try {
@@ -172,37 +138,9 @@ const ContainerDetail = () => {
           <button className="btn del-btn" onClick={() => setOpenDl(true)}>
             Delete
           </button>
-          <button className="btn" onClick={() => setOpenRn(true)}>
-            Edit Name
+          <button className="btn" onClick={() => navigate("/container/update/" + id)}>
+            Edit
           </button>
-        </div>
-      </div>
-      <div
-        className="popup-overlay"
-        id="popupOverlay"
-        style={openRn ? { display: 'block' } : { display: 'none' }}
-      >
-        <div className="popup" id="popup">
-          <span
-            className="close"
-            id="closePopup"
-            onClick={() => setOpenRn(false)}
-          >
-            &times;
-          </span>
-
-          <div className="popup-content">
-            <input
-              type="text"
-              placeholder="New name"
-              value={newName}
-              onChange={e => setNewName(e.target.value)}
-            />
-
-            <button className="submit" onClick={EditNameHandler}>
-              Submit
-            </button>
-          </div>
         </div>
       </div>
       <div
