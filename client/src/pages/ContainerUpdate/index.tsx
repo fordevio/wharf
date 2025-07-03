@@ -18,6 +18,7 @@ import { useState } from 'react';
 import { DockerContainer } from '../../models/container';
 import { getContainer } from '../../api/container';
 import { useQuery } from 'react-query';
+import toast from 'react-hot-toast';
 
 const ContainerUpdate = () => {
   const { id } = useParams();
@@ -26,12 +27,51 @@ const ContainerUpdate = () => {
   const [container, setContainer] = useState<DockerContainer | null>(null);
   const [name, setName] = useState<string>('');
   const [labels, setLabels] = useState<Record<string, string>>({});
+  const [labelKey, setLabelKey] = useState<string>('');
+  const [labelValue, setLabelValue] = useState<string>('');
 
+  const addLabel = () => {
+    if (!labelKey.trim()) {
+      toast.error('Label key is required');
+      return;
+    }
+
+    if (!labelValue.trim()) {
+      toast.error('Label value is required');
+      return;
+    }
+
+    if (labels.hasOwnProperty(labelKey)) {
+      toast.error('Label key already exists');
+      return;
+    }
+
+    setLabels(prev => ({
+      ...prev,
+      [labelKey.trim()]: labelValue.trim(),
+    }));
+
+    setLabelKey('');
+    setLabelValue('');
+  };
+
+  const removeLabel = (keyToRemove: string) => {
+    setLabels(prev => {
+      const { [keyToRemove]: removed, ...rest } = prev;
+      return rest;
+    });
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      addLabel();
+    }
+  };
 
   const fetchContainer = async () => {
     if (id === undefined || id === null) {
-    return ;
-  }
+      return;
+    }
     try {
       const res = await getContainer(
         localStorage.getItem('token') as string,
@@ -64,6 +104,53 @@ const ContainerUpdate = () => {
           >
             <i className="fa-solid fa-arrow-left"></i> Back
           </button>
+        </div>
+        <div>
+          <div>
+            <input
+              type="text"
+              placeholder="Container Name"
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
+          </div>
+          <div>
+            <h3>Labels</h3>
+
+            <div>
+              <input
+                type="text"
+                value={labelKey}
+                onChange={e => setLabelKey(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Label key (environment)"
+              />
+              <input
+                type="text"
+                value={labelValue}
+                onChange={e => setLabelValue(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Label value (production)"
+              />
+              <button type="button" onClick={addLabel}>
+                Add
+              </button>
+            </div>
+
+            <div>
+              {Object.entries(labels).map(([key, value]) => (
+                <div key={key}>
+                  <span>
+                    {key}: {value}
+                  </span>
+                  <button type="button" onClick={() => removeLabel(key)}>
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+          <button type="button">Submit</button>
         </div>
       </div>
     </>
