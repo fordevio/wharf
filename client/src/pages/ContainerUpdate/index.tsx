@@ -76,7 +76,7 @@ const ContainerUpdate = () => {
         if(name.trim()!==""&&name!==container?.Names[0].replace(/^\//, '')){
           await renameContainer(localStorage.getItem("token") as string, container?.Id, name.trim())
         }
-        if(labels !== Object.fromEntries(Object.entries(container.Labels))){
+        if(JSON.stringify(labels) !== JSON.stringify(container.Labels)){
           const res = await containerLabelsUpdate(localStorage.getItem("token") as string, container?.Id, labels)
           navigate('/container/' + res.data.Id);
         }
@@ -87,6 +87,14 @@ const ContainerUpdate = () => {
   }
 
   const handleSubmit = async () => {
+    if(name.trim()===""){
+      toast.error("Container name cannot be empty.");
+      return;
+    }
+    if (name===container?.Names[0].replace(/^\//, '') && JSON.stringify(labels) === JSON.stringify(container?.Labels)){
+      toast.error("No changes made.");
+      return;
+    }
     toast.promise(update(), {
       loading: 'Updating container...',
       success: 'Container updated successfully',
