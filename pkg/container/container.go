@@ -16,6 +16,7 @@ package dockercontainer
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"reflect"
 	"time"
@@ -125,7 +126,7 @@ func UpdateLabels(ctx context.Context, client *client.Client, containerID string
 	networkingEndpoint := containerJSON.NetworkSettings.Networks
 
 	if reflect.DeepEqual(config.Labels, labels) {
-		return nil, err
+		return nil, fmt.Errorf("no new labels provided")
 	}
 
 	config.Labels = labels
