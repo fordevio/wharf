@@ -16,10 +16,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './index.css';
 import { DockerContainer } from '../../../models/container';
 import { useState } from 'react';
-import {
-  getContainer,
-  removeContainer,
-} from '../../../api/container';
+import { getContainer, removeContainer } from '../../../api/container';
 import { useQuery } from 'react-query';
 import { convertToIndianDateTime } from '../../../utils/util';
 import toast from 'react-hot-toast';
@@ -138,7 +135,10 @@ const ContainerDetail = () => {
           <button className="btn del-btn" onClick={() => setOpenDl(true)}>
             Delete
           </button>
-          <button className="btn" onClick={() => navigate("/container/update/" + id)}>
+          <button
+            className="btn"
+            onClick={() => navigate('/container/update/' + id)}
+          >
             Edit
           </button>
         </div>
