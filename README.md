@@ -1,4 +1,6 @@
-![Wharf](./assets/wharf.png)
+<!-- ![Wharf](./assets/wharf.png) -->
+<img src="./assets/wharf.png" alt="logo" width="300" height="300"/>
+
 # wharf 
 
 ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white) ![Github-sponsors](https://img.shields.io/badge/sponsor-30363D?style=for-the-badge&logo=GitHub-Sponsors&logoColor=#EA4AAA)
@@ -80,4 +82,4 @@ See [CONTRIBUTION](./docs/CONTRIBUTION.md)
 
 ## Acknowledgements
 
-Wharf logo has been created using ChatGPT.
+The Wharf logo was designed by [Pranjal Gopale](https://www.linkedin.com/in/pranjal-goupale-564a9230b/). We sincerely thank her for the creative contribution.
