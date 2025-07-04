@@ -1,4 +1,3 @@
-<!-- ![Wharf](./assets/wharf.png) -->
 <img src="./assets/wharf.png" alt="logo" width="300" height="300"/>
 
 # wharf 
@@ -14,7 +13,7 @@ Wharf is a full-stack web application designed to simplify Docker management on 
 
 ### Core Capabilities:
 
-* `Container Management`: Start, stop, pause, create, delete, and monitor Docker containers
+* `Container Management`: Start, stop, pause, create,update, delete, and monitor Docker containers
 * `Image Management`: List, tag, delete, and prune Docker images
 * `Volume Management`: Create, delete, list, and prune Docker volumes
 * `Network Management`: Create, delete, and manage Docker networks and container connections
@@ -32,7 +31,7 @@ Wharf implements JWT-based authentication with role-based access control. Users 
 
 ## Project Status
 
-Currently the version 1.0.0 is released.
+Currently the version 1.0.1 is released.
 
 ## Support
 
