@@ -48,15 +48,15 @@ const VolumeCreate = () => {
 
   return (
     <>
+      <div className="back-button-container">
+        <button
+          className="btn back-button"
+          onClick={() => window.history.back()}
+        >
+          <i className="fa-solid fa-arrow-left"></i> Back
+        </button>
+      </div>
       <div className="volume-create-container">
-        <div className="back-button-container">
-          <button
-            className="btn back-button"
-            onClick={() => window.history.back()}
-          >
-            <i className="fa-solid fa-arrow-left"></i> Back
-          </button>
-        </div>
         <div className="volume-create-wrapper">
           <form className="volume-create-form" onSubmit={handleSubmit}>
             <h2 className="form-title">Create Volume</h2>
