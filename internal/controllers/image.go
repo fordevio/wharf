@@ -26,7 +26,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 
-	"github.com/wharf/wharf/pkg/errors"
 	dockerImage "github.com/wharf/wharf/pkg/image"
 	"github.com/wharf/wharf/pkg/models"
 )
@@ -34,19 +33,12 @@ import (
 func GetImages(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
-		ch := make(chan *image.Summary)
-		errCh := make(chan *errors.Error)
-		images := []*image.Summary{}
 		defer cancel()
-		go dockerImage.GetAll(ctx, dockerClient, ch, errCh)
-		for err := range errCh {
+		images, err := dockerImage.GetAll(ctx, dockerClient)
+		if err != nil {
 			log.Println(err)
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Err})
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
-		}
-
-		for img := range ch {
-			images = append(images, img)
 		}
 		c.JSON(200, images)
 	}
