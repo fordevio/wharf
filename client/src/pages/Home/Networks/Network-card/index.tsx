@@ -48,6 +48,13 @@ const NetworkCard: React.FC<Props> = ({ network, networks, setNetworks }) => {
       },
     });
   };
+  if (
+    network.Name === 'bridge' ||
+    network.Name === 'host' ||
+    network.Name === 'none'
+  ) {
+    return <></>;
+  }
   return (
     <>
       <div className="cont-card">
