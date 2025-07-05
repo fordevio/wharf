@@ -31,6 +31,7 @@ import (
 	"github.com/go-playground/validator/v10"
 
 	dockerContainer "github.com/wharf/wharf/pkg/container"
+	"github.com/wharf/wharf/pkg/errors"
 	"github.com/wharf/wharf/pkg/models"
 )
 
@@ -87,7 +88,7 @@ func StopContainer(dockerClient *client.Client) gin.HandlerFunc {
 		err := dockerContainer.Stop(ctx, dockerClient, id)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				c.JSON(http.StatusNotFound, gin.H{"error": errors.NotFound(id)})
 				return
 			}
 			log.Println(err)
@@ -113,7 +114,7 @@ func UnpauseContainer(dockerClient *client.Client) gin.HandlerFunc {
 		err := dockerContainer.Unpause(ctx, dockerClient, id)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				c.JSON(http.StatusNotFound, gin.H{"error": errors.NotFound(id)})
 				return
 			}
 			log.Println(err)
@@ -165,7 +166,7 @@ func RemoveContainer(dockerClient *client.Client) gin.HandlerFunc {
 
 		if err != nil {
 			if errdefs.IsNotFound(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				c.JSON(http.StatusNotFound, gin.H{"error": errors.NotFound(id)})
 				return
 			}
 			log.Println(err)
@@ -206,7 +207,7 @@ func ContainerStats(dockerClient *client.Client) gin.HandlerFunc {
 		body, err := dockerContainer.Stats(ctx, dockerClient, id)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				c.JSON(http.StatusNotFound, gin.H{"error": errors.NotFound(id)})
 				return
 			}
 			log.Println(err)
@@ -236,7 +237,7 @@ func ContainerLogs(dockerClient *client.Client) gin.HandlerFunc {
 		body, err := dockerContainer.Logs(ctx, dockerClient, id, days)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				c.JSON(http.StatusNotFound, gin.H{"error": errors.NotFound(id)})
 				return
 			}
 			log.Println(err)
@@ -276,7 +277,7 @@ func ContainerRename(dockerClient *client.Client) gin.HandlerFunc {
 
 		if err != nil {
 			if errdefs.IsNotFound(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				c.JSON(http.StatusNotFound, gin.H{"error": errors.NotFound(id)})
 				return
 			}
 			log.Println(err)
@@ -394,7 +395,7 @@ func ContainerPause(dockerClient *client.Client) gin.HandlerFunc {
 		err := dockerContainer.Pause(ctx, dockerClient, id)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				c.JSON(http.StatusNotFound, gin.H{"error": errors.NotFound(id)})
 				return
 			}
 			log.Println(err)
@@ -420,7 +421,7 @@ func ContainerStart(dockerClient *client.Client) gin.HandlerFunc {
 		err := dockerContainer.Start(ctx, dockerClient, id)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				c.JSON(http.StatusNotFound, gin.H{"error": errors.NotFound(id)})
 				return
 			}
 			log.Println(err)
@@ -459,7 +460,7 @@ func UpdateContainerLabels(dockerClient *client.Client) gin.HandlerFunc {
 		res, err := dockerContainer.UpdateLabels(ctx, dockerClient, id, requestBody.Labels)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				c.JSON(http.StatusNotFound, gin.H{"error": errors.NotFound(id)})
 				return
 			}
 			log.Println(err)
