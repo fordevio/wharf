@@ -26,6 +26,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 
+	"github.com/wharf/wharf/pkg/errors"
 	"github.com/wharf/wharf/pkg/models"
 	dockerVolume "github.com/wharf/wharf/pkg/volume"
 )
@@ -68,7 +69,7 @@ func RemoveVolume(dockerClient *client.Client) gin.HandlerFunc {
 		}
 		if err := dockerVolume.Remove(ctx, dockerClient, id, forceRem); err != nil {
 			if errdefs.IsNotFound(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				c.JSON(http.StatusNotFound, gin.H{"error": errors.NotFound(id)})
 				return
 			}
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})

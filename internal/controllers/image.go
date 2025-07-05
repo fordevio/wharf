@@ -26,6 +26,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 
+	"github.com/wharf/wharf/pkg/errors"
 	dockerImage "github.com/wharf/wharf/pkg/image"
 	"github.com/wharf/wharf/pkg/models"
 )
@@ -98,7 +99,7 @@ func RemoveImage(dockerClient *client.Client) gin.HandlerFunc {
 		report, err := dockerImage.Remove(ctx, dockerClient, id, opts)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				c.JSON(http.StatusNotFound, gin.H{"error": errors.NotFound(id)})
 				return
 			}
 			log.Println(err)
@@ -138,7 +139,7 @@ func TagImage(dockerClient *client.Client) gin.HandlerFunc {
 
 		if err != nil {
 			if errdefs.IsNotFound(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				c.JSON(http.StatusNotFound, gin.H{"error": errors.NotFound(id)})
 				return
 			}
 			log.Println(err)

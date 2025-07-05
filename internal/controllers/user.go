@@ -26,6 +26,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/wharf/wharf/conf"
 	"github.com/wharf/wharf/pkg/auth"
+	"github.com/wharf/wharf/pkg/errors"
 	"github.com/wharf/wharf/pkg/models"
 	"github.com/wharf/wharf/pkg/store"
 	"github.com/wharf/wharf/pkg/user"
@@ -197,7 +198,7 @@ func DeleteUser() gin.HandlerFunc {
 			return
 		}
 		if isUser == nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "User not exists"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": errors.NotFound(strconv.Itoa(id))})
 			return
 		}
 

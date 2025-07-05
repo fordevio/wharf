@@ -24,3 +24,7 @@ type Error struct {
 var ErrBucketNotExists = errors.New("bucket not exists")
 
 var ErrUserNotFound = errors.New("user not found")
+
+func NotFound(id string) string {
+	return id + " not found"
+}

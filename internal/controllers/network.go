@@ -27,6 +27,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 
+	"github.com/wharf/wharf/pkg/errors"
 	"github.com/wharf/wharf/pkg/models"
 	dockerNetwork "github.com/wharf/wharf/pkg/networks"
 )
@@ -80,7 +81,7 @@ func RemoveNetwork(dockerClient *client.Client) gin.HandlerFunc {
 		err := dockerNetwork.Remove(ctx, dockerClient, id)
 		if err != nil {
 			if errdefs.IsNotFound(err) {
-				c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+				c.JSON(http.StatusNotFound, gin.H{"error": errors.NotFound(id)})
 				return
 			}
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
