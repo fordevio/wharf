@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './index.css';
 import { useEffect, useState } from 'react';
 import { NetworkResource } from '../../models/network';
@@ -177,6 +177,11 @@ const NetworkDetail = () => {
             ))}
           </>
         )}
+      </div>
+      <div className='network-actions'>
+        <Link className="btn detail" to={'/network/edit/' + network.Id}>
+          Edit
+        </Link>
       </div>
     </>
   );

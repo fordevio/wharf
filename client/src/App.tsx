@@ -40,6 +40,7 @@ import VolumeDetail from './pages/VolumeDetail';
 import NetworkDetail from './pages/NetworkDetail';
 import NetworkCreate from './pages/NetworkCreate';
 import ContainerUpdate from './pages/ContainerUpdate';
+import NetworkUpdate from './pages/NetworkUpdate';
 
 function App() {
   const location = useLocation();
@@ -98,6 +99,7 @@ function App() {
         <Route path="/image/:id" element={<ImageDetail />} />
         <Route path="/volume/:id" element={<VolumeDetail />} />
         <Route path="/network/:id" element={<NetworkDetail />} />
+        <Route path="/network/edit/:id" element={<NetworkUpdate />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </>
