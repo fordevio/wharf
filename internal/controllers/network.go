@@ -27,7 +27,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 
-	"github.com/wharf/wharf/pkg/errors"
 	"github.com/wharf/wharf/pkg/models"
 	dockerNetwork "github.com/wharf/wharf/pkg/networks"
 )
@@ -35,18 +34,13 @@ import (
 func GetNetworks(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
-		ch := make(chan *types.NetworkResource)
-		errCh := make(chan *errors.Error)
-		networks := []*types.NetworkResource{}
+
 		defer cancel()
-		go dockerNetwork.GetAll(ctx, dockerClient, ch, errCh)
-		for err := range errCh {
+		networks, err := dockerNetwork.GetAll(ctx, dockerClient)
+		if err != nil {
 			log.Println(err)
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Err})
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
-		}
-		for network := range ch {
-			networks = append(networks, network)
 		}
 		c.JSON(200, networks)
 	}

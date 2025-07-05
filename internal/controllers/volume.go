@@ -26,7 +26,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 
-	"github.com/wharf/wharf/pkg/errors"
 	"github.com/wharf/wharf/pkg/models"
 	dockerVolume "github.com/wharf/wharf/pkg/volume"
 )
@@ -34,19 +33,12 @@ import (
 func GetVolumes(dockerClient *client.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
-		ch := make(chan *volume.Volume)
-		errCh := make(chan *errors.Error)
-		volumes := []*volume.Volume{}
 		defer cancel()
-		go dockerVolume.GetAll(ctx, dockerClient, ch, errCh)
-		for err := range errCh {
-			log.Println(err.Err)
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Err})
+		volumes, err := dockerVolume.GetAll(ctx, dockerClient)
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
 			return
-		}
-
-		for vol := range ch {
-			volumes = append(volumes, vol)
 		}
 		c.JSON(200, volumes)
 	}
