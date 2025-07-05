@@ -27,8 +27,6 @@ import (
 	"github.com/docker/docker/api/types/network"
 	"github.com/docker/docker/client"
 	"github.com/opencontainers/image-spec/specs-go/v1"
-
-	"k8s.io/utils/ptr"
 )
 
 func List(ctx context.Context, client *client.Client) ([]types.Container, error) {
@@ -147,5 +145,5 @@ func UpdateLabels(ctx context.Context, client *client.Client, containerID string
 	}
 
 	err = client.ContainerStart(ctx, res.ID, container.StartOptions{})
-	return ptr.To(res), err
+	return &res, err
 }
