@@ -58,15 +58,15 @@ const NetworkCreate = () => {
 
   return (
     <>
+      <div className="back-button-container">
+        <button
+          className="btn back-button"
+          onClick={() => window.history.back()}
+        >
+          <i className="fa-solid fa-arrow-left"></i> Back
+        </button>
+      </div>
       <div className="network-create-container">
-        <div className="back-button-container">
-          <button
-            className="btn back-button"
-            onClick={() => window.history.back()}
-          >
-            <i className="fa-solid fa-arrow-left"></i> Back
-          </button>
-        </div>
         <div className="network-create-wrapper">
           <form className="network-create-form" onSubmit={handleSubmit}>
             <h2 className="form-title">Create network</h2>
