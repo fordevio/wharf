@@ -16,6 +16,8 @@ package dockernetwork
 
 import (
 	"context"
+	"fmt"
+	"reflect"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/filters"
@@ -50,4 +52,44 @@ func Connect(ctx context.Context, client *client.Client, networkID string, conta
 func Create(ctx context.Context, client *client.Client, name string, options types.NetworkCreate) (types.NetworkCreateResponse, error) {
 	res, err := client.NetworkCreate(ctx, name, options)
 	return res, err
+}
+
+func UpdateLabels(ctx context.Context, client *client.Client, networkID string, labels map[string]string) (*types.NetworkCreateResponse, error) {
+	networkInfo, err := client.NetworkInspect(ctx, networkID, types.NetworkInspectOptions{})
+	if err != nil {
+		return nil, err
+	}
+	if reflect.DeepEqual(networkInfo.Labels, labels) {
+		return nil, fmt.Errorf("no new labels provided")
+	}
+
+	networkInfo.Labels = labels
+
+	for containerID := range networkInfo.Containers {
+		client.NetworkDisconnect(ctx, networkID, containerID, true)
+	}
+	err = client.NetworkRemove(ctx, networkID)
+	if err != nil {
+		return nil, err
+	}
+	newNet, err := client.NetworkCreate(ctx, networkInfo.Name, types.NetworkCreate{
+		Driver:     networkInfo.Driver,
+		Scope:      networkInfo.Scope,
+		EnableIPv6: networkInfo.EnableIPv6,
+		IPAM:       &networkInfo.IPAM,
+
+		Internal:   networkInfo.Internal,
+		Attachable: networkInfo.Attachable,
+		Ingress:    networkInfo.Ingress,
+		ConfigOnly: networkInfo.ConfigOnly,
+		ConfigFrom: &networkInfo.ConfigFrom,
+		Options:    networkInfo.Options,
+		Labels:     networkInfo.Labels,
+	})
+
+	for containerID := range networkInfo.Containers {
+		client.NetworkConnect(ctx, newNet.ID, containerID, nil)
+	}
+
+	return &newNet, err
 }
