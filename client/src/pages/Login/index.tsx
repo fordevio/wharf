@@ -151,12 +151,17 @@ const Login = () => {
 
   return (
     <body className='login-body'>
-      <div className="form-container">
+      <div>
       <div className="logoDiv">
         <img src={wharfLogo} alt="Wharf Logo" className="wharfLogo" />
         <div className='wharf-text'>Wharf</div>
       </div>
-      {!forgotPass && (
+      <div className='container'>
+        <div className='wel-text'>
+          <p>Welcome<br/>to wharf.</p>
+        </div>
+        <div className='input-container'>
+           {!forgotPass && (
         <div className="loginDiv">
           <div className="iDiv">
             <p className="loginH">{isAdmin ? 'Login' : 'Register'}</p>
@@ -244,6 +249,8 @@ const Login = () => {
           </div>
         </div>
       )}
+        </div>
+      </div>
     </div>
     </body>
   );
