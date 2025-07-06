@@ -154,6 +154,7 @@ const Login = () => {
       <div className="form-container">
       <div className="logoDiv">
         <img src={wharfLogo} alt="Wharf Logo" className="wharfLogo" />
+        <div className='wharf-text'>Wharf</div>
       </div>
       {!forgotPass && (
         <div className="loginDiv">

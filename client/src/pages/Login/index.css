@@ -20,20 +20,38 @@ body.login-body{
   padding: 20px;
 }
 
-.logoDiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .wharfLogo {
-  max-width: 300px;
+  width: 230px;
+  height: 188px;
+  transform: rotate(0deg); 
+  opacity: 1;
+  position: absolute; 
+  top: 52px;
+  left: 62px;
 }
 
-.wharfLogo img {
-  width: 100%;
-  height: 100%;
+.wharf-text {
+  width: 115px;
+  height: 72px;
+  transform: rotate(0deg); /* for angle */
+  opacity: 1;
+  position: absolute; /* required for top/left to work */
+  top: 192px;
+  left: 119px;
+
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 700; /* Bold */
+  font-style: normal;
+  font-size: 36px;
+  line-height: 72px;
+  letter-spacing: 1%;
+  
+  color: #469DDD; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 
 .loginDiv {
   padding: 10px;
