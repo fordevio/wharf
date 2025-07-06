@@ -15,6 +15,7 @@ import { User, Eye} from 'lucide-react';
 import { useState } from 'react';
 import wharfLogo from '../../assets/wharf.svg';
 import userIcon from '../../assets/login/user.png';
+import vectorImage from '../../assets/login/vector.png';
 import './index.css';
 import {
   forgotAdmin,
@@ -217,7 +218,7 @@ const Login = () => {
                     />
                   </div>}
                  
-                  <button onClick={SubmitHandler}>Submit</button>
+                  <button onClick={SubmitHandler} className='login-btn'>Submit</button>
                    {isAdmin && (
                     <p className="forPas" onClick={() => setForgotPass(true)}>
                       Forgot Password
@@ -259,13 +260,14 @@ const Login = () => {
                       Login
                     </p>
                   )}
-                  <button onClick={ForgotHandler}>Submit</button>
+                  <button onClick={ForgotHandler} className='login-btn'>Submit</button>
                 </div>
               </div>
             )}
           </div>
         </div>
       </div>
+      <img  src={vectorImage} className='vector-image'/>
     </body>
   );
 };
