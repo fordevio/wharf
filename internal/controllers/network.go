@@ -218,3 +218,43 @@ func CreateNetwork(dockerClient *client.Client) gin.HandlerFunc {
 
 	}
 }
+
+func UpdateNetworkLabels(dockerClient *client.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		id := c.Param("id")
+		ur, _ := c.Get("user")
+		reqUser, _ := ur.(models.User)
+		if reqUser.Permission == models.Read {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid permissions"})
+			return
+		}
+
+		var reqBody dockerNetwork.UpdateNetworkLabelsRequest
+		if err := c.BindJSON(&reqBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		validate := validator.New()
+		if err := validate.Struct(reqBody); err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		res, err := dockerNetwork.UpdateLabels(ctx, dockerClient, id, reqBody.Labels)
+		if err != nil {
+			if errdefs.IsNotFound(err) {
+				c.JSON(http.StatusNotFound, gin.H{"error": errors.NotFound(id)})
+				return
+			}
+			log.Println(err)
+			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, *res)
+	}
+}
