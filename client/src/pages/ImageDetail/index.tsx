@@ -16,7 +16,7 @@ import { useParams } from 'react-router-dom';
 import './index.css';
 import { getAllImages } from '../../api/image';
 import { Image } from '../../models/image';
-import {  useState } from 'react';
+import { useState } from 'react';
 import { formatBytes } from '../../utils/util';
 import { useQuery } from 'react-query';
 

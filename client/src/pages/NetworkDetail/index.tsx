@@ -38,9 +38,9 @@ const NetworkDetail = () => {
   };
 
   useQuery('network' + id, fetchNetwork, {
-      retry: false,
-    });
- 
+    retry: false,
+  });
+
   if (network === null) {
     return <></>;
   }
@@ -180,7 +180,7 @@ const NetworkDetail = () => {
           </>
         )}
       </div>
-      <div className='network-actions'>
+      <div className="network-actions">
         <Link className="btn detail" to={'/network/edit/' + network.Id}>
           Edit
         </Link>
