@@ -12,12 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './index.css';
 import { useParams } from 'react-router-dom';
 import { Volume } from '../../models/volume';
 import { getAllVolumes } from '../../api/volume';
 import { formatBytes } from '../../utils/util';
+import { useQuery } from 'react-query';
 
 const VolumeDetail = () => {
   const { id } = useParams();
@@ -37,8 +38,8 @@ const VolumeDetail = () => {
     }
   };
 
-  useEffect(() => {
-    fetchVolume();
+  useQuery('volume' + id, fetchVolume, {
+    retry: false,
   });
   if (volume === null) {
     return <></>;

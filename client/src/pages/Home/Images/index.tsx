@@ -12,12 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './index.css';
 import toast from 'react-hot-toast';
 import { getAllImages, pruneImages } from '../../../api/image';
 import { Image } from '../../../models/image';
 import ImageCard from './Image-card';
+import { useQuery } from 'react-query';
 
 const Images = () => {
   const [images, setImages] = useState<Image[]>([]);
@@ -54,9 +55,9 @@ const Images = () => {
     });
   };
 
-  useEffect(() => {
-    fetchImages();
-  }, []);
+  useQuery('images', fetchImages, {
+    retry: false,
+  });
 
   return (
     <>

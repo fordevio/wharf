@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import './index.css';
 import { Volume } from '../../../models/volume';
 import { getAllVolumes, pruneVolumes } from '../../../api/volume';
 import toast from 'react-hot-toast';
 import VolumeCard from './Volume-card';
 import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
 
 const Volumes = () => {
   const [volumes, setVolumes] = useState<Volume[]>([]);
@@ -55,9 +56,9 @@ const Volumes = () => {
     });
   };
 
-  useEffect(() => {
-    fetchVolumes();
-  }, []);
+  useQuery('volumes', fetchVolumes, {
+    retry: false,
+  });
 
   return (
     <>

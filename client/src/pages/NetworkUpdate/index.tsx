@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { NetworkResource } from "../../models/network";
-import { getAllNetworks } from "../../api/network";
+import { getAllNetworks, networkLabelsUpdate } from "../../api/network";
 
 const NetworkUpdate = () => {
 
@@ -59,12 +59,12 @@ const NetworkUpdate = () => {
       return;
     }
     try {
-        // const res = await containerLabelsUpdate(
-        //   localStorage.getItem('token') as string,
-        //   network?.Id,
-        //   labels
-        // );
-        // navigate('/container/' + res.data.Id);
+        const res = await networkLabelsUpdate(
+          localStorage.getItem('token') as string,
+          network?.Id,
+          labels
+        );
+        navigate('/network/' + res.data.Id);
     } catch (e: any) {
       throw e.response ? e.response.data : { error: 'Request failed' };
     }

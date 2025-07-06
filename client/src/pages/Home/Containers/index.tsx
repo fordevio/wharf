@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getAllContainers, pruneContainers } from '../../../api/container';
 import { DockerContainer } from '../../../models/container';
 import ContainerCard from './Container-card';
 import './index.css';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
 
 const Containers = () => {
   const [containers, setContainers] = useState<DockerContainer[]>([]);
@@ -57,9 +58,9 @@ const Containers = () => {
     });
   };
 
-  useEffect(() => {
-    fetchContainers();
-  }, []);
+  useQuery('containers', fetchContainers, {
+    retry: false,
+  });
 
   return (
     <>

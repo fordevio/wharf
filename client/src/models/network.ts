@@ -111,3 +111,15 @@ export interface NetworkCreateResponse {
    */
   Warning: string;
 }
+
+export interface LabelsUpdateResponse {
+  /**
+   * Unique ID of the created network.
+   */
+  Id: string;
+
+  /**
+   * Optional warning message returned by the server.
+   */
+  Warning: string;
+}
