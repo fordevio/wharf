@@ -66,7 +66,10 @@ func UpdateLabels(ctx context.Context, client *client.Client, networkID string, 
 	networkInfo.Labels = labels
 
 	for containerID := range networkInfo.Containers {
-		client.NetworkDisconnect(ctx, networkID, containerID, true)
+		err = client.NetworkDisconnect(ctx, networkID, containerID, true)
+		if err != nil {
+			continue // If disconnect fails, continue with the next container
+		}
 	}
 	err = client.NetworkRemove(ctx, networkID)
 	if err != nil {
@@ -82,7 +85,10 @@ func UpdateLabels(ctx context.Context, client *client.Client, networkID string, 
 	})
 
 	for containerID := range networkInfo.Containers {
-		client.NetworkConnect(ctx, newNet.ID, containerID, nil)
+		err = client.NetworkConnect(ctx, newNet.ID, containerID, nil)
+		if err != nil {
+			continue // If connect fails, continue with the next container
+		}
 	}
 
 	return &newNet, err
