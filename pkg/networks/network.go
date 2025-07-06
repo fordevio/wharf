@@ -78,7 +78,7 @@ func UpdateLabels(ctx context.Context, client *client.Client, networkID string, 
 		Internal:       true,
 		CheckDuplicate: true,
 		Driver:         networkInfo.Driver,
-		Labels: networkInfo.Labels,
+		Labels:         networkInfo.Labels,
 	})
 
 	for containerID := range networkInfo.Containers {
