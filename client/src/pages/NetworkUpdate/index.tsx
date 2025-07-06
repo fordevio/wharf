@@ -1,17 +1,18 @@
 import './index.css';
-import { useState } from "react";
-import toast from "react-hot-toast";
-import { useQuery } from "react-query";
-import { useNavigate, useParams } from "react-router-dom";
-import { NetworkResource } from "../../models/network";
-import { getAllNetworks, networkLabelsUpdate } from "../../api/network";
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useQuery } from 'react-query';
+import { useNavigate, useParams } from 'react-router-dom';
+import { NetworkResource } from '../../models/network';
+import { getAllNetworks, networkLabelsUpdate } from '../../api/network';
 
 const NetworkUpdate = () => {
-
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [network, setNetwork] = useState<NetworkResource | undefined>(undefined);
+  const [network, setNetwork] = useState<NetworkResource | undefined>(
+    undefined
+  );
   const [labels, setLabels] = useState<Record<string, string>>({});
   const [labelKey, setLabelKey] = useState<string>('');
   const [labelValue, setLabelValue] = useState<string>('');
@@ -59,21 +60,19 @@ const NetworkUpdate = () => {
       return;
     }
     try {
-        const res = await networkLabelsUpdate(
-          localStorage.getItem('token') as string,
-          network?.Id,
-          labels
-        );
-        navigate('/network/' + res.data.Id);
+      const res = await networkLabelsUpdate(
+        localStorage.getItem('token') as string,
+        network?.Id,
+        labels
+      );
+      navigate('/network/' + res.data.Id);
     } catch (e: any) {
       throw e.response ? e.response.data : { error: 'Request failed' };
     }
   };
 
   const handleSubmit = async () => {
-    if (
-      JSON.stringify(labels) === JSON.stringify(network?.Labels)
-    ) {
+    if (JSON.stringify(labels) === JSON.stringify(network?.Labels)) {
       toast.error('No changes made.');
       return;
     }
@@ -89,16 +88,14 @@ const NetworkUpdate = () => {
       return;
     }
     try {
-      const res = await getAllNetworks(
-        localStorage.getItem('token') as string,
-      );
-        const netw = res.data.find((net: NetworkResource) => net.Id === id);
-        if (!netw) {
-          navigate('/networks');
-          return;
-        }
-        setNetwork(netw);
-        setLabels(netw.Labels);
+      const res = await getAllNetworks(localStorage.getItem('token') as string);
+      const netw = res.data.find((net: NetworkResource) => net.Id === id);
+      if (!netw) {
+        navigate('/networks');
+        return;
+      }
+      setNetwork(netw);
+      setLabels(netw.Labels);
     } catch (e) {
       console.log(e);
       return navigate('/network/' + id);
@@ -176,6 +173,6 @@ const NetworkUpdate = () => {
       </div>
     </>
   );
-}
+};
 
-export default NetworkUpdate
+export default NetworkUpdate;

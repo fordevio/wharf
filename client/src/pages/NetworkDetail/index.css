@@ -51,9 +51,8 @@
   justify-content: center;
 }
 
-.network-actions{
+.network-actions {
   display: flex;
   justify-content: center;
   margin-top: 20px;
 }
-

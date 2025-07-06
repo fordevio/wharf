@@ -72,19 +72,13 @@ func UpdateLabels(ctx context.Context, client *client.Client, networkID string, 
 	if err != nil {
 		return nil, err
 	}
+	fmt.Printf("%v", networkInfo)
 	newNet, err := client.NetworkCreate(ctx, networkInfo.Name, types.NetworkCreate{
-		Driver:     networkInfo.Driver,
-		Scope:      networkInfo.Scope,
-		EnableIPv6: networkInfo.EnableIPv6,
-		IPAM:       &networkInfo.IPAM,
-
-		Internal:   networkInfo.Internal,
-		Attachable: networkInfo.Attachable,
-		Ingress:    networkInfo.Ingress,
-		ConfigOnly: networkInfo.ConfigOnly,
-		ConfigFrom: &networkInfo.ConfigFrom,
-		Options:    networkInfo.Options,
-		Labels:     networkInfo.Labels,
+		Scope:          "local",
+		Internal:       true,
+		CheckDuplicate: true,
+		Driver:         networkInfo.Driver,
+		Labels: networkInfo.Labels,
 	})
 
 	for containerID := range networkInfo.Containers {
