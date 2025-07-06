@@ -81,4 +81,4 @@ See [CONTRIBUTION](./docs/CONTRIBUTION.md)
 
 ## Acknowledgements
 
-The Wharf logo was designed by [Pranjal Gopale](https://www.linkedin.com/in/pranjal-goupale-564a9230b/). We sincerely thank her for the creative contribution.
+The Wharf UI and logo is designed by [Pranjal Gopale](https://www.linkedin.com/in/pranjal-goupale-564a9230b/). We sincerely thank her for the creative contribution.
