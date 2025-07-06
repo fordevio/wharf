@@ -79,14 +79,10 @@ const Login = () => {
 
   const SubmitHandler = async () => {
     if (username === '' || password === '') {
-      if (!isAdmin && initPassword === '') {
-        toast.error('Please fill all fields');
-        return;
-      }
-      if (!isAdmin && confirmPassword !== password) {
-        toast.error('Passwords do not match confirm password');
-        return;
-      }
+      toast.error('Please fill all fields');
+      return;
+    }
+    if (!isAdmin && (initPassword === '' || confirmPassword === '')) {
       toast.error('Please fill all fields');
       return;
     }
@@ -107,12 +103,10 @@ const Login = () => {
       toast.error('Password must contain at least one letter and one number');
       return;
     }
-
-    if (password !== confirmPassword) {
+    if (!isAdmin && password !== confirmPassword) {
       toast.error('Passwords do not match confirm password');
       return;
     }
-
     if (!isAdmin) {
       toast.promise(adminReg(), {
         loading: 'Registering',
