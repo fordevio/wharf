@@ -27,4 +27,5 @@ func NetworkRoutes(incommingRoutes *gin.RouterGroup, dockerClient *client.Client
 	incommingRoutes.PUT("/network/connect/:id", controllers.ConnectNetwork(dockerClient))
 	incommingRoutes.POST("/network/create", controllers.CreateNetwork(dockerClient))
 	incommingRoutes.DELETE("/network/remove/:id", controllers.RemoveNetwork(dockerClient))
+	incommingRoutes.PUT("/network/updateLabels/:id", controllers.UpdateNetworkLabels(dockerClient))
 }

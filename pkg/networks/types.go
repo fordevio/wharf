@@ -27,3 +27,7 @@ type CreateNetworkRequest struct {
 	Name   string `json:"name" validate:"required"`
 	Driver string `json:"driver" validate:"required"`
 }
+
+type UpdateNetworkLabelsRequest struct {
+	Labels map[string]string `json:"labels" validate:"required"`
+}
