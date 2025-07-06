@@ -121,7 +121,7 @@ body.login-body {
 .inputDiv input {
   padding: 10px;
   border: none;
-  outline: none; 
+  outline: none;
   width: 350px;
   height: 70px;
   background: transparent;
@@ -157,20 +157,20 @@ body.login-body {
   font-family: 'Courier New', Courier, monospace;
 }
 
-.input-icon{
- color: white;
- width: 40px;
+.input-icon {
+  color: white;
+  width: 40px;
   height: 40px;
   margin: auto auto;
   padding: 5px 5px;
 }
 
-.vector-image{
+.vector-image {
   position: fixed;
-      bottom: 0;
-      left: 0;
-      /* width: 100%; */
-      z-index: 2 ;
+  bottom: 0;
+  left: 0;
+  /* width: 100%; */
+  z-index: 2;
 }
 
 .login-btn {
@@ -179,11 +179,13 @@ body.login-body {
   opacity: 1;
   border: none;
   border-radius: 24px;
-  background: linear-gradient(90deg, #0261CE 0%, #10008C 100%);
+  background: linear-gradient(90deg, #0261ce 0%, #10008c 100%);
   color: white;
   font-size: 18px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   margin-bottom: 10px;
 }
 
@@ -192,7 +194,7 @@ body.login-body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.reg{
+.reg {
   width: 117px;
   height: 40px;
   font-weight: 700;

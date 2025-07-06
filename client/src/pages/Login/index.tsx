@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import { User, Eye, Crosshair} from 'lucide-react';
+import { User, Eye, Crosshair } from 'lucide-react';
 import { useState } from 'react';
 import wharfLogo from '../../assets/wharf.svg';
 import userIcon from '../../assets/login/user.png';
@@ -170,26 +170,30 @@ const Login = () => {
             </p>
           </div>
           <div className="input-container">
-            {isAdmin?<div className="user-icon-container">
-              <img className="user-icon" src={userIcon} alt='user'/>
-            </div>:<div className='reg'>Register</div>}
+            {isAdmin ? (
+              <div className="user-icon-container">
+                <img className="user-icon" src={userIcon} alt="user" />
+              </div>
+            ) : (
+              <div className="reg">Register</div>
+            )}
             {!forgotPass && (
               <div className="loginDiv">
                 <div className="iDiv">
                   {!isAdmin && (
                     <>
-                    <div className="inputDiv" tabIndex={0}>
-                      <input
-                        onChange={e => setInitPassword(e.target.value)}
-                        value={initPassword}
-                        placeholder='Init-Password'
-                      />
-                     <Crosshair className="input-icon" />
-                    </div>
-                     <p className="p">
+                      <div className="inputDiv" tabIndex={0}>
+                        <input
+                          onChange={e => setInitPassword(e.target.value)}
+                          value={initPassword}
+                          placeholder="Init-Password"
+                        />
+                        <Crosshair className="input-icon" />
+                      </div>
+                      <p className="p">
                         Init-Password can be found in /var/lib/wharf/wharf.txt
                       </p>
-                      </>
+                    </>
                   )}
                   <div className="inputDiv" tabIndex={0}>
                     <input
@@ -197,8 +201,7 @@ const Login = () => {
                       value={username}
                       placeholder="Username"
                     />
-                 <User className="input-icon" />
-
+                    <User className="input-icon" />
                   </div>
 
                   <div className="inputDiv" tabIndex={0}>
@@ -208,20 +211,23 @@ const Login = () => {
                       value={password}
                       placeholder="Password"
                     />
-                   <Eye className="input-icon" />
+                    <Eye className="input-icon" />
                   </div>
-                  {!isAdmin &&
-                  <div className="inputDiv" tabIndex={0}>
-                    <input
-                      type="password"
-                      onChange={e => setConfirmPassword(e.target.value)}
-                      value={confirmPassword}
-                      placeholder="Confirm Password"
-                    />
-                  </div>}
-                 
-                  <button onClick={SubmitHandler} className='login-btn'>Submit</button>
-                   {isAdmin && (
+                  {!isAdmin && (
+                    <div className="inputDiv" tabIndex={0}>
+                      <input
+                        type="password"
+                        onChange={e => setConfirmPassword(e.target.value)}
+                        value={confirmPassword}
+                        placeholder="Confirm Password"
+                      />
+                    </div>
+                  )}
+
+                  <button onClick={SubmitHandler} className="login-btn">
+                    Submit
+                  </button>
+                  {isAdmin && (
                     <p className="forPas" onClick={() => setForgotPass(true)}>
                       Forgot Password
                     </p>
@@ -232,44 +238,47 @@ const Login = () => {
             {forgotPass && (
               <div className="loginDiv">
                 <div className="iDiv">
-                  <p className="loginH"></p>
-                  <div className="inputDiv">
-                    <span className="label">Init-Password</span>
-                    <input
-                      type="text"
-                      onChange={e => setInitPassword(e.target.value)}
-                      value={initPassword}
-                    />
-                    <p className="p">
-                      Init-Password can be found in /var/lib/wharf/wharf.txt
-                    </p>
-                  </div>
                   {adminUname !== '' && (
                     <p>
                       <span className="label">Username: </span>{' '}
-                      <span className="label">{adminUname}</span>
-                    </p>
-                  )}
-                  {adminPass !== '' && (
-                    <p>
-                      <span className="label">Password: </span>{' '}
-                      <span className="label">{adminPass}</span>
+                      <span className="label">{adminUname}</span> {'|'}
+                      {adminPass !== '' && (
+                        <>
+                          <span className="label">Password: </span>{' '}
+                          <span className="label">{adminPass}</span> 
+                        </>
+                      )}
                     </p>
                   )}
 
+                  <div className="inputDiv">
+                    <input
+                      onChange={e => setInitPassword(e.target.value)}
+                      value={initPassword}
+                      placeholder="Init-Password"
+                      tabIndex={0}
+                    />
+                    <Crosshair className="input-icon" />
+                  </div>
+                  <p className="p">
+                    Init-Password can be found in /var/lib/wharf/wharf.txt
+                  </p>
+
+                  <button onClick={ForgotHandler} className="login-btn">
+                    Submit
+                  </button>
                   {isAdmin && (
                     <p className="forPas" onClick={() => setForgotPass(false)}>
                       Login
                     </p>
                   )}
-                  <button onClick={ForgotHandler} className='login-btn'>Submit</button>
                 </div>
               </div>
             )}
           </div>
         </div>
       </div>
-      <img  src={vectorImage} className='vector-image' alt='vector'/>
+      <img src={vectorImage} className="vector-image" alt="vector" />
     </body>
   );
 };
