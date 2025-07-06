@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+import { User, Eye} from 'lucide-react';
 import { useState } from 'react';
 import wharfLogo from '../../assets/wharf.svg';
 import userIcon from '../../assets/login/user.png';
@@ -77,12 +77,15 @@ const Login = () => {
   };
 
   const SubmitHandler = async () => {
-    if (username === '' || password === '' || confirmPassword === '') {
+    if (username === '' || password === '') {
       if (!isAdmin && initPassword === '') {
         toast.error('Please fill all fields');
         return;
       }
-
+      if (!isAdmin && confirmPassword !== password) {
+        toast.error('Passwords do not match confirm password');
+        return;
+      }
       toast.error('Please fill all fields');
       return;
     }
@@ -191,6 +194,8 @@ const Login = () => {
                       value={username}
                       placeholder="Username"
                     />
+                 <User className="input-icon" />
+
                   </div>
 
                   <div className="inputDiv" tabIndex={0}>
@@ -200,8 +205,9 @@ const Login = () => {
                       value={password}
                       placeholder="Password"
                     />
-
+                   <Eye className="input-icon" />
                   </div>
+                  {!isAdmin &&
                   <div className="inputDiv" tabIndex={0}>
                     <input
                       type="password"
@@ -209,13 +215,14 @@ const Login = () => {
                       value={confirmPassword}
                       placeholder="Confirm Password"
                     />
-                  </div>
-                  {isAdmin && (
+                  </div>}
+                 
+                  <button onClick={SubmitHandler}>Submit</button>
+                   {isAdmin && (
                     <p className="forPas" onClick={() => setForgotPass(true)}>
                       Forgot Password
                     </p>
                   )}
-                  <button onClick={SubmitHandler}>Submit</button>
                 </div>
               </div>
             )}
