@@ -13,25 +13,26 @@ body.login-body{
   align-items: center;
   flex-direction: row;
   height: 100%;
-  margin: 150px 0;
+  margin-top: 100px;
 }
 
 .wel-text {
-  width: 430px;
-  height: 208px;
-  position: absolute; /* required for top/left to take effect */
-  top: 454px;
-  left: 117px;
-
+  width: 50%;
+  height: 100%;
+  
   transform: rotate(0deg); /* angle */
   opacity: 1;
 
-  font-family: 'Lato', sans-serif;
-  font-weight: 800; /* ExtraBold */
-  font-style: normal; /* ExtraBold is weight, not style */
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800; 
+  font-style: normal;
   font-size: 96px;
   line-height: 104px;
   letter-spacing: 0;
+}
+
+.wel-text p {
+  padding-left: 100px;
 }
 
 .wharfLogo {
@@ -39,7 +40,7 @@ body.login-body{
   height: 188px;
   transform: rotate(0deg); 
   opacity: 1;
-  position: absolute; 
+  /* position: absolute;  */
   top: 52px;
   left: 62px;
 }
@@ -49,10 +50,9 @@ body.login-body{
   height: 72px;
   transform: rotate(0deg); /* for angle */
   opacity: 1;
-  position: absolute; /* required for top/left to work */
-  top: 192px;
-  left: 119px;
-
+  position: absolute; 
+  top: 142px;
+  left: 62px;
   font-family: 'Comfortaa', sans-serif;
   font-weight: 700; /* Bold */
   font-style: normal;
