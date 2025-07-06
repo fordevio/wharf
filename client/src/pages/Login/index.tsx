@@ -173,7 +173,7 @@ const Login = () => {
               <div className="loginDiv">
                 <div className="iDiv">
                   {!isAdmin && (
-                    <div className="inputDiv">
+                    <div className="inputDiv" tabIndex={0}>
                       <span className="label">Init-Password</span>
                       <input
                         type="text"
@@ -185,7 +185,7 @@ const Login = () => {
                       </p>
                     </div>
                   )}
-                  <div className="inputDiv">
+                  <div className="inputDiv" tabIndex={0}>
                     <input
                       onChange={e => setUsername(e.target.value)}
                       value={username}
@@ -193,15 +193,16 @@ const Login = () => {
                     />
                   </div>
 
-                  <div className="inputDiv">
+                  <div className="inputDiv" tabIndex={0}>
                     <input
                       type="password"
                       onChange={e => setPassword(e.target.value)}
                       value={password}
                       placeholder="Password"
                     />
+
                   </div>
-                  <div className="inputDiv">
+                  <div className="inputDiv" tabIndex={0}>
                     <input
                       type="password"
                       onChange={e => setConfirmPassword(e.target.value)}
