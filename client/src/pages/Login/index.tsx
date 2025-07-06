@@ -245,7 +245,7 @@ const Login = () => {
                       {adminPass !== '' && (
                         <>
                           <span className="label">Password: </span>{' '}
-                          <span className="label">{adminPass}</span> 
+                          <span className="label">{adminPass}</span>
                         </>
                       )}
                     </p>
