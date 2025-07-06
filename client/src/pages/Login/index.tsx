@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { useState } from 'react';
-import wharfLogo from '../../assets/wharf.png';
+import wharfLogo from '../../assets/wharf.svg';
 import './index.css';
 import {
   forgotAdmin,
@@ -150,7 +150,8 @@ const Login = () => {
   };
 
   return (
-    <div className="form-container">
+    <body className='login-body'>
+      <div className="form-container">
       <div className="logoDiv">
         <img src={wharfLogo} alt="Wharf Logo" className="wharfLogo" />
       </div>
@@ -243,6 +244,7 @@ const Login = () => {
         </div>
       )}
     </div>
+    </body>
   );
 };
 
