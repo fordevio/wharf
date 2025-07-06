@@ -14,6 +14,7 @@
 
 import { useState } from 'react';
 import wharfLogo from '../../assets/wharf.svg';
+import userIcon from '../../assets/login/user.png';
 import './index.css';
 import {
   forgotAdmin,
@@ -150,108 +151,113 @@ const Login = () => {
   };
 
   return (
-    <body className='login-body'>
+    <body className="login-body">
       <div>
-      <div className="logoDiv">
-        <img src={wharfLogo} alt="Wharf Logo" className="wharfLogo" />
-        <div className='wharf-text'>Wharf</div>
-      </div>
-      <div className='container'>
-        <div className='wel-text'>
-          <p>Welcome<br/>to wharf.</p>
+        <div className="logoDiv">
+          <img src={wharfLogo} alt="Wharf Logo" className="wharfLogo" />
+          <div className="wharf-text">Wharf</div>
         </div>
-        <div className='input-container'>
-           {!forgotPass && (
-        <div className="loginDiv">
-          <div className="iDiv">
-            <p className="loginH">{isAdmin ? 'Login' : 'Register'}</p>
-            {!isAdmin && (
-              <div className="inputDiv">
-                <span className="label">Init-Password</span>
-                <input
-                  type="text"
-                  onChange={e => setInitPassword(e.target.value)}
-                  value={initPassword}
-                />
-                <p className="p">
-                  Init-Password can be found in /var/lib/wharf/wharf.txt
-                </p>
+        <div className="container">
+          <div className="wel-text">
+            <p>
+              Welcome
+              <br />
+              to wharf.
+            </p>
+          </div>
+          <div className="input-container">
+            <div className="user-icon-container">
+              <img className="user-icon" src={userIcon} />
+            </div>
+            {!forgotPass && (
+              <div className="loginDiv">
+                <div className="iDiv">
+                  {!isAdmin && (
+                    <div className="inputDiv">
+                      <span className="label">Init-Password</span>
+                      <input
+                        type="text"
+                        onChange={e => setInitPassword(e.target.value)}
+                        value={initPassword}
+                      />
+                      <p className="p">
+                        Init-Password can be found in /var/lib/wharf/wharf.txt
+                      </p>
+                    </div>
+                  )}
+                  <div className="inputDiv">
+                    <input
+                      onChange={e => setUsername(e.target.value)}
+                      value={username}
+                      placeholder="Username"
+                    />
+                  </div>
+
+                  <div className="inputDiv">
+                    <input
+                      type="password"
+                      onChange={e => setPassword(e.target.value)}
+                      value={password}
+                      placeholder="Password"
+                    />
+                  </div>
+                  <div className="inputDiv">
+                    <input
+                      type="password"
+                      onChange={e => setConfirmPassword(e.target.value)}
+                      value={confirmPassword}
+                      placeholder="Confirm Password"
+                    />
+                  </div>
+                  {isAdmin && (
+                    <p className="forPas" onClick={() => setForgotPass(true)}>
+                      Forgot Password
+                    </p>
+                  )}
+                  <button onClick={SubmitHandler}>Submit</button>
+                </div>
               </div>
             )}
-            <div className="inputDiv">
-              <span className="label">Username</span>
-              <input
-                onChange={e => setUsername(e.target.value)}
-                type="text"
-                value={username}
-              />
-            </div>
+            {forgotPass && (
+              <div className="loginDiv">
+                <div className="iDiv">
+                  <p className="loginH"></p>
+                  <div className="inputDiv">
+                    <span className="label">Init-Password</span>
+                    <input
+                      type="text"
+                      onChange={e => setInitPassword(e.target.value)}
+                      value={initPassword}
+                    />
+                    <p className="p">
+                      Init-Password can be found in /var/lib/wharf/wharf.txt
+                    </p>
+                  </div>
+                  {adminUname !== '' && (
+                    <p>
+                      <span className="label">Username: </span>{' '}
+                      <span className="label">{adminUname}</span>
+                    </p>
+                  )}
+                  {adminPass !== '' && (
+                    <p>
+                      <span className="label">Password: </span>{' '}
+                      <span className="label">{adminPass}</span>
+                    </p>
+                  )}
 
-            <div className="inputDiv">
-              <span className="label">Password</span>
-              <input
-                type="password"
-                onChange={e => setPassword(e.target.value)}
-                value={password}
-              />
-            </div>
-            <div className="inputDiv">
-              <span className="label">Confirm Password</span>
-              <input
-                type="password"
-                onChange={e => setConfirmPassword(e.target.value)}
-                value={confirmPassword}
-              />
-            </div>
-            {isAdmin && (
-              <p className="forPas" onClick={() => setForgotPass(true)}>
-                Forgot Password
-              </p>
+                  {isAdmin && (
+                    <p className="forPas" onClick={() => setForgotPass(false)}>
+                      Login
+                    </p>
+                  )}
+                  <button onClick={ForgotHandler}>Submit</button>
+                </div>
+              </div>
             )}
-            <button onClick={SubmitHandler}>Submit</button>
           </div>
-        </div>
-      )}
-      {forgotPass && (
-        <div className="loginDiv">
-          <div className="iDiv">
-            <p className="loginH"></p>
-            <div className="inputDiv">
-              <span className="label">Init-Password</span>
-              <input
-                type="text"
-                onChange={e => setInitPassword(e.target.value)}
-                value={initPassword}
-              />
-              <p className="p">
-                Init-Password can be found in /var/lib/wharf/wharf.txt
-              </p>
-            </div>
-            {adminUname !== '' && (
-              <p>
-                <span className="label">Username: </span>{' '}
-                <span className="label">{adminUname}</span>
-              </p>
-            )}
-            {adminPass !== '' && (
-              <p>
-                <span className="label">Password: </span>{' '}
-                <span className="label">{adminPass}</span>
-              </p>
-            )}
-
-            {isAdmin && (
-              <p className="forPas" onClick={() => setForgotPass(false)}>
-                Login
-              </p>
-            )}
-            <button onClick={ForgotHandler}>Submit</button>
-          </div>
-        </div>
-      )}
         </div>
       </div>
-    </div>
     </body>
   );
 };
