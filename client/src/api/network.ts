@@ -129,7 +129,7 @@ export const networkLabelsUpdate = async (
   id: string,
   labels: Record<string, string>
 ): Promise<AxiosResponse<LabelsUpdateResponse>> => {
-  const url = URL + '/api/protected/container/updateLabels/' + id;
+  const url = URL + '/api/protected/network/updateLabels/' + id;
   const res = await axios.put<LabelsUpdateResponse>(
     url,
     { labels },
