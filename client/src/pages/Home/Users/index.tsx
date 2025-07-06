@@ -12,12 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { createUser, getAllUser } from '../../../api/user';
 import { User } from '../../../models/user';
 import './index.css';
 import ContainerCard from './card';
 import toast from 'react-hot-toast';
+import { useQuery } from 'react-query';
 
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -80,9 +81,10 @@ const Users = () => {
     });
   };
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
+  useQuery('users', fetchUser, {
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <>

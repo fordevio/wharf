@@ -14,9 +14,10 @@
 
 import { Link, useParams } from 'react-router-dom';
 import './index.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { NetworkResource } from '../../models/network';
 import { getAllNetworks } from '../../api/network';
+import { useQuery } from 'react-query';
 
 const NetworkDetail = () => {
   const { id } = useParams();
@@ -36,9 +37,10 @@ const NetworkDetail = () => {
     }
   };
 
-  useEffect(() => {
-    fetchNetwork();
-  });
+  useQuery('network' + id, fetchNetwork, {
+      retry: false,
+    });
+ 
   if (network === null) {
     return <></>;
   }

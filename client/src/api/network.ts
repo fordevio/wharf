@@ -14,6 +14,7 @@
 
 import axios, { AxiosResponse } from 'axios';
 import {
+  LabelsUpdateResponse,
   NetworkCreateResponse,
   NetworkResource,
   NetworksPruneReport,
@@ -114,6 +115,24 @@ export const disconnectContainerFromNetwork = async (
       containerId: containerId,
       force: force,
     },
+    {
+      headers: {
+        Token: token,
+      },
+    }
+  );
+  return res;
+};
+
+export const networkLabelsUpdate = async (
+  token: string,
+  id: string,
+  labels: Record<string, string>
+): Promise<AxiosResponse<LabelsUpdateResponse>> => {
+  const url = URL + '/api/protected/container/updateLabels/' + id;
+  const res = await axios.put<LabelsUpdateResponse>(
+    url,
+    { labels },
     {
       headers: {
         Token: token,

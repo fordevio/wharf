@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import wharfLogo from '../../assets/wharf.png';
 import './index.css';
 import {
@@ -23,6 +23,7 @@ import {
 } from '../../api/login';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
 
 const Login = () => {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
@@ -48,9 +49,9 @@ const Login = () => {
     setIsAdmin(false);
   };
 
-  useEffect(() => {
-    findIsAdmin();
-  }, []);
+  useQuery('isAdmin', findIsAdmin, {
+    retry: false,
+  });
 
   const adminReg = async () => {
     try {

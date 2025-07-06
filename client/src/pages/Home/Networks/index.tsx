@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './index.css';
 import { getAllNetworks, pruneNetworks } from '../../../api/network';
 import { NetworkResource } from '../../../models/network';
 import toast from 'react-hot-toast';
 import NetworkCard from './Network-card';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
 
 const Networks = () => {
   const navigate = useNavigate();
@@ -56,9 +57,9 @@ const Networks = () => {
     });
   };
 
-  useEffect(() => {
-    fetchNetworks();
-  }, []);
+  useQuery('networks', fetchNetworks, {
+    retry: false,
+  });
 
   return (
     <>
