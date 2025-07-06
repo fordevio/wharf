@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import { User, Eye} from 'lucide-react';
+import { User, Eye, Crosshair} from 'lucide-react';
 import { useState } from 'react';
 import wharfLogo from '../../assets/wharf.svg';
 import userIcon from '../../assets/login/user.png';
@@ -177,16 +177,19 @@ const Login = () => {
               <div className="loginDiv">
                 <div className="iDiv">
                   {!isAdmin && (
+                    <>
                     <div className="inputDiv" tabIndex={0}>
                       <input
                         onChange={e => setInitPassword(e.target.value)}
                         value={initPassword}
                         placeholder='Init-Password'
                       />
-                      <p className="p">
+                     <Crosshair className="input-icon" />
+                    </div>
+                     <p className="p">
                         Init-Password can be found in /var/lib/wharf/wharf.txt
                       </p>
-                    </div>
+                      </>
                   )}
                   <div className="inputDiv" tabIndex={0}>
                     <input
