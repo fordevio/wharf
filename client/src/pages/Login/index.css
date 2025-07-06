@@ -189,3 +189,12 @@ body.login-body {
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+.reg{
+  width: 117px;
+  height: 40px;
+  font-weight: 700;
+  font-size: 32px;
+  font-family: 'lato', sans-serif;
+  margin-bottom: 0;
+}

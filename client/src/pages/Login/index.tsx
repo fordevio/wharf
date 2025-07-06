@@ -170,19 +170,18 @@ const Login = () => {
             </p>
           </div>
           <div className="input-container">
-            <div className="user-icon-container">
-              <img className="user-icon" src={userIcon} />
-            </div>
+            {isAdmin?<div className="user-icon-container">
+              <img className="user-icon" src={userIcon} alt='user'/>
+            </div>:<div className='reg'>Register</div>}
             {!forgotPass && (
               <div className="loginDiv">
                 <div className="iDiv">
                   {!isAdmin && (
                     <div className="inputDiv" tabIndex={0}>
-                      <span className="label">Init-Password</span>
                       <input
-                        type="text"
                         onChange={e => setInitPassword(e.target.value)}
                         value={initPassword}
+                        placeholder='Init-Password'
                       />
                       <p className="p">
                         Init-Password can be found in /var/lib/wharf/wharf.txt
@@ -267,7 +266,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <img  src={vectorImage} className='vector-image'/>
+      <img  src={vectorImage} className='vector-image' alt='vector'/>
     </body>
   );
 };
