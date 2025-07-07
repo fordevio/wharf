@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+// D:\FOSS\wharf\client/src/Login.js
 import { User, Eye, Crosshair } from 'lucide-react';
 import { useState } from 'react';
 import wharfLogo from '../../assets/wharf.svg';
@@ -36,6 +37,7 @@ const Login = () => {
   const [adminPass, setAdminPass] = useState<string>('');
   const [adminUname, setAdminUname] = useState<string>('');
   const [forgotPass, setForgotPass] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false); // Update state for password
   const navigate = useNavigate();
 
   const findIsAdmin = async () => {
@@ -68,7 +70,6 @@ const Login = () => {
   const logIn = async () => {
     try {
       const res = await login(username, password);
-
       localStorage.setItem('token', res.data.token);
       navigate('/');
       return res.data;
@@ -92,10 +93,8 @@ const Login = () => {
       return;
     }
 
-    // Check if it contains at least one letter and one number
     const letterRegex = /[a-zA-Z]/;
     const numberRegex = /[0-9]/;
-
     const hasLetter = letterRegex.test(password);
     const hasNumber = numberRegex.test(password);
 
@@ -117,7 +116,7 @@ const Login = () => {
     } else {
       toast.promise(logIn(), {
         loading: 'Loging...',
-        success: 'Login successfull',
+        success: 'Login successful',
         error: data => `${data.error}`,
       });
     }
@@ -146,6 +145,10 @@ const Login = () => {
       },
       error: data => `${data.error}`,
     });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -200,12 +203,15 @@ const Login = () => {
 
                   <div className="inputDiv" tabIndex={0}>
                     <input
-                      type="password"
+                      type={showPassword ? 'text' : 'password'} // Change type based on state
                       onChange={e => setPassword(e.target.value)}
                       value={password}
                       placeholder="Password"
                     />
-                    <Eye className="input-icon" />
+                    <Eye
+                      className="input-icon"
+                      onClick={togglePasswordVisibility} // added click event
+                    />
                   </div>
                   {!isAdmin && (
                     <div className="inputDiv" tabIndex={0}>
