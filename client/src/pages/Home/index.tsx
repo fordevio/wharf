@@ -12,13 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 
 const Home = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
   return (
     <div>
-      <Navbar />
+      {currentPath !== '/login' && <Navbar />}
       <Outlet />
     </div>
   );
