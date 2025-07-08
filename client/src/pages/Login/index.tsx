@@ -32,7 +32,7 @@ const Login = () => {
   const [username, setUsername] = useState<string>('');
   const [initPassword, setInitPassword] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  // const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [adminPass, setAdminPass] = useState<string>('');
   const [adminUname, setAdminUname] = useState<string>('');
   const [forgotPass, setForgotPass] = useState<boolean>(false);
@@ -82,7 +82,12 @@ const Login = () => {
       toast.error('Please fill all fields');
       return;
     }
-    if (!isAdmin && (initPassword === '' || confirmPassword === '')) {
+    // if (!isAdmin && (initPassword === '' || confirmPassword === '')) {
+    //   toast.error('Please fill all fields');
+    //   return;
+    // }
+
+    if (!isAdmin && initPassword === '') {
       toast.error('Please fill all fields');
       return;
     }
@@ -103,10 +108,10 @@ const Login = () => {
       toast.error('Password must contain at least one letter and one number');
       return;
     }
-    if (!isAdmin && password !== confirmPassword) {
-      toast.error('Passwords do not match confirm password');
-      return;
-    }
+    // if (!isAdmin && password !== confirmPassword) {
+    //   toast.error('Passwords do not match confirm password');
+    //   return;
+    // }
     if (!isAdmin) {
       toast.promise(adminReg(), {
         loading: 'Registering',
@@ -207,7 +212,7 @@ const Login = () => {
                     />
                     <Eye className="input-icon" />
                   </div>
-                  {!isAdmin && (
+                  {/* {!isAdmin && (
                     <div className="inputDiv" tabIndex={0}>
                       <input
                         type="password"
@@ -216,7 +221,7 @@ const Login = () => {
                         placeholder="Confirm Password"
                       />
                     </div>
-                  )}
+                  )}  */}
 
                   <button onClick={SubmitHandler} className="login-btn">
                     Submit
