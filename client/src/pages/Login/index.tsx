@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import { User, Eye, Crosshair } from 'lucide-react';
+import { User, Eye, EyeOff, Crosshair } from 'lucide-react';
 import { useState } from 'react';
 import wharfLogo from '../../assets/wharf.svg';
 import userIcon from '../../assets/login/user.png';
@@ -37,6 +37,9 @@ const Login = () => {
   const [adminUname, setAdminUname] = useState<string>('');
   const [forgotPass, setForgotPass] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState<boolean>(false);
 
   const findIsAdmin = async () => {
     try {
@@ -200,12 +203,22 @@ const Login = () => {
 
                   <div className="inputDiv" tabIndex={0}>
                     <input
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       onChange={e => setPassword(e.target.value)}
                       value={password}
                       placeholder="Password"
                     />
-                    <Eye className="input-icon" />
+                    {showPassword ? (
+                      <EyeOff
+                        className="input-icon eye-icon"
+                        onClick={() => setShowPassword(false)}
+                      />
+                    ) : (
+                      <Eye
+                        className="input-icon eye-icon"
+                        onClick={() => setShowPassword(true)}
+                      />
+                    )}
                   </div>
                   {!isAdmin && (
                     <div className="inputDiv" tabIndex={0}>
