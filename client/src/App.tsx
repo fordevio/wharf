@@ -55,7 +55,7 @@ function App() {
       return;
     }
     try {
-      const res = await getUser(token);
+      await getUser(token);
       if (currentPath === '/login') {
         navigate('/');
       }
