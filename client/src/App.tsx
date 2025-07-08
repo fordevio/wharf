@@ -17,9 +17,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Home from './pages/Home';
 import './App.css';
 import { Toaster } from 'react-hot-toast';
-import { useContext } from 'react';
 import { getUser } from './api/user';
-import UserContext from './context/user/userContext';
 import Containers from './pages/Home/Containers';
 import Imges from './pages/Home/Images';
 import Volumes from './pages/Home/Volumes';
@@ -45,7 +43,6 @@ import NetworkUpdate from './pages/NetworkUpdate';
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
-  const userContext = useContext(UserContext);
 
   const currentPath = location.pathname;
 
@@ -59,7 +56,6 @@ function App() {
     }
     try {
       const res = await getUser(token);
-      userContext?.setCurUser(res.data);
       if (currentPath === '/login') {
         navigate('/');
       }

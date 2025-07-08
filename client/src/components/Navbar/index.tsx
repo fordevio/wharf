@@ -14,26 +14,41 @@
 
 import './index.css';
 import wharfLogo from '../../assets/wharf.png';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import UserContext from '../../context/user/userContext';
 import { Link, useLocation } from 'react-router-dom';
+import { GetUserRes } from '../../models/user';
+import { getUser } from '../../api/user';
+import { useQuery } from 'react-query';
 
 const Navbar = () => {
-  const userContext = useContext(UserContext);
+  const [user, setUser] = useState<GetUserRes | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  if (!userContext || !userContext.curUser) {
-    return null;
+  const fetchUser = async () => {
+    try {
+      const res =  await getUser(localStorage.getItem('token') as string);
+      setUser(res.data);
+    }catch(e){
+      console.log(e);
+    }
   }
+
+  useQuery('cur-user', fetchUser, {
+    retry: false,
+  });
 
   const logout = () => {
     localStorage.removeItem('token');
-    userContext.setCurUser({} as any); // Reset user context
     window.location.href = '/login'; // Redirect to login page
   };
+
+  if (!user) {
+    return <></>;
+  }
 
   return (
     <nav className="nav">
@@ -84,7 +99,7 @@ const Navbar = () => {
             Networks
           </Link>
         </li>
-        {userContext.curUser.isAdmin && (
+        {user.isAdmin && (
           <li>
             <Link
               to="/users"
