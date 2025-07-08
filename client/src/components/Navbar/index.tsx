@@ -15,7 +15,6 @@
 import './index.css';
 import wharfLogo from '../../assets/wharf.png';
 import { useState } from 'react';
-import UserContext from '../../context/user/userContext';
 import { Link, useLocation } from 'react-router-dom';
 import { GetUserRes } from '../../models/user';
 import { getUser } from '../../api/user';
@@ -30,12 +29,12 @@ const Navbar = () => {
 
   const fetchUser = async () => {
     try {
-      const res =  await getUser(localStorage.getItem('token') as string);
+      const res = await getUser(localStorage.getItem('token') as string);
       setUser(res.data);
-    }catch(e){
+    } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   useQuery('cur-user', fetchUser, {
     retry: false,
