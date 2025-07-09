@@ -56,55 +56,55 @@ const Navbar = () => {
       </div>
 
       <div className="nav-links">
-        <div>
+        <div className='link-div' style={currentPath === '/' ? { backgroundColor: '#051D2D', borderColor: '#0099FF'} : {}}>
           <Link
             to="/"
-            className="link"
-            style={currentPath === '/' ? { color: 'blue' } : {}}
+            className="link-paths"
+            
           >
             Containers
           </Link>
         </div>
-        <div>
+        <div className='link-div' style={currentPath === '/images' ? { backgroundColor: '#051D2D', borderColor: '#0099FF'}  : {}}>
           <Link
             to="/images"
-            className="link"
-            style={currentPath === '/images' ? { color: 'blue' } : {}}
+            className="link-paths"
+            
           >
             Images
           </Link>
         </div>
-        <div>
+        <div className='link-div' style={currentPath === '/volumes' ?  { backgroundColor: '#051D2D', borderColor: '#0099FF'}  : {}}>
           <Link
             to="/volumes"
-            className="link"
-            style={currentPath === '/volumes' ? { color: 'blue' } : {}}
+            className="link-paths"
+            
           >
             Volumes
           </Link>
         </div>
-        <div>
+        <div className='link-div' style={currentPath === '/networks' ? { backgroundColor: '#051D2D', borderColor: '#0099FF'}  : {}}>
           <Link
             to="/networks"
-            className="link"
-            style={currentPath === '/networks' ? { color: 'blue' } : {}}
+            className="link-paths"
+            
           >
             Networks
           </Link>
         </div>
         {user.isAdmin && (
-          <div>
+          <div className='link-div' style={currentPath === '/users' ?  { backgroundColor: '#051D2D', borderColor: '#0099FF'}  : {}}>
             <Link
               to="/users"
-              className="link"
-              style={currentPath === '/users' ? { color: 'blue' } : {}}
+              className="link-paths"
+              
             >
               Users
             </Link>
           </div>
         )}
       </div>
-      <button className="logout-btn" onClick={logout}>
+      <button className=" logout-btn" onClick={logout}>
         Logout
       </button>
     </nav>
