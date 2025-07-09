@@ -52,6 +52,7 @@ const Navbar = () => {
     <nav className="nav">
       <div className='logo-div'>
               <img src={wharfLogo} className="nav-logo" alt="wharf" />
+              <p className='nav-logo-text'>Wharf</p>
       </div>
 
       <div className="nav-links">

@@ -11,6 +11,24 @@
   color: white;
 }
 
+.nav-logo-text {
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 700;
+  font-style: normal; /* 'Bold' is not a valid value for font-style */
+  font-size: 24px;
+  line-height: 72px;
+  letter-spacing: 1%;
+  color: #469DDD;
+  width: 77px;
+  height: 72px;
+  position: absolute;
+  top: 150px;
+  left: 152px;
+  transform: rotate(0deg);
+  opacity: 1;
+
+}
+
 .nav-links {
 display: flex;
 flex-direction: column;
