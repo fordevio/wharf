@@ -63,7 +63,7 @@ const Containers = () => {
   });
 
   return (
-    <>
+    <div className='page'>
       <div className="prune-btn">
         <button onClick={pruneHandler} className="btn">
           Prune Containers
@@ -84,7 +84,7 @@ const Containers = () => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 
