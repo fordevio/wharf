@@ -7,6 +7,10 @@
   align-content: center;
 }
 
+.page{
+    padding-left: 400px;
+}
+
 .prune-btn {
   padding: 5px 5px;
   width: 100%;
