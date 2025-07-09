@@ -22,7 +22,6 @@ import { useQuery } from 'react-query';
 
 const Navbar = () => {
   const [user, setUser] = useState<GetUserRes | null>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   const location = useLocation();
   const currentPath = location.pathname;
@@ -51,18 +50,12 @@ const Navbar = () => {
 
   return (
     <nav className="nav">
-      <img src={wharfLogo} className="logo" alt="wharf" />
-
-      <div
-        className={`menu ${menuOpen ? 'open' : ''}`}
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
-        <span></span>
-        <span></span>
-        <span></span>
+      <div className='logo-div'>
+              <img src={wharfLogo} className="nav-logo" alt="wharf" />
       </div>
-      <ul className={menuOpen ? 'open' : ''}>
-        <li>
+
+      <div className="nav-links">
+        <div>
           <Link
             to="/"
             className="link"
@@ -70,8 +63,8 @@ const Navbar = () => {
           >
             Containers
           </Link>
-        </li>
-        <li>
+        </div>
+        <div>
           <Link
             to="/images"
             className="link"
@@ -79,8 +72,8 @@ const Navbar = () => {
           >
             Images
           </Link>
-        </li>
-        <li>
+        </div>
+        <div>
           <Link
             to="/volumes"
             className="link"
@@ -88,8 +81,8 @@ const Navbar = () => {
           >
             Volumes
           </Link>
-        </li>
-        <li>
+        </div>
+        <div>
           <Link
             to="/networks"
             className="link"
@@ -97,9 +90,9 @@ const Navbar = () => {
           >
             Networks
           </Link>
-        </li>
+        </div>
         {user.isAdmin && (
-          <li>
+          <div>
             <Link
               to="/users"
               className="link"
@@ -107,9 +100,9 @@ const Navbar = () => {
             >
               Users
             </Link>
-          </li>
+          </div>
         )}
-      </ul>
+      </div>
       <button className="logout-btn" onClick={logout}>
         Logout
       </button>
