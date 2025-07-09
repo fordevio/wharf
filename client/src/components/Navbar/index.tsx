@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import './index.css';
-import wharfLogo from '../../assets/wharf.png';
+import wharfLogo from '../../assets/wharf.svg';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { GetUserRes } from '../../models/user';
