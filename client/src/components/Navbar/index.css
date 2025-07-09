@@ -69,6 +69,8 @@ left: 135px;
   font-size: 24px;
   line-height: 72px;
   letter-spacing: 0px;
+  text-align: center;
+  margin-left: 50px;
 }
 
 .link-div{
@@ -81,5 +83,10 @@ left: 135px;
   margin-top: 40px;
   display: flex;
   align-items: center;
-  justify-content: center;
+}
+
+.nav-icon{
+  width: 30px;
+  height: 30px;
+  margin-left: 20px;
 }
