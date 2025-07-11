@@ -14,11 +14,11 @@
 
 import './index.css';
 import wharfLogo from '../../assets/wharf.svg';
-import containerIcon from '../../assets/navbar/container.png'
-import imageIcon from '../../assets/navbar/image.png'
-import volumeIcon from '../../assets/navbar/volume.png'
-import networkIcon from '../../assets/navbar/network.png'
-import userIcon from '../../assets/navbar/user.png'
+import containerIcon from '../../assets/navbar/container.png';
+import imageIcon from '../../assets/navbar/image.png';
+import volumeIcon from '../../assets/navbar/volume.png';
+import networkIcon from '../../assets/navbar/network.png';
+import userIcon from '../../assets/navbar/user.png';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { GetUserRes } from '../../models/user';
@@ -56,60 +56,75 @@ const Navbar = () => {
 
   return (
     <nav className="nav">
-      <div className='logo-div'>
-              <img src={wharfLogo} className="nav-logo" alt="wharf" />
-              <p className='nav-logo-text'>Wharf</p>
+      <div className="logo-div">
+        <img src={wharfLogo} className="nav-logo" alt="wharf" />
+        <p className="nav-logo-text">Wharf</p>
       </div>
 
       <div className="nav-links">
-        <div className='link-div' style={currentPath === '/' ? { backgroundColor: '#051D2D', borderColor: '#0099FF'} : {}}>
-        <img src={containerIcon} alt='container' className='nav-icon' />
-          <Link
-            to="/"
-            className="link-paths"
-            
-          >
+        <div
+          className="link-div"
+          style={
+            currentPath === '/'
+              ? { backgroundColor: '#051D2D', borderColor: '#0099FF' }
+              : {}
+          }
+        >
+          <img src={containerIcon} alt="container" className="nav-icon" />
+          <Link to="/" className="link-paths">
             Containers
           </Link>
         </div>
-        <div className='link-div' style={currentPath === '/images' ? { backgroundColor: '#051D2D', borderColor: '#0099FF'}  : {}}>
-        <img src={imageIcon} alt='image' className='nav-icon' />
-          <Link
-            to="/images"
-            className="link-paths"
-            
-          >
+        <div
+          className="link-div"
+          style={
+            currentPath === '/images'
+              ? { backgroundColor: '#051D2D', borderColor: '#0099FF' }
+              : {}
+          }
+        >
+          <img src={imageIcon} alt="image" className="nav-icon" />
+          <Link to="/images" className="link-paths">
             Images
           </Link>
         </div>
-        <div className='link-div' style={currentPath === '/volumes' ?  { backgroundColor: '#051D2D', borderColor: '#0099FF'}  : {}}>
-          <img src={volumeIcon} alt='volume' className='nav-icon' />
-          <Link
-            to="/volumes"
-            className="link-paths"
-            
-          >
+        <div
+          className="link-div"
+          style={
+            currentPath === '/volumes'
+              ? { backgroundColor: '#051D2D', borderColor: '#0099FF' }
+              : {}
+          }
+        >
+          <img src={volumeIcon} alt="volume" className="nav-icon" />
+          <Link to="/volumes" className="link-paths">
             Volumes
           </Link>
         </div>
-        <div className='link-div' style={currentPath === '/networks' ? { backgroundColor: '#051D2D', borderColor: '#0099FF'}  : {}}>
-         <img src={networkIcon} alt='network' className='nav-icon' />
-          <Link
-            to="/networks"
-            className="link-paths"
-            
-          >
+        <div
+          className="link-div"
+          style={
+            currentPath === '/networks'
+              ? { backgroundColor: '#051D2D', borderColor: '#0099FF' }
+              : {}
+          }
+        >
+          <img src={networkIcon} alt="network" className="nav-icon" />
+          <Link to="/networks" className="link-paths">
             Networks
           </Link>
         </div>
         {user.isAdmin && (
-          <div className='link-div' style={currentPath === '/users' ?  { backgroundColor: '#051D2D', borderColor: '#0099FF'}  : {}}>
-            <img src={userIcon} alt='user' className='nav-icon' />
-            <Link
-              to="/users"
-              className="link-paths"
-              
-            >
+          <div
+            className="link-div"
+            style={
+              currentPath === '/users'
+                ? { backgroundColor: '#051D2D', borderColor: '#0099FF' }
+                : {}
+            }
+          >
+            <img src={userIcon} alt="user" className="nav-icon" />
+            <Link to="/users" className="link-paths">
               Users
             </Link>
           </div>
