@@ -13,7 +13,12 @@
 // limitations under the License.
 
 import './index.css';
-import wharfLogo from '../../assets/wharf.png';
+import wharfLogo from '../../assets/wharf.svg';
+import containerIcon from '../../assets/navbar/container.png';
+import imageIcon from '../../assets/navbar/image.png';
+import volumeIcon from '../../assets/navbar/volume.png';
+import networkIcon from '../../assets/navbar/network.png';
+import userIcon from '../../assets/navbar/user.png';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { GetUserRes } from '../../models/user';
@@ -22,7 +27,6 @@ import { useQuery } from 'react-query';
 
 const Navbar = () => {
   const [user, setUser] = useState<GetUserRes | null>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   const location = useLocation();
   const currentPath = location.pathname;
@@ -51,66 +55,81 @@ const Navbar = () => {
 
   return (
     <nav className="nav">
-      <img src={wharfLogo} className="logo" alt="wharf" />
-
-      <div
-        className={`menu ${menuOpen ? 'open' : ''}`}
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
-        <span></span>
-        <span></span>
-        <span></span>
+      <div className="logo-div">
+        <img src={wharfLogo} className="nav-logo" alt="wharf" />
+        <p className="nav-logo-text">Wharf</p>
       </div>
-      <ul className={menuOpen ? 'open' : ''}>
-        <li>
-          <Link
-            to="/"
-            className="link"
-            style={currentPath === '/' ? { color: 'blue' } : {}}
-          >
+
+      <div className="nav-links">
+        <div
+          className="link-div"
+          style={
+            currentPath === '/'
+              ? { backgroundColor: '#051D2D', borderColor: '#0099FF' }
+              : {}
+          }
+        >
+          <img src={containerIcon} alt="" className="nav-icon" />
+          <Link to="/" className="link-paths">
             Containers
           </Link>
-        </li>
-        <li>
-          <Link
-            to="/images"
-            className="link"
-            style={currentPath === '/images' ? { color: 'blue' } : {}}
-          >
+        </div>
+        <div
+          className="link-div"
+          style={
+            currentPath === '/images'
+              ? { backgroundColor: '#051D2D', borderColor: '#0099FF' }
+              : {}
+          }
+        >
+          <img src={imageIcon} alt="" className="nav-icon" />
+          <Link to="/images" className="link-paths">
             Images
           </Link>
-        </li>
-        <li>
-          <Link
-            to="/volumes"
-            className="link"
-            style={currentPath === '/volumes' ? { color: 'blue' } : {}}
-          >
+        </div>
+        <div
+          className="link-div"
+          style={
+            currentPath === '/volumes'
+              ? { backgroundColor: '#051D2D', borderColor: '#0099FF' }
+              : {}
+          }
+        >
+          <img src={volumeIcon} alt="" className="nav-icon" />
+          <Link to="/volumes" className="link-paths">
             Volumes
           </Link>
-        </li>
-        <li>
-          <Link
-            to="/networks"
-            className="link"
-            style={currentPath === '/networks' ? { color: 'blue' } : {}}
-          >
+        </div>
+        <div
+          className="link-div"
+          style={
+            currentPath === '/networks'
+              ? { backgroundColor: '#051D2D', borderColor: '#0099FF' }
+              : {}
+          }
+        >
+          <img src={networkIcon} alt="" className="nav-icon" />
+          <Link to="/networks" className="link-paths">
             Networks
           </Link>
-        </li>
+        </div>
         {user.isAdmin && (
-          <li>
-            <Link
-              to="/users"
-              className="link"
-              style={currentPath === '/users' ? { color: 'blue' } : {}}
-            >
+          <div
+            className="link-div"
+            style={
+              currentPath === '/users'
+                ? { backgroundColor: '#051D2D', borderColor: '#0099FF' }
+                : {}
+            }
+          >
+            <img src={userIcon} alt="" className="nav-icon" />
+            <Link to="/users" className="link-paths">
               Users
             </Link>
-          </li>
+          </div>
         )}
-      </ul>
-      <button className="logout-btn" onClick={logout}>
+      </div>
+      <button className=" logout-btn" onClick={logout}>
         Logout
       </button>
     </nav>

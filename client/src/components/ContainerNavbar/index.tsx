@@ -27,7 +27,7 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="nav">
+    <nav className="con-nav">
       <img src={wharfLogo} className="logo" alt="wharf" />
 
       <div
