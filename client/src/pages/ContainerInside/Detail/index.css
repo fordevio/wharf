@@ -17,7 +17,7 @@
 .cont {
   font-size: 50px;
   font-family: cursive;
-  color: rgb(5, 5, 82);
+  color: white;
   word-break: break-word;
 }
 
@@ -33,12 +33,12 @@
 .cont-l {
   font-size: 30px;
   font-family: cursive;
-  color: rgb(5, 5, 82);
+  color: white;
   word-break: break-word;
 }
 
 .sp {
-  color: rgb(4, 4, 158);
+  color: white;
 }
 
 .lab {
