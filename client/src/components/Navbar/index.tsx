@@ -24,7 +24,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { GetUserRes } from '../../models/user';
 import { getUser } from '../../api/user';
 import { useQuery } from 'react-query';
-import { NetworkIcon } from 'lucide-react';
 
 const Navbar = () => {
   const [user, setUser] = useState<GetUserRes | null>(null);
@@ -70,7 +69,7 @@ const Navbar = () => {
               : {}
           }
         >
-          <img src={containerIcon} alt="container" className="nav-icon" />
+          <img src={containerIcon} alt="" className="nav-icon" />
           <Link to="/" className="link-paths">
             Containers
           </Link>
@@ -83,7 +82,7 @@ const Navbar = () => {
               : {}
           }
         >
-          <img src={imageIcon} alt="image" className="nav-icon" />
+          <img src={imageIcon} alt="" className="nav-icon" />
           <Link to="/images" className="link-paths">
             Images
           </Link>
@@ -96,7 +95,7 @@ const Navbar = () => {
               : {}
           }
         >
-          <img src={volumeIcon} alt="volume" className="nav-icon" />
+          <img src={volumeIcon} alt="" className="nav-icon" />
           <Link to="/volumes" className="link-paths">
             Volumes
           </Link>
@@ -109,7 +108,7 @@ const Navbar = () => {
               : {}
           }
         >
-          <img src={networkIcon} alt="network" className="nav-icon" />
+          <img src={networkIcon} alt="" className="nav-icon" />
           <Link to="/networks" className="link-paths">
             Networks
           </Link>
@@ -123,7 +122,7 @@ const Navbar = () => {
                 : {}
             }
           >
-            <img src={userIcon} alt="user" className="nav-icon" />
+            <img src={userIcon} alt="" className="nav-icon" />
             <Link to="/users" className="link-paths">
               Users
             </Link>
