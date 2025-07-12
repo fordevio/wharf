@@ -203,7 +203,7 @@ const Login = () => {
 
                   <div className="inputDiv" tabIndex={0}>
                     <input
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? '' : 'password'}
                       onChange={e => setPassword(e.target.value)}
                       value={password}
                       placeholder="Password"
