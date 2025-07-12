@@ -87,7 +87,7 @@ const Users = () => {
   });
 
   return (
-    <>
+    <div className="page">
       <div className="user-page">
         <div className="func">
           <button className="btn" onClick={() => setOpen(true)}>
@@ -147,7 +147,7 @@ const Users = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

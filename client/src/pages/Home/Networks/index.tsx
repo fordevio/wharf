@@ -62,7 +62,7 @@ const Networks = () => {
   });
 
   return (
-    <>
+    <div className="page">
       <div className="prune-btn">
         <button onClick={pruneHandler} className="btn">
           Prune Networks
@@ -83,7 +83,7 @@ const Networks = () => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 
