@@ -9,6 +9,8 @@ import { getAllImages } from '../../../api/image';
 import { getAllVolumes } from '../../../api/volume';
 import { getAllNetworks } from '../../../api/network';
 import { useQuery } from 'react-query';
+import { Repeat } from 'lucide-react'
+
 
 const Home = () => {
   const [containers, setContainers] = useState<DockerContainer[]>([]);
@@ -50,7 +52,17 @@ const Home = () => {
 
   return (
     <div className='page'>
-    
+     <div className='hm-hd-div'>
+      <span className='hm-hd'>Docker Management</span>
+       <Repeat size={29} className='hd-icon'/>
+     </div>
+
+     <div className='hm-cards'>
+
+      <div className='hm-card'>
+         
+      </div>
+     </div>
      
     </div>
   )

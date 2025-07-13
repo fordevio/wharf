@@ -1,3 +1,43 @@
 .page { 
    padding-left: 400px;
 }
+
+.hm-hd-div{
+   height: 80px;
+   width: 350px;
+   margin-top: 52px;
+   margin-left: 78px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.hd-icon{
+    margin-left: 10px;
+}
+
+.hm-hd{
+    font-family: Lato;
+font-weight: 600;
+font-style: SemiBold;
+font-size: 28px;
+line-height: 72px;
+letter-spacing: 0%;
+font-family: 'Lato', sans-serif;
+  font-weight: 600; /* 600 corresponds to SemiBold */
+  font-style: normal; /* 'SemiBold' is not a valid value for font-style */
+  font-size: 28px;
+  line-height: 72px;
+  letter-spacing: 0;
+}
+
+.hm-card {
+    background-color: #292727;
+    border: 0.5px solid #FFFFFF;
+    width: 800px;
+height: 125px;
+/* top: 184px;
+left: 495px; */
+border-radius: 20px;
+opacity: 1;
+}
