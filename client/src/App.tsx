@@ -14,15 +14,14 @@
 
 import Login from './pages/Login';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import Home from './pages/Home';
 import './App.css';
 import { Toaster } from 'react-hot-toast';
 import { getUser } from './api/user';
-import Containers from './pages/Home/Containers';
-import Imges from './pages/Home/Images';
-import Volumes from './pages/Home/Volumes';
-import Networks from './pages/Home/Networks';
-import Users from './pages/Home/Users';
+import Containers from './pages/Index/Containers';
+import Imges from './pages/Index/Images';
+import Volumes from './pages/Index/Volumes';
+import Networks from './pages/Index/Networks';
+import Users from './pages/Index/Users';
 
 import { useQuery } from 'react-query';
 import ContainerInside from './pages/ContainerInside';
@@ -39,6 +38,8 @@ import NetworkDetail from './pages/NetworkDetail';
 import NetworkCreate from './pages/NetworkCreate';
 import ContainerUpdate from './pages/ContainerUpdate';
 import NetworkUpdate from './pages/NetworkUpdate';
+import Index from './pages/Index';
+import Home from './pages/Index/Home';
 
 function App() {
   const location = useLocation();
@@ -74,11 +75,12 @@ function App() {
     <>
       <Toaster />
       <Routes>
-        <Route path="/" element={<Home />}>
-          <Route index element={<Containers />} />
+        <Route path="/" element={<Index />}>
+          <Route index element={<Home />} />
           <Route path="images" element={<Imges />} />
           <Route path="volumes" element={<Volumes />} />
           <Route path="networks" element={<Networks />} />
+          <Route path="containers" element={<Containers />} />
           <Route path="users" element={<Users />} />
         </Route>
         <Route path="/container/:id" element={<ContainerInside />}>
