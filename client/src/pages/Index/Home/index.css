@@ -40,6 +40,7 @@
   opacity: 1;
   margin-top: 40px;
   cursor: pointer;
+  display: flex;
 }
 
 .hm-card:hover {
@@ -63,6 +64,13 @@
     margin-left: 20px;
     width: 60%;
     height: 100%;
+}
+
+.hm-card-sub {
+padding-top: 40px;
+padding-left: 120px;
+  display: flex;
+  flex-direction: column;
 }
 
 .hm-card-icon {
@@ -90,4 +98,20 @@
 
   color: #FFFFFF;
   margin: 20px auto;
+}
+
+.hm-card-sub-sp{
+    font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.power{
+    margin-right: 20px;
+    margin-left: 10px;
+
+}
+
+.power svg {
+  stroke-width: 10; 
 }

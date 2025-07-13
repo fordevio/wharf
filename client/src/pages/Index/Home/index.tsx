@@ -13,8 +13,9 @@ import { getAllImages } from '../../../api/image';
 import { getAllVolumes } from '../../../api/volume';
 import { getAllNetworks } from '../../../api/network';
 import { useQuery } from 'react-query';
-import { Repeat } from 'lucide-react';
+import { Repeat, Power, ChartPie } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { formatBytes } from '../../../utils/util';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -22,6 +23,18 @@ const Home = () => {
   const [images, setImages] = useState<Image[]>([]);
   const [volumes, setVolumes] = useState<Volume[]>([]);
   const [networks, setNetworks] = useState<NetworkResource[]>([]);
+
+  const getRunningContainers = ()=>{
+    return containers.filter(container => container.State === 'running').length;
+  }
+
+  const getExitedContainers = ()=>{
+    return containers.filter(container => container.State === 'exited').length;
+  }
+
+  const getTotalImageSize = () => {
+    return images.reduce((total, image) => total + (image.Size || 0), 0);
+  };
 
   const fetchInfo = async () => {
     try {
@@ -72,6 +85,11 @@ const Home = () => {
             <span className='hm-card-sp'>{containers.length}</span>
             <span className='hm-card-sp'>Containers</span>
           </div>
+          <div className='hm-card-sub'>
+
+            <span className='hm-card-sub-sp'><Power size={24} color="green" className='power' />{getRunningContainers()} running</span>
+            <span className='hm-card-sub-sp'><Power size={24} color="red" className='power'/>{getExitedContainers()} exited</span>
+          </div>
         </div>
          <div className="hm-card" onClick={() => navigate('/images')}>
           <div className='hm-card-content'>
@@ -80,6 +98,10 @@ const Home = () => {
            </div>
             <span className='hm-card-sp'>{images.length}</span>
             <span className='hm-card-sp'>Images</span>
+          </div>
+              <div className='hm-card-sub'>
+
+            <span className='hm-card-sub-sp'><ChartPie size={24} color="#2F88FF" className='power' />{formatBytes(getTotalImageSize())}</span>
           </div>
         </div>
          <div className="hm-card" onClick={() => navigate('/volumes')}>
