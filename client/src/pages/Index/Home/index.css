@@ -42,6 +42,12 @@
   cursor: pointer;
 }
 
+.hm-card:hover {
+  background-color: #051D2D;
+  transition: background-color 0.3s ease;
+  border: 1px solid #0099FF;
+}
+
 .hm-cards {
   display: flex;
   flex-direction: column;

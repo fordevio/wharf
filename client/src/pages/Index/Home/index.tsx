@@ -14,8 +14,10 @@ import { getAllVolumes } from '../../../api/volume';
 import { getAllNetworks } from '../../../api/network';
 import { useQuery } from 'react-query';
 import { Repeat } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
   const [containers, setContainers] = useState<DockerContainer[]>([]);
   const [images, setImages] = useState<Image[]>([]);
   const [volumes, setVolumes] = useState<Volume[]>([]);
@@ -62,7 +64,7 @@ const Home = () => {
       </div>
 
       <div className="hm-cards">
-        <div className="hm-card">
+        <div className="hm-card" onClick={() => navigate('/containers')}>
           <div className='hm-card-content'>
            <div className='hm-card-icon-div'> 
              <img src={containerIcon} alt="" className="hm-card-icon" />
@@ -71,7 +73,7 @@ const Home = () => {
             <span className='hm-card-sp'>Containers</span>
           </div>
         </div>
-         <div className="hm-card">
+         <div className="hm-card" onClick={() => navigate('/images')}>
           <div className='hm-card-content'>
            <div className='hm-card-icon-div'> 
              <img src={imageIcon} alt="" className="hm-card-icon" />
@@ -80,7 +82,7 @@ const Home = () => {
             <span className='hm-card-sp'>Images</span>
           </div>
         </div>
-         <div className="hm-card">
+         <div className="hm-card" onClick={() => navigate('/volumes')}>
           <div className='hm-card-content'>
            <div className='hm-card-icon-div'> 
              <img src={volumeIcon} alt="" className="hm-card-icon" />
@@ -89,7 +91,7 @@ const Home = () => {
             <span className='hm-card-sp'>Volumes</span>
           </div>
         </div>
-         <div className="hm-card">
+         <div className="hm-card" onClick={() => navigate('/networks')}>
           <div className='hm-card-content'>
            <div className='hm-card-icon-div'> 
              <img src={networkIcon} alt="" className="hm-card-icon" />
