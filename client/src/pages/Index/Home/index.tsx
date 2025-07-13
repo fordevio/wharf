@@ -3,14 +3,17 @@ import { DockerContainer } from '../../../models/container';
 import { Image } from '../../../models/image';
 import './index.css';
 import { Volume } from '../../../models/volume';
+import containerIcon from '../../../assets/navbar/container.png';
+import volumeIcon from '../../../assets/navbar/volume.png';
+import imageIcon from '../../../assets/navbar/image.png';
+import networkIcon from '../../../assets/navbar/network.png';
 import { NetworkResource } from '../../../models/network';
 import { getAllContainers } from '../../../api/container';
 import { getAllImages } from '../../../api/image';
 import { getAllVolumes } from '../../../api/volume';
 import { getAllNetworks } from '../../../api/network';
 import { useQuery } from 'react-query';
-import { Repeat } from 'lucide-react'
-
+import { Repeat } from 'lucide-react';
 
 const Home = () => {
   const [containers, setContainers] = useState<DockerContainer[]>([]);
@@ -18,54 +21,86 @@ const Home = () => {
   const [volumes, setVolumes] = useState<Volume[]>([]);
   const [networks, setNetworks] = useState<NetworkResource[]>([]);
 
-  const fetchInfo = async()=>{
-    try{
-      const res = await getAllContainers(localStorage.getItem('token') as string);
+  const fetchInfo = async () => {
+    try {
+      const res = await getAllContainers(
+        localStorage.getItem('token') as string
+      );
       setContainers(res.data);
-    }catch(e) {
+    } catch (e) {
       console.log(e);
     }
-    try{
+    try {
       const res = await getAllImages(localStorage.getItem('token') as string);
       setImages(res.data);
-    }catch(e) {
+    } catch (e) {
       console.log(e);
     }
-    try{
+    try {
       const res = await getAllVolumes(localStorage.getItem('token') as string);
       setVolumes(res.data);
-    }catch(e) {
+    } catch (e) {
       console.log(e);
     }
-    try{
+    try {
       const res = await getAllNetworks(localStorage.getItem('token') as string);
       setNetworks(res.data);
-    }catch(e) {
+    } catch (e) {
       console.log(e);
     }
-
-  }
+  };
 
   useQuery('home-info', fetchInfo, {
     retry: false,
   });
 
   return (
-    <div className='page'>
-     <div className='hm-hd-div'>
-      <span className='hm-hd'>Docker Management</span>
-       <Repeat size={29} className='hd-icon'/>
-     </div>
-
-     <div className='hm-cards'>
-
-      <div className='hm-card'>
-         
+    <div className="page">
+      <div className="hm-hd-div">
+        <span className="hm-hd">Docker Management</span>
+        <Repeat size={29} className="hd-icon" />
       </div>
-     </div>
-     
-    </div>
-  )
-}
 
-export default Home
+      <div className="hm-cards">
+        <div className="hm-card">
+          <div className='hm-card-content'>
+           <div className='hm-card-icon-div'> 
+             <img src={containerIcon} alt="" className="hm-card-icon" />
+           </div>
+            <span className='hm-card-sp'>{containers.length}</span>
+            <span className='hm-card-sp'>Containers</span>
+          </div>
+        </div>
+         <div className="hm-card">
+          <div className='hm-card-content'>
+           <div className='hm-card-icon-div'> 
+             <img src={imageIcon} alt="" className="hm-card-icon" />
+           </div>
+            <span className='hm-card-sp'>{images.length}</span>
+            <span className='hm-card-sp'>Images</span>
+          </div>
+        </div>
+         <div className="hm-card">
+          <div className='hm-card-content'>
+           <div className='hm-card-icon-div'> 
+             <img src={volumeIcon} alt="" className="hm-card-icon" />
+           </div>
+            <span className='hm-card-sp'>{volumes.length}</span>
+            <span className='hm-card-sp'>Volumes</span>
+          </div>
+        </div>
+         <div className="hm-card">
+          <div className='hm-card-content'>
+           <div className='hm-card-icon-div'> 
+             <img src={networkIcon} alt="" className="hm-card-icon" />
+           </div>
+            <span className='hm-card-sp'>{networks.length}</span>
+            <span className='hm-card-sp'>Networks</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Home;
