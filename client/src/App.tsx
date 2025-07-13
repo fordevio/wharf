@@ -14,7 +14,6 @@
 
 import Login from './pages/Login';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import Home from './pages/Index';
 import './App.css';
 import { Toaster } from 'react-hot-toast';
 import { getUser } from './api/user';
@@ -40,6 +39,7 @@ import NetworkCreate from './pages/NetworkCreate';
 import ContainerUpdate from './pages/ContainerUpdate';
 import NetworkUpdate from './pages/NetworkUpdate';
 import Index from './pages/Index';
+import Home from './pages/Index/Home';
 
 function App() {
   const location = useLocation();
