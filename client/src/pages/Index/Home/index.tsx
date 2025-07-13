@@ -24,13 +24,13 @@ const Home = () => {
   const [volumes, setVolumes] = useState<Volume[]>([]);
   const [networks, setNetworks] = useState<NetworkResource[]>([]);
 
-  const getRunningContainers = ()=>{
+  const getRunningContainers = () => {
     return containers.filter(container => container.State === 'running').length;
-  }
+  };
 
-  const getExitedContainers = ()=>{
+  const getExitedContainers = () => {
     return containers.filter(container => container.State === 'exited').length;
-  }
+  };
 
   const getTotalImageSize = () => {
     return images.reduce((total, image) => total + (image.Size || 0), 0);
@@ -78,48 +78,55 @@ const Home = () => {
 
       <div className="hm-cards">
         <div className="hm-card" onClick={() => navigate('/containers')}>
-          <div className='hm-card-content'>
-           <div className='hm-card-icon-div'> 
-             <img src={containerIcon} alt="" className="hm-card-icon" />
-           </div>
-            <span className='hm-card-sp'>{containers.length}</span>
-            <span className='hm-card-sp'>Containers</span>
+          <div className="hm-card-content">
+            <div className="hm-card-icon-div">
+              <img src={containerIcon} alt="" className="hm-card-icon" />
+            </div>
+            <span className="hm-card-sp">{containers.length}</span>
+            <span className="hm-card-sp">Containers</span>
           </div>
-          <div className='hm-card-sub'>
-
-            <span className='hm-card-sub-sp'><Power size={24} color="green" className='power' />{getRunningContainers()} running</span>
-            <span className='hm-card-sub-sp'><Power size={24} color="red" className='power'/>{getExitedContainers()} exited</span>
-          </div>
-        </div>
-         <div className="hm-card" onClick={() => navigate('/images')}>
-          <div className='hm-card-content'>
-           <div className='hm-card-icon-div'> 
-             <img src={imageIcon} alt="" className="hm-card-icon" />
-           </div>
-            <span className='hm-card-sp'>{images.length}</span>
-            <span className='hm-card-sp'>Images</span>
-          </div>
-              <div className='hm-card-sub'>
-
-            <span className='hm-card-sub-sp'><ChartPie size={24} color="#2F88FF" className='power' />{formatBytes(getTotalImageSize())}</span>
+          <div className="hm-card-sub">
+            <span className="hm-card-sub-sp">
+              <Power size={24} color="green" className="power" />
+              {getRunningContainers()} running
+            </span>
+            <span className="hm-card-sub-sp">
+              <Power size={24} color="red" className="power" />
+              {getExitedContainers()} exited
+            </span>
           </div>
         </div>
-         <div className="hm-card" onClick={() => navigate('/volumes')}>
-          <div className='hm-card-content'>
-           <div className='hm-card-icon-div'> 
-             <img src={volumeIcon} alt="" className="hm-card-icon" />
-           </div>
-            <span className='hm-card-sp'>{volumes.length}</span>
-            <span className='hm-card-sp'>Volumes</span>
+        <div className="hm-card" onClick={() => navigate('/images')}>
+          <div className="hm-card-content">
+            <div className="hm-card-icon-div">
+              <img src={imageIcon} alt="" className="hm-card-icon" />
+            </div>
+            <span className="hm-card-sp">{images.length}</span>
+            <span className="hm-card-sp">Images</span>
+          </div>
+          <div className="hm-card-sub">
+            <span className="hm-card-sub-sp">
+              <ChartPie size={24} color="#2F88FF" className="power" />
+              {formatBytes(getTotalImageSize())}
+            </span>
           </div>
         </div>
-         <div className="hm-card" onClick={() => navigate('/networks')}>
-          <div className='hm-card-content'>
-           <div className='hm-card-icon-div'> 
-             <img src={networkIcon} alt="" className="hm-card-icon" />
-           </div>
-            <span className='hm-card-sp'>{networks.length}</span>
-            <span className='hm-card-sp'>Networks</span>
+        <div className="hm-card" onClick={() => navigate('/volumes')}>
+          <div className="hm-card-content">
+            <div className="hm-card-icon-div">
+              <img src={volumeIcon} alt="" className="hm-card-icon" />
+            </div>
+            <span className="hm-card-sp">{volumes.length}</span>
+            <span className="hm-card-sp">Volumes</span>
+          </div>
+        </div>
+        <div className="hm-card" onClick={() => navigate('/networks')}>
+          <div className="hm-card-content">
+            <div className="hm-card-icon-div">
+              <img src={networkIcon} alt="" className="hm-card-icon" />
+            </div>
+            <span className="hm-card-sp">{networks.length}</span>
+            <span className="hm-card-sp">Networks</span>
           </div>
         </div>
       </div>

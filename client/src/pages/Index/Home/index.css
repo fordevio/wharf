@@ -44,9 +44,9 @@
 }
 
 .hm-card:hover {
-  background-color: #051D2D;
+  background-color: #051d2d;
   transition: background-color 0.3s ease;
-  border: 1px solid #0099FF;
+  border: 1px solid #0099ff;
 }
 
 .hm-cards {
@@ -57,18 +57,18 @@
   margin-top: 10px;
 }
 
-.hm-card-content{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-left: 20px;
-    width: 60%;
-    height: 100%;
+.hm-card-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 20px;
+  width: 60%;
+  height: 100%;
 }
 
 .hm-card-sub {
-padding-top: 40px;
-padding-left: 120px;
+  padding-top: 40px;
+  padding-left: 120px;
   display: flex;
   flex-direction: column;
 }
@@ -78,12 +78,12 @@ padding-left: 120px;
   width: 30px;
 }
 
-.hm-card-icon-div{
-    height: 40px;
+.hm-card-icon-div {
+  height: 40px;
   width: 40px;
-    margin-left: 30px;
+  margin-left: 30px;
   margin-right: 30px;
-    background-color: #433E3E;
+  background-color: #433e3e;
   padding: 4px;
   border-radius: 100px;
 }
@@ -96,22 +96,21 @@ padding-left: 120px;
   line-height: 72px;
   letter-spacing: 0;
 
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 20px auto;
 }
 
-.hm-card-sub-sp{
-    font-family: 'Lato', sans-serif;
+.hm-card-sub-sp {
+  font-family: 'Lato', sans-serif;
   font-weight: 400;
   font-size: 20px;
 }
 
-.power{
-    margin-right: 20px;
-    margin-left: 10px;
-
+.power {
+  margin-right: 20px;
+  margin-left: 10px;
 }
 
 .power svg {
-  stroke-width: 10; 
+  stroke-width: 10;
 }
