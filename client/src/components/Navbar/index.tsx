@@ -19,6 +19,7 @@ import imageIcon from '../../assets/navbar/image.png';
 import volumeIcon from '../../assets/navbar/volume.png';
 import networkIcon from '../../assets/navbar/network.png';
 import userIcon from '../../assets/navbar/user.png';
+import homeIcon from '../../assets/navbar/home.png';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { GetUserRes } from '../../models/user';
@@ -69,8 +70,21 @@ const Navbar = () => {
               : {}
           }
         >
-          <img src={containerIcon} alt="" className="nav-icon" />
+          <img src={homeIcon} alt="" className="nav-icon" />
           <Link to="/" className="link-paths">
+            Home
+          </Link>
+        </div>
+        <div
+          className="link-div"
+          style={
+            currentPath === '/containers'
+              ? { backgroundColor: '#051D2D', borderColor: '#0099FF' }
+              : {}
+          }
+        >
+          <img src={containerIcon} alt="" className="nav-icon" />
+          <Link to="/containers" className="link-paths">
             Containers
           </Link>
         </div>

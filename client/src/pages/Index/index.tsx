@@ -15,7 +15,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 
-const Home = () => {
+const Index = () => {
   const location = useLocation();
   const currentPath = location.pathname;
   return (
@@ -26,4 +26,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Index;
