@@ -64,7 +64,12 @@ const Containers = () => {
 
   return (
     <div className="page">
-      <div className="prune-btn">
+      <div className="table-container">
+            <div className='con-table-header'>
+            <div>
+              Containers 
+            </div>
+           <div className="prune-btn">
         <button onClick={pruneHandler} className="btn">
           Prune Containers
         </button>
@@ -72,8 +77,8 @@ const Containers = () => {
           Create
         </Link>
       </div>
-      <div className="card-container">
-        <table>
+          </div>
+        <table className='container-table'>
           <thead>
             <tr>
               <th>Name</th>
