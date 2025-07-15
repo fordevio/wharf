@@ -73,16 +73,28 @@ const Containers = () => {
         </Link>
       </div>
       <div className="card-container">
-        {containers.map((container, index) => {
-          return (
+        <table>
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Image</th>
+              <th>State</th>
+              <th>CreatedAt</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+         <tbody>
+          {containers.map((container) => (
             <ContainerCard
-              key={index}
-              container={container}
+              key={container.Id}
               containers={containers}
+              container={container}
               setContainers={setContainers}
             />
-          );
-        })}
+          ))}
+          </tbody>
+
+        </table>
       </div>
     </div>
   );
