@@ -151,10 +151,14 @@ const ContainerCard: React.FC<Props> = ({
   return (
     <tr>
       <td>
-        <span>{container.Names[0].replace(/^\//, '').slice(0,10) + "..."}</span>
+        <span>
+          {container.Names[0].replace(/^\//, '').slice(0, 10) + '...'}
+        </span>
       </td>
       <td>
-        <span className="container-image">{container.Image.slice(0,20) + "..."}</span>
+        <span className="container-image">
+          {container.Image.slice(0, 20) + '...'}
+        </span>
       </td>
       <td>
         <span
