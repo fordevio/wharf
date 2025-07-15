@@ -179,38 +179,3 @@ const ContainerCard: React.FC<Props> = ({
 
 export default ContainerCard;
 
-// <div className="cont-card">
-//     <p className="name">{container.Names[0].replace(/^\//, '')}</p>
-//     <div className="content">
-//       <span className="label">Image: </span>{' '}
-//       <span className="label">{container.Image.split('@')[0]}</span>
-//     </div>
-//     <div className="content">
-//       <span className="label">Status: </span>{' '}
-//       <span className="label">{container.Status}</span>
-//     </div>
-//     <div className="content">
-//       <span className="label">State: </span>{' '}
-//       <span
-//         className="label"
-//         style={
-//           container.State === 'running'
-//             ? { color: 'green' }
-//             : { color: 'red' }
-//         }
-//       >
-//         {container.State}
-//       </span>
-//     </div>
-//     <div className="content">
-//       <button className="btn" onClick={StartStopHandler}>
-//         {container.State === 'exited' ? 'Start' : 'Stop'}
-//       </button>
-//       <button className="btn" onClick={PauseUnpauseHandler}>
-//         {container.State === 'paused' ? 'Unpause' : 'Pause'}
-//       </button>
-//       <Link to={`/container/${container.Id}`} className="btn detail">
-//         Details
-//       </Link>
-//     </div>
-//   </div>
