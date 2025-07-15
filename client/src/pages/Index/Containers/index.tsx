@@ -74,7 +74,7 @@ const Containers = () => {
       </div>
       <div className="card-container">
         <table>
-            <thead>
+          <thead>
             <tr>
               <th>Name</th>
               <th>Image</th>
@@ -83,17 +83,16 @@ const Containers = () => {
               <th>Status</th>
             </tr>
           </thead>
-         <tbody>
-          {containers.map((container) => (
-            <ContainerCard
-              key={container.Id}
-              containers={containers}
-              container={container}
-              setContainers={setContainers}
-            />
-          ))}
+          <tbody>
+            {containers.map(container => (
+              <ContainerCard
+                key={container.Id}
+                containers={containers}
+                container={container}
+                setContainers={setContainers}
+              />
+            ))}
           </tbody>
-
         </table>
       </div>
     </div>
