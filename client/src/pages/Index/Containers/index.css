@@ -1,11 +1,4 @@
-.card-container {
-  display: grid;
-  gap: 50px 50px;
-  padding: 50px 50px;
-  grid-template-columns: auto auto auto auto;
-  justify-content: space-evenly;
-  align-content: center;
-}
+
 
 .page {
   padding-left: 400px;
@@ -19,4 +12,26 @@
 
 .create-btn {
   text-decoration: none;
+}
+
+.container-table{
+width: 971px;
+}
+
+.table-container{
+  
+  margin: 100px auto;
+  padding: 10px;
+    width: 971px;
+  border-radius: 20px;
+  border: 0.5px solid white; /* or any desired color */
+  transform: rotate(0deg);
+  opacity: 1;
+}
+
+.con-table-header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 10px;
 }
