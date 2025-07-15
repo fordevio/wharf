@@ -149,42 +149,64 @@ const ContainerCard: React.FC<Props> = ({
   }
 
   return (
-    <div className="cont-card">
-      <p className="name">{container.Names[0].replace(/^\//, '')}</p>
-      <div className="content">
-        <span className="label">Image: </span>{' '}
-        <span className="label">{container.Image.split('@')[0]}</span>
-      </div>
-      <div className="content">
-        <span className="label">Status: </span>{' '}
-        <span className="label">{container.Status}</span>
-      </div>
-      <div className="content">
-        <span className="label">State: </span>{' '}
+    <tr>
+      <td>
+        <span>{container.Names[0].replace(/^\//, '').slice(0,10) + "..."}</span>
+      </td>
+      <td>
+        <span className="container-image">{container.Image.slice(0,20) + "..."}</span>
+      </td>
+      <td>
         <span
-          className="label"
-          style={
-            container.State === 'running'
-              ? { color: 'green' }
-              : { color: 'red' }
-          }
+          style={{ color: container.State === 'running' ? 'green' : 'red' }}
         >
           {container.State}
         </span>
-      </div>
-      <div className="content">
-        <button className="btn" onClick={StartStopHandler}>
-          {container.State === 'exited' ? 'Start' : 'Stop'}
-        </button>
-        <button className="btn" onClick={PauseUnpauseHandler}>
-          {container.State === 'paused' ? 'Unpause' : 'Pause'}
-        </button>
-        <Link to={`/container/${container.Id}`} className="btn detail">
-          Details
-        </Link>
-      </div>
-    </div>
+      </td>
+      <td>
+        <span>{container.Created}</span>
+      </td>
+      <td>
+        <span>{container.Status}</span>
+      </td>
+    </tr>
   );
 };
 
 export default ContainerCard;
+
+// <div className="cont-card">
+//     <p className="name">{container.Names[0].replace(/^\//, '')}</p>
+//     <div className="content">
+//       <span className="label">Image: </span>{' '}
+//       <span className="label">{container.Image.split('@')[0]}</span>
+//     </div>
+//     <div className="content">
+//       <span className="label">Status: </span>{' '}
+//       <span className="label">{container.Status}</span>
+//     </div>
+//     <div className="content">
+//       <span className="label">State: </span>{' '}
+//       <span
+//         className="label"
+//         style={
+//           container.State === 'running'
+//             ? { color: 'green' }
+//             : { color: 'red' }
+//         }
+//       >
+//         {container.State}
+//       </span>
+//     </div>
+//     <div className="content">
+//       <button className="btn" onClick={StartStopHandler}>
+//         {container.State === 'exited' ? 'Start' : 'Stop'}
+//       </button>
+//       <button className="btn" onClick={PauseUnpauseHandler}>
+//         {container.State === 'paused' ? 'Unpause' : 'Pause'}
+//       </button>
+//       <Link to={`/container/${container.Id}`} className="btn detail">
+//         Details
+//       </Link>
+//     </div>
+//   </div>
