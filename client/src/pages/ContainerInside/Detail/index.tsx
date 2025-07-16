@@ -16,7 +16,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './index.css';
 import { DockerContainer } from '../../../models/container';
 import { useState } from 'react';
-import { getContainer, removeContainer } from '../../../api/container';
+import {
+  getContainer,
+  pauseContainer,
+  removeContainer,
+  startContainer,
+  stopContainer,
+  unpauseContainer,
+} from '../../../api/container';
 import { useQuery } from 'react-query';
 import { convertToIndianDateTime } from '../../../utils/util';
 import toast from 'react-hot-toast';
@@ -49,6 +56,69 @@ const ContainerDetail = () => {
   if (id === undefined) {
     return <></>;
   }
+
+  const stopStartFunc = async () => {
+    const token = localStorage.getItem('token') as string;
+
+    try {
+      if (container == null) {
+        return { message: 'Container not found' };
+      }
+      let res;
+      if (container.State === 'exited') {
+        res = await startContainer(token, container.Id);
+      } else {
+        res = await stopContainer(token, container.Id);
+      }
+      fetchContainer();
+      return res.data;
+    } catch (e: any) {
+      throw e.response ? e.response.data : { error: 'Request failed' };
+    }
+  };
+
+  const pauseUnpauseFunc = async () => {
+    const token = localStorage.getItem('token') as string;
+    try {
+      if (container == null) {
+        return { message: 'Container not found' };
+      }
+
+      let res;
+      if (container.State === 'paused') {
+        res = await unpauseContainer(token, container.Id);
+      } else {
+        res = await pauseContainer(token, container.Id);
+      }
+      fetchContainer();
+
+      return res.data;
+    } catch (e: any) {
+      throw e.response ? e.response.data : { error: 'Request failed' };
+    }
+  };
+
+  const StartStopHandler = async () => {
+    if (container == null) {
+      return;
+    }
+    toast.promise(stopStartFunc(), {
+      loading: 'Processing...',
+      success: data => `${data.message.replace(container.Id, '').trim()}`,
+      error: data => `${data.error}`,
+    });
+  };
+
+  const PauseUnpauseHandler = async () => {
+    if (container == null) {
+      return;
+    }
+    toast.promise(pauseUnpauseFunc(), {
+      loading: 'Processing...',
+      success: data => `${data.message.replace(container.Id, '').trim()}`,
+      error: data => `${data.error}`,
+    });
+  };
 
   const delete_func = async () => {
     try {
@@ -140,6 +210,13 @@ const ContainerDetail = () => {
             onClick={() => navigate('/container/update/' + id)}
           >
             Edit
+          </button>
+          <button className="btn" onClick={StartStopHandler}>
+            {' '}
+            {container.State === 'exited' ? 'Start' : 'Stop'}
+          </button>
+          <button className="btn" onClick={PauseUnpauseHandler}>
+            {container.State === 'paused' ? 'Unpause' : 'Pause'}
           </button>
         </div>
       </div>
