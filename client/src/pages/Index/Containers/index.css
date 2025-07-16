@@ -69,3 +69,19 @@
   margin-left: 10px;
   cursor: pointer;
 }
+
+.con-tr th{
+    font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-style: normal; /* "Medium" is not a valid value; use "normal" or "italic" */
+  font-size: 24px;
+  line-height: 72px;
+  letter-spacing: 0;
+
+}
+
+.con-tr th,
+.con-tr td {
+  border-bottom: 0.5px solid #ccc;  /* 🔥 This creates the lines */
+  text-align: center;
+}

@@ -89,14 +89,16 @@ const Containers = () => {
 
         <table className="container-table">
           <thead>
-            <tr>
-              <th>Name</th>
-              <th>Image</th>
+            <tr className='con-tr'>
+              <th >Name</th>
+              <th >Image</th>
               <th>State</th>
               <th>CreatedAt</th>
               <th>Status</th>
             </tr>
+            
           </thead>
+        
           <tbody>
             {containers.map(container => (
               <ContainerCard
