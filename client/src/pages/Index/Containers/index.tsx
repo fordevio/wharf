@@ -18,10 +18,11 @@ import { DockerContainer } from '../../../models/container';
 import ContainerCard from './Container-card';
 import './index.css';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
 const Containers = () => {
+  const navigate = useNavigate();
   const [containers, setContainers] = useState<DockerContainer[]>([]);
 
   const fetchContainers = async () => {
@@ -70,12 +71,13 @@ const Containers = () => {
               Containers 
             </div>
            <div className="prune-btn">
+            <button onClick={()=>navigate('/container/create')} className="btn create-btn">
+          Create
+        </button>
         <button onClick={pruneHandler} className="btn">
           Prune Containers
         </button>
-        <Link to={'/container/create'} className="btn create-btn">
-          Create
-        </Link>
+        
       </div>
           </div>
         <table className='container-table'>
