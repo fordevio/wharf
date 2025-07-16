@@ -85,7 +85,7 @@ const Containers = () => {
             </button>
           </div>
         </div>
-        <div className="white-line"></div>
+        <hr className="white-line"/>
 
         <table className="container-table">
           <thead>
