@@ -14,12 +14,12 @@
 
 import './index.css';
 import wharfLogo from '../../assets/wharf.svg';
-import containerIcon from '../../assets/navbar/container.png';
-import imageIcon from '../../assets/navbar/image.png';
-import volumeIcon from '../../assets/navbar/volume.png';
-import networkIcon from '../../assets/navbar/network.png';
-import userIcon from '../../assets/navbar/user.png';
-import homeIcon from '../../assets/navbar/home.png';
+import containerIcon from '../../assets/common/container.png';
+import imageIcon from '../../assets/common/image.png';
+import volumeIcon from '../../assets/common/volume.png';
+import networkIcon from '../../assets/common/network.png';
+import userIcon from '../../assets/common/user.png';
+import homeIcon from '../../assets/common/home.png';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { GetUserRes } from '../../models/user';
