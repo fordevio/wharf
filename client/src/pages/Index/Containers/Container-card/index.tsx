@@ -151,14 +151,12 @@ const ContainerCard: React.FC<Props> = ({
   return (
     <tr>
       <td>
-        <Link to={`/container/${container.Id}`} >
+        <Link to={`/container/${container.Id}`}>
           {container.Names[0].replace(/^\//, '').slice(0, 10) + '...'}
         </Link>
       </td>
       <td>
-        <span >
-          {container.Image.slice(0, 20) + '...'}
-        </span>
+        <span>{container.Image.slice(0, 20) + '...'}</span>
       </td>
       <td>
         <span
@@ -178,4 +176,3 @@ const ContainerCard: React.FC<Props> = ({
 };
 
 export default ContainerCard;
-
