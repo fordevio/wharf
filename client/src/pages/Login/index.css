@@ -72,6 +72,7 @@ body.login-body {
   flex-direction: column;
   width: 100%;
   height: 100%;
+  z-index: 3;
 }
 
 .user-icon {
