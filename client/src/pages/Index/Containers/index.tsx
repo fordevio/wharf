@@ -15,13 +15,16 @@
 import { useState } from 'react';
 import { getAllContainers, pruneContainers } from '../../../api/container';
 import { DockerContainer } from '../../../models/container';
+import containerIcon from '../../../assets/common/container.png';
 import ContainerCard from './Container-card';
 import './index.css';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { Plus } from 'lucide-react';
 
 const Containers = () => {
+  const navigate = useNavigate();
   const [containers, setContainers] = useState<DockerContainer[]>([]);
 
   const fetchContainers = async () => {
@@ -64,25 +67,47 @@ const Containers = () => {
 
   return (
     <div className="page">
-      <div className="prune-btn">
-        <button onClick={pruneHandler} className="btn">
-          Prune Containers
-        </button>
-        <Link to={'/container/create'} className="btn create-btn">
-          Create
-        </Link>
-      </div>
-      <div className="card-container">
-        {containers.map((container, index) => {
-          return (
-            <ContainerCard
-              key={index}
-              container={container}
-              containers={containers}
-              setContainers={setContainers}
-            />
-          );
-        })}
+      <div className="table-container">
+        <div className="con-table-header">
+          <div className="con-table-title">
+            <img src={containerIcon} alt="" className="con-table-title-icon" />{' '}
+            <span className="con-table-title-name">Containers </span>
+          </div>
+          <div className="con-table-header-but">
+            <button
+              onClick={() => navigate('/container/create')}
+              className="con-btn"
+            >
+              <Plus size={18} /> Create
+            </button>
+            <button
+              onClick={pruneHandler}
+              style={{ backgroundColor: '#B11010' }}
+              className="con-btn"
+            >
+              Prune Containers
+            </button>
+          </div>
+        </div>
+        <hr className="white-line" />
+
+        <table className="container-table">
+          <thead>
+            <tr className="con-tr">
+              <th>Name</th>
+              <th>Image</th>
+              <th>State</th>
+              <th>CreatedAt</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody className="con-tbody">
+            {containers.map(container => (
+              <ContainerCard key={container.Id} container={container} />
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
