@@ -2,3 +2,12 @@
   height: 72px;
   width: 48;
 }
+
+.td-sp-nm {
+  width: 48px;
+  white-space: normal;       /* Allow wrapping (default) */
+  word-break: break-word;    /* Break long words if needed */
+  display: inline-block;   
+  color: #0099FF;
+  cursor: pointer;  
+}

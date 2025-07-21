@@ -15,14 +15,8 @@
 import React from 'react';
 import { DockerContainer } from '../../../../models/container';
 import './index.css';
-import {
-  pauseContainer,
-  startContainer,
-  stopContainer,
-  unpauseContainer,
-} from '../../../../api/container';
-import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { convertToIndianDateTime } from '../../../../utils/util';
 
 interface Props {
   container: DockerContainer;
@@ -33,15 +27,11 @@ const ContainerCard: React.FC<Props> = ({
 }) => {
   const navigate = useNavigate();
 
-  if (container == null) {
-    return <></>;
-  }
-
   return (
     <tr className='con-tr'>
       <td>
-        <span style={{color: "#0099FF", cursor: "pointer"}} onClick={()=> navigate(`/container/${container.Id}`)}>
-          {container.Names[0].replace(/^\//, '').slice(0, 10) + '...'}
+        <span className='td-sp-nm' onClick={()=> navigate(`/container/${container.Id}`)}>
+          {container.Names[0].replace(/^\//, '')}
         </span>
       </td>
       <td>
@@ -55,7 +45,7 @@ const ContainerCard: React.FC<Props> = ({
         </span>
       </td>
       <td>
-        <span>{container.Created}</span>
+        <span>{convertToIndianDateTime(container.Created)}</span>
       </td>
       <td>
         <span>{container.Status}</span>
