@@ -52,7 +52,9 @@
 
 .white-line {
   width: 100%;
-  border-bottom: 0.5px solid white;
+  border: none;
+  height: 0.5px;
+  background-color: white;
 }
 
 .con-btn{
