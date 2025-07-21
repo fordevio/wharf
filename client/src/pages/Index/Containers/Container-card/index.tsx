@@ -22,138 +22,27 @@ import {
   unpauseContainer,
 } from '../../../../api/container';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface Props {
   container: DockerContainer;
-  containers: DockerContainer[];
-  setContainers: (newContainers: DockerContainer[]) => void;
 }
 
 const ContainerCard: React.FC<Props> = ({
   container,
-  setContainers,
-  containers,
 }) => {
-  const stopStartFunc = async () => {
-    const token = localStorage.getItem('token') as string;
-
-    try {
-      if (container == null) {
-        return { message: 'Container not found' };
-      }
-      let res;
-      if (container.State === 'exited') {
-        res = await startContainer(token, container.Id);
-        const newContainers = containers.map(c => {
-          if (c.Id === container.Id) {
-            const newContainer = {
-              ...c,
-              State: 'running',
-              Status: 'Up 1 second',
-            };
-            return newContainer;
-          }
-          return c;
-        });
-        setContainers(newContainers);
-      } else {
-        res = await stopContainer(token, container.Id);
-        const newContainers = containers.map(c => {
-          if (c.Id === container.Id) {
-            const newContainer = {
-              ...c,
-              State: 'exited',
-              Status: 'Exited 1 second',
-            };
-            return newContainer;
-          }
-          return c;
-        });
-        setContainers(newContainers);
-      }
-      return res.data;
-    } catch (e: any) {
-      throw e.response ? e.response.data : { error: 'Request failed' };
-    }
-  };
-
-  const pauseUnpauseFunc = async () => {
-    const token = localStorage.getItem('token') as string;
-    try {
-      if (container == null) {
-        return { message: 'Container not found' };
-      }
-
-      let res;
-      if (container.State === 'paused') {
-        res = await unpauseContainer(token, container.Id);
-        const newContainers = containers.map(c => {
-          if (c.Id === container.Id) {
-            const newContainer = {
-              ...c,
-              State: 'running',
-              Status: 'Up 1 second',
-            };
-            return newContainer;
-          }
-          return c;
-        });
-        setContainers(newContainers);
-      } else {
-        res = await pauseContainer(token, container.Id);
-        const newContainers = containers.map(c => {
-          if (c.Id === container.Id) {
-            const newContainer = {
-              ...c,
-              State: 'paused',
-              Status: 'Paused 1 second',
-            };
-            return newContainer;
-          }
-          return c;
-        });
-        setContainers(newContainers);
-      }
-
-      return res.data;
-    } catch (e: any) {
-      throw e.response ? e.response.data : { error: 'Request failed' };
-    }
-  };
-
-  const StartStopHandler = async () => {
-    if (container == null) {
-      return;
-    }
-    toast.promise(stopStartFunc(), {
-      loading: 'Processing...',
-      success: data => `${data.message.replace(container.Id, '').trim()}`,
-      error: data => `${data.error}`,
-    });
-  };
-
-  const PauseUnpauseHandler = async () => {
-    if (container == null) {
-      return;
-    }
-    toast.promise(pauseUnpauseFunc(), {
-      loading: 'Processing...',
-      success: data => `${data.message.replace(container.Id, '').trim()}`,
-      error: data => `${data.error}`,
-    });
-  };
+  const navigate = useNavigate();
 
   if (container == null) {
     return <></>;
   }
 
   return (
-    <tr>
+    <tr className='con-tr'>
       <td>
-        <Link to={`/container/${container.Id}`}>
+        <span style={{color: "#0099FF", cursor: "pointer"}} onClick={()=> navigate(`/container/${container.Id}`)}>
           {container.Names[0].replace(/^\//, '').slice(0, 10) + '...'}
-        </Link>
+        </span>
       </td>
       <td>
         <span>{container.Image.slice(0, 20) + '...'}</span>

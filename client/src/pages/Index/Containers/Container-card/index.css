@@ -1,43 +1,4 @@
-.cont-card {
-  height: 300px;
-  width: 300px;
-  background-color: rgb(92, 141, 153);
-  border-radius: 10px;
-  border: 2px solid rgb(4, 24, 110);
-  padding: 10px 10px;
-  color: rgb(4, 24, 110);
-}
-
-.name {
-  text-align: center;
-  font-size: 30px;
-  font-weight: 600;
-}
-
-.label {
-  font-size: 20px;
-  font-weight: 500;
-  word-break: break-word;
-}
-
-.content {
-  padding: 4px 0;
-}
-
-.btn {
-  background-color: rgb(4, 24, 110);
-  color: white;
-  padding: 5px 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 25px;
-  font-weight: 500;
-  margin: 2px 2px;
-  border: 1px solid black;
-}
-
-.detail {
-  text-decoration: none;
-  padding: 3px 3px;
-  border: 1px solid black;
+.con-tr td{
+  height: 72px;
+  width: 48;
 }

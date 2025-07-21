@@ -103,9 +103,7 @@ const Containers = () => {
             {containers.map(container => (
               <ContainerCard
                 key={container.Id}
-                containers={containers}
                 container={container}
-                setContainers={setContainers}
               />
             ))}
           </tbody>
