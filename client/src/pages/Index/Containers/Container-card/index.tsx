@@ -22,15 +22,16 @@ interface Props {
   container: DockerContainer;
 }
 
-const ContainerCard: React.FC<Props> = ({
-  container,
-}) => {
+const ContainerCard: React.FC<Props> = ({ container }) => {
   const navigate = useNavigate();
 
   return (
-    <tr className='con-tr'>
+    <tr className="con-tr">
       <td>
-        <span className='td-sp-nm' onClick={()=> navigate(`/container/${container.Id}`)}>
+        <span
+          className="td-sp-nm"
+          onClick={() => navigate(`/container/${container.Id}`)}
+        >
           {container.Names[0].replace(/^\//, '')}
         </span>
       </td>

@@ -57,7 +57,7 @@
   background-color: white;
 }
 
-.con-btn{
+.con-btn {
   width: 150px;
   height: 30px;
   border-radius: 8px;
@@ -66,24 +66,23 @@
   font-style: normal; /* 'Medium' is not a valid font-style, use font-weight instead */
   font-size: 16px;
   letter-spacing: 0;
-  background-color: #0099FF;
+  background-color: #0099ff;
   color: white;
   margin-left: 10px;
   cursor: pointer;
 }
 
-.con-tr th{
-    font-family: 'Lato', sans-serif;
+.con-tr th {
+  font-family: 'Lato', sans-serif;
   font-weight: 500;
   font-style: normal; /* "Medium" is not a valid value; use "normal" or "italic" */
   font-size: 24px;
   line-height: 72px;
   letter-spacing: 0;
-
 }
 
 .con-tr th,
 .con-tr td {
-  border-bottom: 0.5px solid #ccc;  /* 🔥 This creates the lines */
+  border-bottom: 0.5px solid #ccc; /* 🔥 This creates the lines */
   text-align: center;
 }

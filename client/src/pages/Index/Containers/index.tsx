@@ -80,31 +80,31 @@ const Containers = () => {
             >
               <Plus size={18} /> Create
             </button>
-            <button onClick={pruneHandler} style={{backgroundColor:"#B11010"}} className="con-btn">
+            <button
+              onClick={pruneHandler}
+              style={{ backgroundColor: '#B11010' }}
+              className="con-btn"
+            >
               Prune Containers
             </button>
           </div>
         </div>
-        <hr className="white-line"/>
+        <hr className="white-line" />
 
         <table className="container-table">
           <thead>
-            <tr className='con-tr'>
-              <th >Name</th>
-              <th >Image</th>
+            <tr className="con-tr">
+              <th>Name</th>
+              <th>Image</th>
               <th>State</th>
               <th>CreatedAt</th>
               <th>Status</th>
             </tr>
-            
           </thead>
-        
-          <tbody className='con-tbody'>
+
+          <tbody className="con-tbody">
             {containers.map(container => (
-              <ContainerCard
-                key={container.Id}
-                container={container}
-              />
+              <ContainerCard key={container.Id} container={container} />
             ))}
           </tbody>
         </table>
