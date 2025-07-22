@@ -146,7 +146,7 @@ const Login = () => {
   };
 
   return (
-    <div className="login-body">
+    <body className="login-body">
       <div>
         <div className="logoDiv">
           <img src={wharfLogo} alt="Wharf Logo" className="wharfLogo" />
@@ -281,7 +281,7 @@ const Login = () => {
         </div>
       </div>
       <img src={vectorImage} className="vector-image" alt="vector" />
-    </div>
+    </body>
   );
 };
 
