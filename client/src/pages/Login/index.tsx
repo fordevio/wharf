@@ -11,7 +11,8 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import { User, Eye, Crosshair } from 'lucide-react';
+
+import { User, Eye, EyeOff, Crosshair } from 'lucide-react';
 import { useState } from 'react';
 import wharfLogo from '../../assets/wharf.svg';
 import userIcon from '../../assets/login/user.png';
@@ -28,6 +29,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [username, setUsername] = useState<string>('');
   const [initPassword, setInitPassword] = useState<string>('');
@@ -51,15 +53,12 @@ const Login = () => {
     setIsAdmin(false);
   };
 
-  useQuery('isAdmin', findIsAdmin, {
-    retry: false,
-  });
+  useQuery('isAdmin', findIsAdmin, { retry: false });
 
   const adminReg = async () => {
     try {
       await registerAdmin(username, password, initPassword);
       navigate('/');
-      return;
     } catch (e: any) {
       throw e.response ? e.response.data : { error: 'Request failed' };
     }
@@ -68,7 +67,6 @@ const Login = () => {
   const logIn = async () => {
     try {
       const res = await login(username, password);
-
       localStorage.setItem('token', res.data.token);
       navigate('/');
       return res.data;
@@ -92,21 +90,19 @@ const Login = () => {
       return;
     }
 
-    // Check if it contains at least one letter and one number
-    const letterRegex = /[a-zA-Z]/;
-    const numberRegex = /[0-9]/;
-
-    const hasLetter = letterRegex.test(password);
-    const hasNumber = numberRegex.test(password);
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
 
     if (!(hasLetter && hasNumber)) {
       toast.error('Password must contain at least one letter and one number');
       return;
     }
+
     if (!isAdmin && password !== confirmPassword) {
       toast.error('Passwords do not match confirm password');
       return;
     }
+
     if (!isAdmin) {
       toast.promise(adminReg(), {
         loading: 'Registering',
@@ -116,8 +112,8 @@ const Login = () => {
       setIsAdmin(true);
     } else {
       toast.promise(logIn(), {
-        loading: 'Loging...',
-        success: 'Login successfull',
+        loading: 'Logging in...',
+        success: 'Login successful',
         error: data => `${data.error}`,
       });
     }
@@ -137,6 +133,7 @@ const Login = () => {
       toast.error('Please fill all fields');
       return;
     }
+
     toast.promise(forgotFunc(), {
       loading: 'Loading...',
       success: data => {
@@ -149,7 +146,7 @@ const Login = () => {
   };
 
   return (
-    <body className="login-body">
+    <div className="login-body">
       <div>
         <div className="logoDiv">
           <img src={wharfLogo} alt="Wharf Logo" className="wharfLogo" />
@@ -200,13 +197,24 @@ const Login = () => {
 
                   <div className="inputDiv" tabIndex={0}>
                     <input
-                      type="password"
+                      type={showPassword ? '' : 'password'}
                       onChange={e => setPassword(e.target.value)}
                       value={password}
                       placeholder="Password"
                     />
-                    <Eye className="input-icon" />
+                    {showPassword ? (
+                      <EyeOff
+                        className="input-icon eye-icon"
+                        onClick={() => setShowPassword(false)}
+                      />
+                    ) : (
+                      <Eye
+                        className="input-icon eye-icon"
+                        onClick={() => setShowPassword(true)}
+                      />
+                    )}
                   </div>
+
                   {!isAdmin && (
                     <div className="inputDiv" tabIndex={0}>
                       <input
@@ -234,11 +242,11 @@ const Login = () => {
                 <div className="iDiv">
                   {adminUname !== '' && (
                     <p>
-                      <span className="label">Username: </span>{' '}
-                      <span className="label">{adminUname}</span> {'|'}
+                      <span className="label">Username: </span>
+                      <span className="label">{adminUname}</span> {' | '}
                       {adminPass !== '' && (
                         <>
-                          <span className="label">Password: </span>{' '}
+                          <span className="label">Password: </span>
                           <span className="label">{adminPass}</span>
                         </>
                       )}
@@ -273,7 +281,7 @@ const Login = () => {
         </div>
       </div>
       <img src={vectorImage} className="vector-image" alt="vector" />
-    </body>
+    </div>
   );
 };
 

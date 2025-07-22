@@ -163,6 +163,7 @@ body.login-body {
   height: 40px;
   margin: auto auto;
   padding: 5px 5px;
+  cursor: pointer;
 }
 
 .vector-image {
