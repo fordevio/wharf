@@ -15,8 +15,6 @@
 import React from 'react';
 import './index.css';
 import { Image } from '../../../../models/image';
-import { deleteImagge, tagImage } from '../../../../api/image';
-import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { formatBytes } from '../../../../utils/util';
 
