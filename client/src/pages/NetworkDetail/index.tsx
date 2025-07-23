@@ -215,9 +215,9 @@ const NetworkDetail = () => {
         <Link className="btn detail" to={'/network/edit/' + network.Id}>
           Edit
         </Link>
-         <button className="btn detail" onClick={deleteHandler}>
-            Delete
-          </button>
+        <button className="btn detail" onClick={deleteHandler}>
+          Delete
+        </button>
       </div>
     </>
   );

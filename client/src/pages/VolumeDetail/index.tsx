@@ -165,12 +165,12 @@ const VolumeDetail = () => {
           </>
         )}
       </div>
-      <div className='btn-div'>
-           <button className="btn " onClick={() => setOpenDl(true)}>
-            Delete
-          </button>
+      <div className="btn-div">
+        <button className="btn " onClick={() => setOpenDl(true)}>
+          Delete
+        </button>
       </div>
-       <div
+      <div
         className="popup-overlay"
         id="popupOverlay"
         style={openDl ? { display: 'block' } : { display: 'none' }}

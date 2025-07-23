@@ -23,7 +23,6 @@ interface Props {
 }
 
 const ImageCard: React.FC<Props> = ({ image }) => {
-
   return (
     <>
       <div className="cont-card">

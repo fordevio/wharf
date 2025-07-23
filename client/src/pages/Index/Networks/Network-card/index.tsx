@@ -20,8 +20,7 @@ interface Props {
   network: NetworkResource;
 }
 
-const NetworkCard: React.FC<Props> = ({ network}) => {
-
+const NetworkCard: React.FC<Props> = ({ network }) => {
   if (
     network.Name === 'bridge' ||
     network.Name === 'host' ||

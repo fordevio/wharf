@@ -24,13 +24,13 @@ import toast from 'react-hot-toast';
 const ImageDetail = () => {
   const { id } = useParams();
   const [image, setImage] = useState<Image | null>(null);
-   const [openDl, setOpenDl] = useState<boolean>(false);
-    const [openTg, setOpenTg] = useState<boolean>(false);
-    const [force, setForce] = useState<boolean>(false);
-      const [pruneChildren, setPruneChildren] = useState<boolean>(false);
-    const [tag, setTag] = useState<string>('');
-  
-    const navigate = useNavigate();
+  const [openDl, setOpenDl] = useState<boolean>(false);
+  const [openTg, setOpenTg] = useState<boolean>(false);
+  const [force, setForce] = useState<boolean>(false);
+  const [pruneChildren, setPruneChildren] = useState<boolean>(false);
+  const [tag, setTag] = useState<string>('');
+
+  const navigate = useNavigate();
   const fetchImage = async () => {
     try {
       const res = await getAllImages(localStorage.getItem('token') as string);
@@ -47,8 +47,8 @@ const ImageDetail = () => {
   };
 
   const deleteIm = async () => {
-    if(!image) {
-      return
+    if (!image) {
+      return;
     }
     try {
       const token = localStorage.getItem('token') as string;
@@ -60,8 +60,8 @@ const ImageDetail = () => {
   };
 
   const tagIm = async () => {
-     if(!image) {
-      return
+    if (!image) {
+      return;
     }
     try {
       const token = localStorage.getItem('token') as string;
@@ -73,8 +73,8 @@ const ImageDetail = () => {
     }
   };
   const tagHandler = async () => {
-    if(!image) {
-      return
+    if (!image) {
+      return;
     }
     if (tag.trim() === '') {
       toast.error('Tag cannot be empty');
@@ -88,7 +88,7 @@ const ImageDetail = () => {
       loading: 'Tagging Image...',
       success: () => {
         setOpenTg(false);
-        fetchImage()
+        fetchImage();
         return `Successfully tagged image with tag ${tag}.`;
       },
       error: error => {
@@ -191,11 +191,11 @@ const ImageDetail = () => {
           )}
         </div>
         <button className="btn" onClick={() => setOpenDl(true)}>
-            Delete
-          </button>
-          <button className="btn" onClick={() => setOpenTg(true)}>
-            New Tag
-          </button>
+          Delete
+        </button>
+        <button className="btn" onClick={() => setOpenTg(true)}>
+          New Tag
+        </button>
       </div>
       <div
         className="popup-overlay"

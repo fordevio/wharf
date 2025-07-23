@@ -21,7 +21,6 @@ interface Props {
 }
 
 const VolumeCard: React.FC<Props> = ({ volume }) => {
-  
   return (
     <>
       <div className="cont-card">

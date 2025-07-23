@@ -72,12 +72,7 @@ const Volumes = () => {
       </div>
       <div className="card-container">
         {volumes.map((vol, index) => {
-          return (
-            <VolumeCard
-              key={index}
-              volume={vol}
-            />
-          );
+          return <VolumeCard key={index} volume={vol} />;
         })}
       </div>
     </div>
