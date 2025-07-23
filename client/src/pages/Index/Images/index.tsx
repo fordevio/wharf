@@ -72,8 +72,6 @@ const Images = () => {
             <ImageCard
               key={index}
               image={image}
-              images={images}
-              setImages={setImages}
             />
           );
         })}
