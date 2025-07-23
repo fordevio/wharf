@@ -78,6 +78,35 @@ Thanks for your contributions!
 - **internal**: contains internal go packages which contains api definitions.
 - **pkg**: contains go packages to to be used by internal packages.
 - **test**: contains integration tests.
+- **static**: contains static auto-generated files.
+
+## Resolving Conflicts in the static/ Directory During Rebase
+
+```bash
+# Start the rebase
+git rebase upstream/main
+
+# If merge conflicts occur in the static directory:
+rm -rf ./static/*
+
+# Stage all changes (including resolved conflicts)
+git add .
+
+# Continue the rebase
+git rebase --continue
+
+# Re-generate and format the static files
+make generate && make format
+
+# Stage the regenerated files
+git add .
+
+# Commit the generated changes
+git commit -m "chore: regenerate static files and apply formatting"
+
+# Force push the updated branch
+git push -f origin <feature-branch-name>
+```
 
 ### Format of the Commit Message
 
