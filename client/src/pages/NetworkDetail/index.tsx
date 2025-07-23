@@ -12,14 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import './index.css';
 import { useState } from 'react';
 import { NetworkResource } from '../../models/network';
-import { getAllNetworks } from '../../api/network';
+import { deleteNetwork, getAllNetworks } from '../../api/network';
 import { useQuery } from 'react-query';
+import toast from 'react-hot-toast';
 
 const NetworkDetail = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [network, setNetwork] = useState<NetworkResource | null>(null);
   const fetchNetwork = async () => {
@@ -35,6 +37,35 @@ const NetworkDetail = () => {
       console.log(e);
       return;
     }
+  };
+
+  const delNet = async () => {
+    if (!network) {
+      return;
+    }
+    try {
+      const res = await deleteNetwork(
+        localStorage.getItem('token') as string,
+        network.Id
+      );
+
+      return res.data;
+    } catch (e: any) {
+      throw e.response ? e.response.data : { error: 'Request failed' };
+    }
+  };
+
+  const deleteHandler = async () => {
+    toast.promise(delNet(), {
+      loading: 'Deleting network...',
+      success: () => {
+        navigate('/networks');
+        return `network deleted successfully!`;
+      },
+      error: err => {
+        return err.error;
+      },
+    });
   };
 
   useQuery('network' + id, fetchNetwork, {
@@ -184,6 +215,9 @@ const NetworkDetail = () => {
         <Link className="btn detail" to={'/network/edit/' + network.Id}>
           Edit
         </Link>
+        <button className="btn detail" onClick={deleteHandler}>
+          Delete
+        </button>
       </div>
     </>
   );

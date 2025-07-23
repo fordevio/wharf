@@ -73,14 +73,7 @@ const Networks = () => {
       </div>
       <div className="card-container">
         {networks.map((network, index) => {
-          return (
-            <NetworkCard
-              key={index}
-              network={network}
-              networks={networks}
-              setNetworks={setNetworks}
-            />
-          );
+          return <NetworkCard key={index} network={network} />;
         })}
       </div>
     </div>

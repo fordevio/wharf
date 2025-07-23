@@ -14,40 +14,13 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import { NetworkResource } from '../../../../models/network';
-import { deleteNetwork } from '../../../../api/network';
 
 interface Props {
   network: NetworkResource;
-  networks: NetworkResource[];
-  setNetworks: (newNets: NetworkResource[]) => void;
 }
 
-const NetworkCard: React.FC<Props> = ({ network, networks, setNetworks }) => {
-  const delNet = async () => {
-    try {
-      const res = await deleteNetwork(
-        localStorage.getItem('token') as string,
-        network.Id
-      );
-      setNetworks(networks.filter(net => net.Id !== network.Id));
-      return res.data;
-    } catch (e: any) {
-      throw e.response ? e.response.data : { error: 'Request failed' };
-    }
-  };
-  const deleteHandler = async () => {
-    toast.promise(delNet(), {
-      loading: 'Deleting network...',
-      success: data => {
-        return `network deleted successfully!`;
-      },
-      error: err => {
-        return err.error;
-      },
-    });
-  };
+const NetworkCard: React.FC<Props> = ({ network }) => {
   if (
     network.Name === 'bridge' ||
     network.Name === 'host' ||
@@ -71,9 +44,6 @@ const NetworkCard: React.FC<Props> = ({ network, networks, setNetworks }) => {
           <span className="label">{network.Driver}</span>
         </div>
         <div className="content">
-          <button className="btn detail" onClick={deleteHandler}>
-            Delete
-          </button>
           <Link className="btn detail" to={'/network/' + network.Id}>
             Details
           </Link>

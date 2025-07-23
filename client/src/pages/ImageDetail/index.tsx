@@ -12,17 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './index.css';
-import { getAllImages } from '../../api/image';
+import { deleteImagge, getAllImages, tagImage } from '../../api/image';
 import { Image } from '../../models/image';
 import { useState } from 'react';
 import { formatBytes } from '../../utils/util';
 import { useQuery } from 'react-query';
+import toast from 'react-hot-toast';
 
 const ImageDetail = () => {
   const { id } = useParams();
   const [image, setImage] = useState<Image | null>(null);
+  const [openDl, setOpenDl] = useState<boolean>(false);
+  const [openTg, setOpenTg] = useState<boolean>(false);
+  const [force, setForce] = useState<boolean>(false);
+  const [pruneChildren, setPruneChildren] = useState<boolean>(false);
+  const [tag, setTag] = useState<string>('');
+
+  const navigate = useNavigate();
   const fetchImage = async () => {
     try {
       const res = await getAllImages(localStorage.getItem('token') as string);
@@ -36,6 +44,72 @@ const ImageDetail = () => {
       console.log(e);
       return;
     }
+  };
+
+  const deleteIm = async () => {
+    if (!image) {
+      return;
+    }
+    try {
+      const token = localStorage.getItem('token') as string;
+      const res = await deleteImagge(token, image.Id, force, pruneChildren);
+      return res.data;
+    } catch (e: any) {
+      throw e.response ? e.response.data : { error: 'Request failed' };
+    }
+  };
+
+  const tagIm = async () => {
+    if (!image) {
+      return;
+    }
+    try {
+      const token = localStorage.getItem('token') as string;
+      const res = await tagImage(token, image.Id, tag);
+      setTag('');
+      return res.data;
+    } catch (e: any) {
+      throw e.response ? e.response.data : { error: 'Request failed' };
+    }
+  };
+  const tagHandler = async () => {
+    if (!image) {
+      return;
+    }
+    if (tag.trim() === '') {
+      toast.error('Tag cannot be empty');
+      return;
+    }
+    if (tag === image.RepoTags[0]) {
+      toast.error('Tag already exists');
+      return;
+    }
+    toast.promise(tagIm(), {
+      loading: 'Tagging Image...',
+      success: () => {
+        setOpenTg(false);
+        fetchImage();
+        return `Successfully tagged image with tag ${tag}.`;
+      },
+      error: error => {
+        setOpenTg(false);
+        return `${error.message}`;
+      },
+    });
+  };
+  const deleteHandler = async () => {
+    toast.promise(deleteIm(), {
+      loading: 'Deleting Image...',
+      success: () => {
+        setOpenDl(false);
+        navigate('/images');
+        return `Successfully deleted image.`;
+      },
+      error: error => {
+        setOpenDl(false);
+        return `${error.message}`;
+      },
+    });
   };
 
   useQuery('image' + id, fetchImage, {
@@ -115,6 +189,82 @@ const ImageDetail = () => {
           ) : (
             <p>No labels</p>
           )}
+        </div>
+        <button className="btn" onClick={() => setOpenDl(true)}>
+          Delete
+        </button>
+        <button className="btn" onClick={() => setOpenTg(true)}>
+          New Tag
+        </button>
+      </div>
+      <div
+        className="popup-overlay"
+        id="popupOverlay"
+        style={openTg ? { display: 'block' } : { display: 'none' }}
+      >
+        <div className="popup" id="popup">
+          <span
+            className="close"
+            id="closePopup"
+            onClick={() => setOpenTg(false)}
+          >
+            &times;
+          </span>
+
+          <div className="popup-content">
+            <input
+              type="text"
+              placeholder="New tag"
+              value={tag}
+              onChange={e => setTag(e.target.value)}
+            />
+
+            <button className="submit" onClick={tagHandler}>
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        className="popup-overlay"
+        id="popupOverlay"
+        style={openDl ? { display: 'block' } : { display: 'none' }}
+      >
+        <div className="popup" id="popup">
+          <span
+            className="close"
+            id="closePopup"
+            onClick={() => setOpenDl(false)}
+          >
+            &times;
+          </span>
+
+          <div className="popup-content">
+            <div className="checkbox-container">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={force}
+                  onChange={() => setForce(!force)}
+                />
+                force Delete
+              </label>
+            </div>
+            <div className="checkbox-container">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={pruneChildren}
+                  onChange={() => setPruneChildren(!pruneChildren)}
+                />
+                Prune Children
+              </label>
+            </div>
+
+            <button className="submit" onClick={deleteHandler}>
+              Submit
+            </button>
+          </div>
         </div>
       </div>
     </>

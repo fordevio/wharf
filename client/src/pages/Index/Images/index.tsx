@@ -68,14 +68,7 @@ const Images = () => {
       </div>
       <div className="card-container">
         {images.map((image, index) => {
-          return (
-            <ImageCard
-              key={index}
-              image={image}
-              images={images}
-              setImages={setImages}
-            />
-          );
+          return <ImageCard key={index} image={image} />;
         })}
       </div>
     </div>

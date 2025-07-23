@@ -14,15 +14,19 @@
 
 import { useState } from 'react';
 import './index.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Volume } from '../../models/volume';
-import { getAllVolumes } from '../../api/volume';
+import { deleteVolume, getAllVolumes } from '../../api/volume';
 import { formatBytes } from '../../utils/util';
 import { useQuery } from 'react-query';
+import toast from 'react-hot-toast';
 
 const VolumeDetail = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [volume, setVolume] = useState<Volume | null>(null);
+  const [force, setForce] = useState(false);
+  const [openDl, setOpenDl] = useState(false);
   const fetchVolume = async () => {
     try {
       const res = await getAllVolumes(localStorage.getItem('token') as string);
@@ -38,12 +42,44 @@ const VolumeDetail = () => {
     }
   };
 
+  const delVolume = async () => {
+    if (!volume) {
+      return;
+    }
+    try {
+      const res = await deleteVolume(
+        localStorage.getItem('token') as string,
+        volume.Name,
+        force
+      );
+      setOpenDl(false);
+      return res.data;
+    } catch (e: any) {
+      throw e.response ? e.response.data : { error: 'Request failed' };
+    }
+  };
+
+  const deleteHandler = async () => {
+    toast.promise(delVolume(), {
+      loading: 'Deleting volume...',
+      success: () => {
+        navigate('/volumes');
+        return `Volume deleted successfully!`;
+      },
+      error: err => {
+        return err.error;
+      },
+    });
+  };
+
   useQuery('volume' + id, fetchVolume, {
     retry: false,
   });
+
   if (volume === null) {
     return <></>;
   }
+
   return (
     <>
       <div className="back-button-container">
@@ -128,6 +164,43 @@ const VolumeDetail = () => {
             </p>
           </>
         )}
+      </div>
+      <div className="btn-div">
+        <button className="btn " onClick={() => setOpenDl(true)}>
+          Delete
+        </button>
+      </div>
+      <div
+        className="popup-overlay"
+        id="popupOverlay"
+        style={openDl ? { display: 'block' } : { display: 'none' }}
+      >
+        <div className="popup" id="popup">
+          <span
+            className="close"
+            id="closePopup"
+            onClick={() => setOpenDl(false)}
+          >
+            &times;
+          </span>
+
+          <div className="popup-content">
+            <div className="checkbox-container">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={force}
+                  onChange={() => setForce(!force)}
+                />
+                force Delete
+              </label>
+            </div>
+
+            <button className="submit" onClick={deleteHandler}>
+              Submit
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );
