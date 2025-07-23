@@ -77,8 +77,6 @@ const Networks = () => {
             <NetworkCard
               key={index}
               network={network}
-              networks={networks}
-              setNetworks={setNetworks}
             />
           );
         })}
