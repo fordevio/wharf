@@ -76,8 +76,6 @@ const Volumes = () => {
             <VolumeCard
               key={index}
               volume={vol}
-              volumes={volumes}
-              setVolumes={setVolumes}
             />
           );
         })}
