@@ -30,6 +30,8 @@
     "test": "react-scripts test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
+    "open": "open http://localhost:3000",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -51,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^8.57.1",
     "prettier": "^3.3.3"
   }
 }
