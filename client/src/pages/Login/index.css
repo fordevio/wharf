@@ -1,3 +1,31 @@
+/* ---- GSSOC Layout Shift Fixes ---- */
+/* Wharf logo + text container at top-left */
+.logo-container {
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+
+.wharfLogo {
+  width: 64px;
+  height: 64px;
+  margin-right: 12px;
+}
+
+.wharf-text {
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  color: #469ddd;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 body.login-body {
   background-color: #040026;
   color: white;
@@ -9,29 +37,43 @@ body.login-body {
 
 .container {
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: row;
-  margin-top: 50px;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 0 40px;
+  position: relative;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 120px;
+  gap: 36px;
 }
 
 .wel-text {
-  width: 50%;
-  height: 100%;
-
-  transform: rotate(0deg); /* angle */
-  opacity: 1;
-
+  margin-bottom: 32px;
+  width: 100%;
+  max-width: 900px;
+  height: 150px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 800;
-  font-style: normal;
-  font-size: 96px;
-  line-height: 104px;
-  letter-spacing: 0;
+  font-size: 72px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 320px;
+  word-break: break-word;
+  flex-wrap: wrap;
+  padding: 0 20px;
+  flex-shrink: 0;
+  pointer-events: none;
+  text-align: center;
 }
 
 .wel-text p {
-  padding-left: 100px;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .wharfLogo {
@@ -66,13 +108,15 @@ body.login-body {
 }
 
 .input-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   width: 100%;
-  height: 100%;
-  z-index: 3;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+  margin: 0 auto;
+  margin-top: 0;
+  min-height: 350px;
 }
 
 .user-icon {
@@ -114,20 +158,27 @@ body.login-body {
   flex-direction: row;
   border-radius: 20px;
   width: 100%;
-  margin-bottom: 20px;
+  height: 64px;
   border: 2px solid white;
+  align-items: center;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  flex-shrink: 0;
 }
 
 .inputDiv input {
   padding: 10px;
   border: none;
   outline: none;
-  width: 350px;
-  height: 70px;
+  flex: 1;
   background: transparent;
   color: white;
   font-size: 18px;
   font-weight: 700;
+  min-width: 0;
+  box-sizing: border-box;
+  font-family: inherit;
+  width: 100%;
 }
 
 .inputDiv:has(input:focus) {
@@ -138,8 +189,8 @@ body.login-body {
 .p {
   padding: 0;
   color: white;
-  margin-bottom: 20px;
   margin-top: 0;
+  min-height: 28px;
 }
 
 .iDiv {
@@ -158,12 +209,14 @@ body.login-body {
 }
 
 .input-icon {
-  color: white;
   width: 40px;
   height: 40px;
-  margin: auto auto;
-  padding: 5px 5px;
-  cursor: pointer;
+  margin-right: 10px;
+  color: white;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .vector-image {
@@ -175,7 +228,8 @@ body.login-body {
 }
 
 .login-btn {
-  width: 200px;
+  width: 100%;
+  max-width: 200px;
   height: 60px;
   opacity: 1;
   border: none;
@@ -188,6 +242,8 @@ body.login-body {
     transform 0.2s ease,
     box-shadow 0.2s ease;
   margin-bottom: 10px;
+  margin-top: 20px;
+  min-width: 200px;
 }
 
 .login-btn:hover {
@@ -202,4 +258,55 @@ body.login-body {
   font-size: 32px;
   font-family: 'lato', sans-serif;
   margin-bottom: 0;
+}
+
+/* 🟢 Prevent error/help text from pushing layout */
+.p {
+  min-height: 28px;
+}
+
+@media (max-width: 600px) {
+  .wel-text {
+    font-size: 48px;
+    line-height: 1.1;
+    padding: 0 10px;
+    flex-wrap: wrap;
+  }
+
+  .inputDiv {
+    min-width: 100%;
+  }
+
+  .inputDiv input {
+    font-size: 16px;
+  }
+
+  .login-btn {
+    width: 100%;
+  }
+
+  .container {
+    padding: 20px;
+  }
+  .logo-container {
+    top: 16px;
+    left: 10px;
+  }
+  .wharfLogo {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+  }
+  .wharf-text {
+    font-size: 24px;
+    height: 36px;
+  }
+  .container {
+    padding-left: 0;
+  }
+}
+
+/* Ensure form doesn't push header */
+.container > .wel-text + .input-container {
+  margin-top: 0 !important;
 }
