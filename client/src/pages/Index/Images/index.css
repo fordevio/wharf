@@ -1,14 +1,23 @@
-.card-container {
+.image-grid {
   display: grid;
-  gap: 50px 50px;
-  padding: 50px 50px;
-  grid-template-columns: auto auto auto auto;
-  justify-content: space-evenly;
-  align-content: center;
+  gap: 50px;
+  padding: 50px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  justify-content: center;
+  align-items: center;
 }
 
-.prune-btn {
-  padding: 5px 5px;
+.prune-button {
+  padding: 8px 12px;
   width: 100%;
   text-align: center;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.prune-button:hover {
+  background-color: #0056b3;
 }
