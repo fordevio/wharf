@@ -29,6 +29,7 @@
     "build": "react-scripts build && rm -rf ../static && mv build ../static",
     "test": "react-scripts test",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
