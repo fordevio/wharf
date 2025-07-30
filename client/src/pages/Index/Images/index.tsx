@@ -18,6 +18,7 @@ import toast from 'react-hot-toast';
 import { getAllImages, pruneImages } from '../../../api/image';
 import { Image } from '../../../models/image';
 import { useQuery } from 'react-query';
+import ImageCard from './Image-card';
 
 const Images = () => {
   const [images, setImages] = useState<Image[]>([]);
@@ -90,54 +91,11 @@ const Images = () => {
           Build a new Image
         </button>
       </div>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr style={{ backgroundColor: '#f2f2f2' }}>
-            <th
-              style={{
-                padding: '10px',
-                textAlign: 'left',
-                borderBottom: '1px solid #ccc',
-              }}
-            >
-              Name
-            </th>
-            <th
-              style={{
-                padding: '10px',
-                textAlign: 'left',
-                borderBottom: '1px solid #ccc',
-              }}
-            >
-              Size
-            </th>
-            <th
-              style={{
-                padding: '10px',
-                textAlign: 'left',
-                borderBottom: '1px solid #ccc',
-              }}
-            >
-              CreatedAt
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {images.map((image, index) => (
-            <tr key={index}>
-              <td style={{ padding: '10px', borderBottom: '1px solid #eee' }}>
-                {image.RepoTags?.[0] || 'untagged'}
-              </td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #eee' }}>
-                {(image.Size / (1024 * 1024)).toFixed(2)} MB
-              </td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #eee' }}>
-                {new Date(image.Created * 1000).toLocaleString()}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        {images.map((image, index) => (
+          <ImageCard key={index} image={image} />
+        ))}
+      </div>
     </div>
   );
 };
