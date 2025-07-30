@@ -17,7 +17,6 @@ import './index.css';
 import toast from 'react-hot-toast';
 import { getAllImages, pruneImages } from '../../../api/image';
 import { Image } from '../../../models/image';
-import ImageCard from './Image-card';
 import { useQuery } from 'react-query';
 
 const Images = () => {
@@ -60,17 +59,33 @@ const Images = () => {
   });
 
   return (
-    <div className="page">
-      <div className="prune-btn">
-        <button onClick={pruneHandler} className="btn">
-          Prune Images
+    <div className="page" style={{ padding: '20px' }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px', gap: '10px' }}>
+        <button onClick={pruneHandler} style={{ backgroundColor: 'red', color: 'white', padding: '8px 16px', borderRadius: '4px' }}>
+          Prune Image
+        </button>
+        <button style={{ backgroundColor: 'blue', color: 'white', padding: '8px 16px', borderRadius: '4px' }}>
+          Build a new Image
         </button>
       </div>
-      <div className="card-container">
-        {images.map((image, index) => {
-          return <ImageCard key={index} image={image} />;
-        })}
-      </div>
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr style={{ backgroundColor: '#f2f2f2' }}>
+            <th style={{ padding: '10px', textAlign: 'left', borderBottom: '1px solid #ccc' }}>Name</th>
+            <th style={{ padding: '10px', textAlign: 'left', borderBottom: '1px solid #ccc' }}>Size</th>
+            <th style={{ padding: '10px', textAlign: 'left', borderBottom: '1px solid #ccc' }}>CreatedAt</th>
+          </tr>
+        </thead>
+        <tbody>
+          {images.map((image, index) => (
+            <tr key={index}>
+              <td style={{ padding: '10px', borderBottom: '1px solid #eee' }}>{image.RepoTags?.[0] || 'untagged'}</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #eee' }}>{(image.Size / (1024 * 1024)).toFixed(2)} MB</td>
+              <td style={{ padding: '10px', borderBottom: '1px solid #eee' }}>{new Date(image.Created * 1000).toLocaleString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
