@@ -60,42 +60,24 @@ const Images = () => {
   });
 
   return (
-    <div className="page" style={{ padding: '20px' }}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          marginBottom: '20px',
-          gap: '10px',
-        }}
-      >
-        <button
-          onClick={pruneHandler}
-          style={{
-            backgroundColor: 'red',
-            color: 'white',
-            padding: '8px 16px',
-            borderRadius: '4px',
-          }}
-        >
+    <div className="page">
+      <div className="images-action-bar">
+        <button onClick={pruneHandler} className="prune-button">
           Prune Image
         </button>
-        <button
-          style={{
-            backgroundColor: 'blue',
-            color: 'white',
-            padding: '8px 16px',
-            borderRadius: '4px',
-          }}
-        >
-          Build a new Image
-        </button>
+        <button className="build-button">Build a new Image</button>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        {images.map((image, index) => (
-          <ImageCard key={index} image={image} />
-        ))}
-      </div>
+      <table className="image-table">
+        <tbody>
+          {images.map((image, index) => (
+            <tr key={index}>
+              <td>
+                <ImageCard image={image} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

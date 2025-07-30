@@ -21,3 +21,47 @@
 .prune-button:hover {
   background-color: #0056b3;
 }
+
+.page {
+  padding: 20px;
+}
+
+.images-action-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.prune-button {
+  padding: 8px 16px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.prune-button:hover {
+  background-color: #b52a37;
+}
+
+.build-button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.build-button:hover {
+  background-color: #0056b3;
+}
+
+.image-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.image-table td {
+  padding: 12px 0;
+  vertical-align: top;
+}
