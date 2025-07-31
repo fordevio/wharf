@@ -153,8 +153,15 @@ const Login = () => {
             <img src={wharfLogo} alt="Wharf Logo" className="wharfLogo" />
             <div className="wharf-text">Wharf</div>
           </div>
-          <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
-            <div className="wel-text" tabIndex={0} style={{ minHeight: '100px', transition: 'all 0.2s ease-in-out' }}>
+          <div
+            className="container"
+            style={{ display: 'flex', flexDirection: 'column' }}
+          >
+            <div
+              className="wel-text"
+              tabIndex={0}
+              style={{ minHeight: '100px', transition: 'all 0.2s ease-in-out' }}
+            >
               <p>
                 Welcome
                 <br />
@@ -264,7 +271,10 @@ const Login = () => {
                       Submit
                     </button>
                     {isAdmin && (
-                      <p className="forPas" onClick={() => setForgotPass(false)}>
+                      <p
+                        className="forPas"
+                        onClick={() => setForgotPass(false)}
+                      >
                         Login
                       </p>
                     )}
