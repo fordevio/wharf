@@ -74,6 +74,7 @@ function App() {
   return (
     <>
       <Toaster />
+      
       <Routes>
         <Route path="/" element={<Index />}>
           <Route index element={<Home />} />
