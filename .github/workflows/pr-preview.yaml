@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies and build React app
         working-directory: client
         env:
-          REACT_APP_API_URL: https://testing.fordevio.in:9001/
+          REACT_APP_API_URL: https://testing.fordevio.in
         run: |
           npm ci
           npm run build
