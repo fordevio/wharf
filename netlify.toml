@@ -1,6 +1,6 @@
 [build]
   base = "client"
-  publish = "client/build"
+  publish = "build"
   command = "npm install && REACT_APP_BACKEND_API=https://testing.fordevio.in react-scripts build"
 
 [context.deploy-preview]
