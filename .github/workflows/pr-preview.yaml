@@ -33,7 +33,7 @@ jobs:
           NETLIFY_SITE_ID: f10c85fd-f5c0-4f25-ab31-f839d2b1d0d2
         run: |
           DEPLOY_URL=$(netlify deploy \
-            --dir=static/static \
+            --dir=static \
             --site=$NETLIFY_SITE_ID \
             --auth=$NETLIFY_AUTH_TOKEN \
             --json \
