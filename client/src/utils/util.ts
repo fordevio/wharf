@@ -13,10 +13,6 @@
 // limitations under the License.
 
 export const hostUrl = () => {
-  const envUrl = process.env.REACT_APP_BACKEND_API;
-  if (envUrl) {
-    return envUrl;
-  }
   let url = window.location.origin;
   if (url === 'http://localhost:3000') {
     return 'http://localhost:9001';
