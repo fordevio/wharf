@@ -1,0 +1,4 @@
+[build]
+  base    = "client"        
+  command = "REACT_APP_BACKEND_API=https://testing.fordevio.in npm run build"   
+  publish = "static"
