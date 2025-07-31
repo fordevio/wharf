@@ -14,7 +14,6 @@
     "@types/react-dom": "^18.3.0",
     "axios": "^1.7.7",
     "lucide-react": "^0.525.0",
-    "monaco-editor": "^0.52.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
@@ -26,27 +25,16 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "react-scripts start",
     "build": "react-scripts build && rm -rf ../static && mv build ../static",
     "test": "react-scripts test",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
-    "open": "open http://localhost:3000",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": ["react-app", "react-app/jest"]
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -54,7 +42,6 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.57.1",
     "prettier": "^3.3.3"
   }
 }
