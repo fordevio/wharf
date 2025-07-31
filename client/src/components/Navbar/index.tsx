@@ -27,10 +27,10 @@ import { getUser } from '../../api/user';
 import { useQuery } from 'react-query';
 
 const Navbar = () => {
-  const [user, setUser] = useState<GetUserRes | null>(null);
-
   const location = useLocation();
   const currentPath = location.pathname;
+
+  const [user, setUser] = useState<GetUserRes | null>(null);
 
   const fetchUser = async () => {
     try {
