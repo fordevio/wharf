@@ -1,0 +1,41 @@
+name: Netlify Deploy Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'client/**'
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+
+    if: ${{ secrets.NETLIFY_AUTH_TOKEN != '' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies and build React app
+        working-directory: client
+        env:
+          REACT_APP_API_URL: https://testing.fordevio.in:9001/
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Deploy React build to Netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: f10c85fd-f5c0-4f25-ab31-f839d2b1d0d2
+        run: |
+          DEPLOY_URL=$(netlify deploy \
+            --dir=static/static \
+            --site=$NETLIFY_SITE_ID \
+            --auth=$NETLIFY_AUTH_TOKEN \
+            --json \
+            --message="Preview for PR #${{ github.event.pull_request.number }}" \
+            --alias="pr-${{ github.event.pull_reques_
