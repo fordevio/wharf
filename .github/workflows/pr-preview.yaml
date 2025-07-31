@@ -27,7 +27,7 @@ jobs:
 
       - name: Deploy React build to Netlify
         env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
           NETLIFY_SITE_ID: f10c85fd-f5c0-4f25-ab31-f839d2b1d0d2
         run: |
           netlify deploy \
