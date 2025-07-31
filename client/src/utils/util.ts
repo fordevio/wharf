@@ -17,7 +17,7 @@ export const hostUrl = () => {
   if (envUrl) {
     return envUrl;
   }
-  
+
   let url = window.location.origin;
   if (url === 'http://localhost:3000') {
     return 'http://localhost:9001';
