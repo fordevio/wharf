@@ -16,10 +16,12 @@ import { useState } from 'react';
 import './index.css';
 import { getAllNetworks, pruneNetworks } from '../../../api/network';
 import { NetworkResource } from '../../../models/network';
-import toast from 'react-hot-toast';
+import networkIcon from '../../../assets/common/network.png';
 import NetworkCard from './Network-card';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { Plus } from 'lucide-react';
 
 const Networks = () => {
   const navigate = useNavigate();
@@ -49,7 +51,7 @@ const Networks = () => {
       loading: 'Pruning Networks...',
       success: data => {
         fetchNetworks();
-        return `Successfully pruned ${data.NetworksDeleted ? data.NetworksDeleted.length : 0} networks,`;
+        return `Successfully pruned ${data.NetworksDeleted ? data.NetworksDeleted.length : 0} networks.`;
       },
       error: error => {
         return `${error.message}`;
@@ -63,18 +65,45 @@ const Networks = () => {
 
   return (
     <div className="page">
-      <div className="prune-btn">
-        <button onClick={pruneHandler} className="btn">
-          Prune Networks
-        </button>
-        <button onClick={() => navigate('/network/create')} className="btn">
-          Create
-        </button>
-      </div>
-      <div className="card-container">
-        {networks.map((network, index) => {
-          return <NetworkCard key={index} network={network} />;
-        })}
+      <div className="table-container">
+        <div className="con-table-header">
+          <div className="con-table-title">
+            <img src={networkIcon} alt="" className="con-table-title-icon" />
+            <span className="con-table-title-name">Network</span>
+          </div>
+          <div className="con-table-header-but">
+            <button
+              onClick={pruneHandler}
+              style={{ backgroundColor: '#B11010' }}
+              className="con-btn"
+            >
+              Prune Network
+            </button>
+            <button
+              onClick={() => navigate('/network/create')}
+              className="con-btn"
+            >
+              <Plus size={18} /> Create
+            </button>
+          </div>
+        </div>
+        <hr className="white-line" />
+
+        <table className="container-table">
+          <thead>
+            <tr className="con-tr">
+              <th>Name</th>
+              <th>CreatedAt</th>
+              <th>Driver</th>
+            </tr>
+          </thead>
+
+          <tbody className="con-tbody">
+            {networks.map(network => (
+              <NetworkCard key={network.Id} network={network} />
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

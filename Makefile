@@ -10,7 +10,7 @@ generate: get
 	@rm -rf ./static && npm --prefix ./client run build
 
 runFrontend: get
-	@npm --prefix ./pkg/client start
+	@npm --prefix ./client start
 
 run: 
 	@./bin/build  

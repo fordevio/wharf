@@ -13,14 +13,19 @@
 // limitations under the License.
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { NetworkResource } from '../../../../models/network';
+import './index.css';
+import { useNavigate } from 'react-router-dom';
+import { convertToIndianDateTime } from '../../../../utils/util';
 
 interface Props {
   network: NetworkResource;
 }
 
 const NetworkCard: React.FC<Props> = ({ network }) => {
+  const navigate = useNavigate();
+
+  // Skip default networks
   if (
     network.Name === 'bridge' ||
     network.Name === 'host' ||
@@ -28,28 +33,29 @@ const NetworkCard: React.FC<Props> = ({ network }) => {
   ) {
     return <></>;
   }
-  return (
-    <>
-      <div className="cont-card">
-        <div className="name">{network.Name}</div>
 
-        <div className="content">
-          <span className="label">Created: </span>{' '}
-          <span className="label">
-            {network.Created && new Date(network.Created).toString()}
-          </span>
-        </div>
-        <div className="content">
-          <span className="label">Driver: </span>{' '}
-          <span className="label">{network.Driver}</span>
-        </div>
-        <div className="content">
-          <Link className="btn detail" to={'/network/' + network.Id}>
-            Details
-          </Link>
-        </div>
-      </div>
-    </>
+  return (
+    <tr className="con-tr">
+      <td>
+        <span
+          className="td-sp-nm"
+          onClick={() => navigate(`/network/${network.Id}`)}
+        >
+          {network.Name}
+        </span>
+      </td>
+      <td>
+        <span>
+          {network.Created &&
+            convertToIndianDateTime(
+              Math.floor(new Date(network.Created).getTime() / 1000)
+            )}
+        </span>
+      </td>
+      <td>
+        <span>{network.Driver}</span>
+      </td>
+    </tr>
   );
 };
 
