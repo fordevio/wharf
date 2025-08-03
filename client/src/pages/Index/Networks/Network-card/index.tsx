@@ -16,6 +16,7 @@ import React from 'react';
 import { NetworkResource } from '../../../../models/network';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
+import { convertToIndianDateTime } from '../../../../utils/util';
 
 interface Props {
   network: NetworkResource;
@@ -33,22 +34,6 @@ const NetworkCard: React.FC<Props> = ({ network }) => {
     return null;
   }
 
-  const formatDate = (dateString: string) => {
-    if (!dateString) return '';
-    const date = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = {
-      weekday: 'short',
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false
-    };
-    return date.toLocaleDateString('en-US', options).replace(',', '');
-  };
-
   return (
     <tr className="con-tr">
       <td>
@@ -60,7 +45,12 @@ const NetworkCard: React.FC<Props> = ({ network }) => {
         </span>
       </td>
       <td>
-        <span>{formatDate(network.Created)}</span>
+        <span>
+          {network.Created &&
+            convertToIndianDateTime(
+              Math.floor(new Date(network.Created).getTime() / 1000)
+            )}
+        </span>
       </td>
       <td>
         <span>{network.Driver}</span>
