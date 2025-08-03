@@ -31,7 +31,7 @@ const NetworkCard: React.FC<Props> = ({ network }) => {
     network.Name === 'host' ||
     network.Name === 'none'
   ) {
-    return null;
+    return <></>;
   }
 
   return (
