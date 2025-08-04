@@ -1,0 +1,35 @@
+name: Auto Assign on /assign
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  assign:
+    if: github.event.issue.pull_request == null
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if comment is /assign
+        id: check_assign
+        run: |
+          echo "comment_body=${{ github.event.comment.body }}" >> $GITHUB_OUTPUT
+
+      - name: Assign commenter to issue
+        if: startsWith(github.event.comment.body, '/assign')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const commenter = context.payload.comment.user.login;
+            const issueNumber = context.payload.issue.number;
+
+            await github.rest.issues.addAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              assignees: [commenter],
+            });
