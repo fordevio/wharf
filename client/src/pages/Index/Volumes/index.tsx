@@ -16,12 +16,15 @@ import { useState } from 'react';
 import './index.css';
 import { Volume } from '../../../models/volume';
 import { getAllVolumes, pruneVolumes } from '../../../api/volume';
+import volumeIcon from '../../../assets/common/volume.png';
 import toast from 'react-hot-toast';
 import VolumeCard from './Volume-card';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { Plus } from 'lucide-react';
 
 const Volumes = () => {
+  const navigate = useNavigate();
   const [volumes, setVolumes] = useState<Volume[]>([]);
 
   const fetchVolumes = async () => {
@@ -62,18 +65,45 @@ const Volumes = () => {
 
   return (
     <div className="page">
-      <div className="prune-btn">
-        <button onClick={pruneHandler} className="btn">
-          Prune Volumes
-        </button>
-        <Link to="/volume/create" className="btn create-btn">
-          Create
-        </Link>
-      </div>
-      <div className="card-container">
-        {volumes.map((vol, index) => {
-          return <VolumeCard key={index} volume={vol} />;
-        })}
+      <div className="table-container">
+        <div className="con-table-header">
+          <div className="con-table-title">
+            <img src={volumeIcon} alt="" className="con-table-title-icon" />
+            <span className="con-table-title-name">Volume</span>
+          </div>
+          <div className="con-table-header-but">
+            <button
+              onClick={pruneHandler}
+              style={{ backgroundColor: '#B11010' }}
+              className="con-btn"
+            >
+              Prune volume
+            </button>
+            <button
+              onClick={() => navigate('/volume/create')}
+              className="con-btn"
+            >
+              <Plus size={18} /> Create
+            </button>
+          </div>
+        </div>
+        <hr className="white-line" />
+
+        <table className="container-table">
+          <thead>
+            <tr className="con-tr">
+              <th>Name</th>
+              <th>CreatedAt</th>
+              <th>Driver</th>
+            </tr>
+          </thead>
+
+          <tbody className="con-tbody">
+            {volumes.map(volume => (
+              <VolumeCard key={volume.Name} volume={volume} />
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
