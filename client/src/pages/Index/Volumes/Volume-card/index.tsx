@@ -14,35 +14,39 @@
 
 import React from 'react';
 import { Volume } from '../../../../models/volume';
-import { Link } from 'react-router-dom';
+import './index.css';
+import { useNavigate } from 'react-router-dom';
+import { convertToIndianDateTime } from '../../../../utils/util';
 
 interface Props {
   volume: Volume;
 }
 
 const VolumeCard: React.FC<Props> = ({ volume }) => {
-  return (
-    <>
-      <div className="cont-card">
-        <div className="name">{volume.Name}</div>
+  const navigate = useNavigate();
 
-        <div className="content">
-          <span className="label">Created: </span>{' '}
-          <span className="label">
-            {volume.CreatedAt && new Date(volume.CreatedAt).toString()}
-          </span>
-        </div>
-        <div className="content">
-          <span className="label">Driver: </span>{' '}
-          <span className="label">{volume.Driver}</span>
-        </div>
-        <div className="content">
-          <Link className="btn detail" to={'/volume/' + volume.Name}>
-            Details
-          </Link>
-        </div>
-      </div>
-    </>
+  return (
+    <tr className="con-tr">
+      <td>
+        <span
+          className="td-sp-nm"
+          onClick={() => navigate(`/volume/${volume.Name}`)}
+        >
+          {volume.Name}
+        </span>
+      </td>
+      <td>
+        <span>
+          {volume.CreatedAt &&
+            convertToIndianDateTime(
+              Math.floor(new Date(volume.CreatedAt).getTime() / 1000)
+            )}
+        </span>
+      </td>
+      <td>
+        <span>{volume.Driver}</span>
+      </td>
+    </tr>
   );
 };
 
