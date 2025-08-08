@@ -17,8 +17,11 @@ import './index.css';
 import toast from 'react-hot-toast';
 import { getAllImages, pruneImages } from '../../../api/image';
 import { Image } from '../../../models/image';
+import imageIcon from '../../../assets/common/image.png';
 import ImageCard from './Image-card';
+
 import { useQuery } from 'react-query';
+import { Plus } from 'lucide-react';
 
 const Images = () => {
   const [images, setImages] = useState<Image[]>([]);
@@ -61,15 +64,47 @@ const Images = () => {
 
   return (
     <div className="page">
-      <div className="prune-btn">
-        <button onClick={pruneHandler} className="btn">
-          Prune Images
-        </button>
-      </div>
-      <div className="card-container">
-        {images.map((image, index) => {
-          return <ImageCard key={index} image={image} />;
-        })}
+      <div className="table-container">
+        <div className="con-table-header">
+          <div className="con-table-title">
+            <img src={imageIcon} alt="" className="con-table-title-icon" />
+            <span className="con-table-title-name">Image</span>
+          </div>
+          <div className="con-table-header-but">
+            <button
+              onClick={pruneHandler}
+              style={{ backgroundColor: '#B11010' }}
+              className="con-btn"
+            >
+              Prune Image
+            </button>
+            <button
+              onClick={() => {
+                /* TODO: Implement image build functionality */
+              }}
+              className="con-btn"
+            >
+              <Plus size={18} /> Build a new Image
+            </button>
+          </div>
+        </div>
+        <hr className="white-line" />
+
+        <table className="container-table">
+          <thead>
+            <tr className="con-tr">
+              <th>Name</th>
+              <th>Size</th>
+              <th>CreatedAt</th>
+            </tr>
+          </thead>
+
+          <tbody className="con-tbody">
+            {images.map(image => (
+              <ImageCard key={image.Id} image={image} />
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

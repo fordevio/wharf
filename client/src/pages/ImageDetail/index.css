@@ -1,46 +1,74 @@
-.image-detail-container {
+.page {
+  padding-left: 400px;
+  font-family: 'Lato', sans-serif;
+}
+
+.container-table {
+  width: 971px;
+}
+
+.table-container {
+  margin: 100px auto;
+  width: 971px;
+  border-radius: 20px;
+  border: 0.5px solid white;
+  transform: rotate(0deg);
+  opacity: 1;
+  overflow: hidden;
+}
+
+.con-table-header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
 }
 
-.image-details {
-  padding: 24px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f8ff; /* Alice Blue */
-  color: #003366;
-  max-width: 800px;
-  margin: 0 auto;
-  border-radius: 10px;
-  box-shadow: 0 0 12px rgba(0, 102, 204, 0.2);
+.con-table-title {
+  padding: 20px;
 }
 
-.image-details h2 {
-  color: #0066cc;
-  border-bottom: 2px solid #cce5ff;
-  padding-bottom: 4px;
-  margin-bottom: 16px;
+.con-table-title-name {
+  margin-left: 5px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 28px;
+  line-height: 72px;
+  letter-spacing: 0;
 }
 
-.image-details p {
-  margin: 6px 0;
+.white-line {
+  width: 100%;
+  border: none;
+  height: 0.5px;
+  background-color: white;
 }
 
-.image-details strong {
-  color: #004080;
+.con-tr th,
+.con-tr td {
+  border-bottom: 0.5px solid #ccc;
+  text-align: left;
+  padding: 15px;
 }
 
-.image-details h3 {
-  margin-top: 20px;
-  color: #0059b3;
+.detail-label {
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 18px;
+  color: white;
+  width: 200px;
 }
 
-.image-details ul {
-  list-style-type: disc;
-  padding-left: 20px;
+.detail-value {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #0099ff;
+  word-break: break-all;
 }
 
-.image-details li {
-  margin: 4px 0;
+/* Remove border from last row */
+.con-tbody tr:last-child td {
+  border-bottom: none;
 }

@@ -17,9 +17,10 @@ import './index.css';
 import { deleteImagge, getAllImages, tagImage } from '../../api/image';
 import { Image } from '../../models/image';
 import { useState } from 'react';
-import { formatBytes } from '../../utils/util';
+import { formatBytes, convertToIndianDateTime } from '../../utils/util';
 import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
+import Navbar from '../../components/Navbar';
 
 const ImageDetail = () => {
   const { id } = useParams();
@@ -121,81 +122,51 @@ const ImageDetail = () => {
 
   return (
     <>
-      <div className="image-detail-container">
-        <div className="back-button-container">
-          <button
-            className="btn back-button"
-            onClick={() => window.history.back()}
-          >
-            <i className="fa-solid fa-arrow-left"></i> Back
-          </button>
+      <Navbar />
+      <div className="page">
+        <div className="table-container">
+          <div className="con-table-header">
+            <div className="con-table-title">
+              <span className="con-table-title-name">Image Details</span>
+            </div>
+          </div>
+          <hr className="white-line" />
+
+          <table className="container-table">
+            <tbody className="con-tbody">
+              <tr className="con-tr">
+                <td className="detail-label">Id</td>
+                <td className="detail-value">{image.Id}</td>
+              </tr>
+              <tr className="con-tr">
+                <td className="detail-label">CreatedAt</td>
+                <td className="detail-value">
+                  {convertToIndianDateTime(image.Created)}
+                </td>
+              </tr>
+              <tr className="con-tr">
+                <td className="detail-label">Size</td>
+                <td className="detail-value">{formatBytes(image.Size)}</td>
+              </tr>
+              <tr className="con-tr">
+                <td className="detail-label">Repo Tags</td>
+                <td className="detail-value">
+                  {image.RepoTags && image.RepoTags.length > 0
+                    ? image.RepoTags.join(', ')
+                    : 'No tags'}
+                </td>
+              </tr>
+              <tr className="con-tr">
+                <td className="detail-label">Repo Tags</td>
+                <td className="detail-value">
+                  {image.RepoDigests && image.RepoDigests.length > 0
+                    ? image.RepoDigests.join(', ')
+                    : 'No digests'}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div className="image-details">
-          <h2>Image Details</h2>
-
-          <p>
-            <strong>ID:</strong> {image.Id}
-          </p>
-          <p>
-            <strong>Parent ID:</strong> {image.ParentId}
-          </p>
-          <p>
-            <strong>Created:</strong>{' '}
-            {new Date(image.Created * 1000).toLocaleString()}
-          </p>
-          <p>
-            <strong>Containers:</strong>{' '}
-            {image.Containers === -1 ? 'Not calculated' : image.Containers}
-          </p>
-          <p>
-            <strong>Size:</strong> {formatBytes(image.Size)}
-          </p>
-          <p>
-            <strong>Shared Size:</strong> {formatBytes(image.SharedSize)}
-          </p>
-          {image.VirtualSize !== undefined && (
-            <p>
-              <strong>Virtual Size:</strong> {formatBytes(image.VirtualSize)}
-            </p>
-          )}
-
-          <h3>Repo Tags</h3>
-          <ul>
-            {image.RepoTags.map((tag, index) => (
-              <li key={index}>{tag}</li>
-            ))}
-          </ul>
-
-          <h3>Repo Digests</h3>
-          <ul>
-            {image.RepoDigests.map((digest, index) => (
-              <li key={index}>{digest}</li>
-            ))}
-          </ul>
-
-          <h3>Labels</h3>
-          {image.Labels ? (
-            Object.keys(image.Labels).length > 0 ? (
-              <ul>
-                {Object.entries(image.Labels).map(([key, value]) => (
-                  <li key={key}>
-                    <strong>{key}:</strong> {value}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No labels</p>
-            )
-          ) : (
-            <p>No labels</p>
-          )}
-        </div>
-        <button className="btn" onClick={() => setOpenDl(true)}>
-          Delete
-        </button>
-        <button className="btn" onClick={() => setOpenTg(true)}>
-          New Tag
-        </button>
       </div>
       <div
         className="popup-overlay"

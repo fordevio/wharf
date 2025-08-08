@@ -1,14 +1,95 @@
-.card-container {
-  display: grid;
-  gap: 50px 50px;
-  padding: 50px 50px;
-  grid-template-columns: auto auto auto auto;
-  justify-content: space-evenly;
-  align-content: center;
+.page {
+  padding-left: 400px;
+  font-family: 'Lato', sans-serif;
 }
 
 .prune-btn {
   padding: 5px 5px;
   width: 100%;
   text-align: center;
+}
+
+.create-btn {
+  text-decoration: none;
+}
+
+.container-table {
+  width: 971px;
+}
+
+.table-container {
+  margin: 100px auto;
+  width: 971px;
+  border-radius: 20px;
+  border: 0.5px solid white;
+  transform: rotate(0deg);
+  opacity: 1;
+  overflow: hidden;
+}
+
+.con-table-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.con-table-title {
+  padding: 20px;
+}
+
+.con-table-title-name {
+  margin-left: 5px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 28px;
+  line-height: 72px;
+  letter-spacing: 0;
+}
+
+.con-table-header-but {
+  margin-left: 300px;
+}
+
+.white-line {
+  width: 100%;
+  border: none;
+  height: 0.5px;
+  background-color: white;
+}
+
+.con-btn {
+  width: 150px;
+  height: 30px;
+  border-radius: 8px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16px;
+  letter-spacing: 0;
+  background-color: #0099ff;
+  color: white;
+  margin-left: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.con-tr th {
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 72px;
+  letter-spacing: 0;
+}
+
+.con-tr th,
+.con-tr td {
+  border-bottom: 0.5px solid #ccc;
+  text-align: center;
+}
+
+/* Remove border from last row */
+.con-tbody tr:last-child td {
+  border-bottom: none;
 }
