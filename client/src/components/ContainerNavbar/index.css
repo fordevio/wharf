@@ -1,4 +1,4 @@
-.con-nav {
+.con-div {
   height: 80px;
   width: 100%;
   background-color: rgb(65, 146, 223);
@@ -13,17 +13,17 @@
   width: 80px;
 }
 
-nav ul {
+div ul {
   display: flex;
   /* position: relative;  */
 }
 
-nav ul li {
+div ul li {
   list-style: none;
 }
 
-nav ul li a {
-  color: rgb(73, 7, 148);
+div ul li a {
+  color: white;
   font-size: 20px;
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
@@ -32,7 +32,7 @@ nav ul li a {
   padding: 0.9rem;
 }
 
-nav .menu {
+div .menu {
   display: none;
   position: absolute;
   top: 0.75rem;
@@ -43,7 +43,7 @@ nav .menu {
   height: 2rem;
   z-index: 999;
 }
-nav .menu span {
+div .menu span {
   /* height: 0.4rem; */
   height: 0.3rem;
   width: 100%;
@@ -52,17 +52,17 @@ nav .menu span {
 }
 
 @media (max-width: 580px) {
-  nav .menu {
+  div .menu {
     display: flex;
     width: 2.5rem;
   }
 
-  nav {
+  div {
     flex-direction: column;
     align-items: start;
   }
 
-  nav ul {
+  div ul {
     display: none;
     flex-direction: column;
     width: 100%;
@@ -72,44 +72,44 @@ nav .menu span {
     z-index: 99;
   }
 
-  nav ul.open {
+  div ul.open {
     display: flex;
     background-color: rgb(96, 157, 227);
   }
 
-  nav ul li {
+  div ul li {
     width: 100%;
     text-align: center;
     padding-bottom: 0.7rem;
   }
 
-  nav ul li a {
+  div ul li a {
     margin: 0.2rem 0.5rem;
   }
 }
 
-nav .menu.open span {
+div .menu.open span {
   position: absolute;
 }
 
-nav .menu.open span:nth-child(1) {
+div .menu.open span:nth-child(1) {
   transform: rotate(45deg);
   position: absolute;
   top: 50%;
 }
 
-nav .menu.open span:nth-child(2) {
+div .menu.open span:nth-child(2) {
   opacity: 0;
 }
 
-nav .menu.open span:nth-child(3) {
+div .menu.open span:nth-child(3) {
   transform: rotate(-45deg);
 
   position: absolute;
   top: 50%;
 }
 
-nav .menu span {
+div .menu span {
   transition:
     transform 0.3s ease-in-out,
     opacity 0.3s ease-in-out,

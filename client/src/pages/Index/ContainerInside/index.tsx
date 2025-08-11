@@ -19,10 +19,10 @@ const ContainerInside = () => {
   const { id } = useParams();
 
   return (
-    <>
+    <div className='page'>
       {id !== undefined && <ContainerNavbar id={id} />}
       <Outlet />
-    </>
+    </div>
   );
 };
 

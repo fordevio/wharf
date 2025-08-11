@@ -24,31 +24,11 @@ interface Props {
 const ContainerNavbar: React.FC<Props> = ({ id }) => {
   const location = useLocation();
   const currentPath = location.pathname;
-  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="con-nav">
-      <img src={wharfLogo} className="logo" alt="wharf" />
+    <div className="con-nav">
 
-      <div
-        className={`menu ${menuOpen ? 'open' : ''}`}
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-
-      <ul className={menuOpen ? 'open' : ''}>
-        <li>
-          <Link
-            to="/"
-            className="link"
-            style={currentPath === '/' ? { color: 'blue' } : {}}
-          >
-            Home
-          </Link>
-        </li>
+      <ul >
         <li>
           <Link
             to={`/container/${id}`}
@@ -107,7 +87,7 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
           </Link>
         </li>
       </ul>
-    </nav>
+    </div>
   );
 };
 
