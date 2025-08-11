@@ -3,11 +3,13 @@
   width: 784px;
   height: 48px;
   margin-top: 135px;
-  margin-left: 432px;
+  margin-left: 40px;
   transform: rotate(0deg); /* angle: 0deg */
   background-color: #2E2C2C;
   border-radius: 18px;
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
 
@@ -25,12 +27,12 @@ div ul li a {
   font-weight: 500;        
   font-style: normal;     
   font-size: 20px;
-  line-height: 72px;
   letter-spacing: 0;    
   color: white;
   font-family:  'Lato', sans-serif;
   cursor: pointer;
   text-decoration: none;
-  padding: auto auto;
+  padding-left: 30px;
+  
 }
 

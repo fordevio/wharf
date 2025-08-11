@@ -35,7 +35,7 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
             className="link"
             style={currentPath === `/container/${id}` ? { color: '#0099FF' } : {}}
           >
-            Container-Details
+            Container info
           </Link>
         </li>
         <li>
@@ -48,7 +48,7 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
                 : {}
             }
           >
-            Network-Details
+            Networks info
           </Link>
         </li>
         <li>
@@ -61,7 +61,7 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
                 : {}
             }
           >
-            Volume-Details
+            Volumes info
           </Link>
         </li>
         <li>
