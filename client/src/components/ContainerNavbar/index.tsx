@@ -33,7 +33,7 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
           <Link
             to={`/container/${id}`}
             className="link"
-            style={currentPath === `/container/${id}` ? { color: 'blue' } : {}}
+            style={currentPath === `/container/${id}` ? { color: '#0099FF' } : {}}
           >
             Container-Details
           </Link>
@@ -44,7 +44,7 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
             className="link"
             style={
               currentPath === `/container/${id}/networks`
-                ? { color: 'blue' }
+                ? { color: '#0099FF' }
                 : {}
             }
           >
@@ -57,7 +57,7 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
             className="link"
             style={
               currentPath === `/container/${id}/volumes`
-                ? { color: 'blue' }
+                ? { color: '#0099FF' }
                 : {}
             }
           >
@@ -69,7 +69,7 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
             to={`/container/${id}/stats`}
             className="link"
             style={
-              currentPath === `/container/${id}/stats` ? { color: 'blue' } : {}
+              currentPath === `/container/${id}/stats` ? { color: '#0099FF' } : {}
             }
           >
             Stats
@@ -80,7 +80,7 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
             to={`/container/${id}/logs`}
             className="link"
             style={
-              currentPath === `/container/${id}/logs` ? { color: 'blue' } : {}
+              currentPath === `/container/${id}/logs` ? { color: '#0099FF' } : {}
             }
           >
             Logs

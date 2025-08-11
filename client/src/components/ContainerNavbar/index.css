@@ -1,16 +1,14 @@
-.con-div {
-  height: 80px;
-  width: 100%;
-  background-color: rgb(65, 146, 223);
-  display: flex;
-  align-items: center;
-  position: sticky;
-  top: 0;
-}
+.con-nav {
+ 
+  width: 784px;
+  height: 48px;
+  margin-top: 135px;
+  margin-left: 432px;
+  transform: rotate(0deg); /* angle: 0deg */
+  background-color: #2E2C2C;
+  border-radius: 18px;
+  
 
-.logo {
-  height: 100%;
-  width: 80px;
 }
 
 div ul {
@@ -23,95 +21,16 @@ div ul li {
 }
 
 div ul li a {
-  color: white;
+   
+  font-weight: 500;        
+  font-style: normal;     
   font-size: 20px;
-  font-weight: bold;
-  font-family: 'Courier New', Courier, monospace;
+  line-height: 72px;
+  letter-spacing: 0;    
+  color: white;
+  font-family:  'Lato', sans-serif;
   cursor: pointer;
   text-decoration: none;
-  padding: 0.9rem;
+  padding: auto auto;
 }
 
-div .menu {
-  display: none;
-  position: absolute;
-  top: 0.75rem;
-  right: 0.5rem;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 2.25rem;
-  height: 2rem;
-  z-index: 999;
-}
-div .menu span {
-  /* height: 0.4rem; */
-  height: 0.3rem;
-  width: 100%;
-  background-color: #fff;
-  border-radius: 0.2rem;
-}
-
-@media (max-width: 580px) {
-  div .menu {
-    display: flex;
-    width: 2.5rem;
-  }
-
-  div {
-    flex-direction: column;
-    align-items: start;
-  }
-
-  div ul {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 0.25 rem;
-    margin-top: unset;
-    padding-top: 20px;
-    z-index: 99;
-  }
-
-  div ul.open {
-    display: flex;
-    background-color: rgb(96, 157, 227);
-  }
-
-  div ul li {
-    width: 100%;
-    text-align: center;
-    padding-bottom: 0.7rem;
-  }
-
-  div ul li a {
-    margin: 0.2rem 0.5rem;
-  }
-}
-
-div .menu.open span {
-  position: absolute;
-}
-
-div .menu.open span:nth-child(1) {
-  transform: rotate(45deg);
-  position: absolute;
-  top: 50%;
-}
-
-div .menu.open span:nth-child(2) {
-  opacity: 0;
-}
-
-div .menu.open span:nth-child(3) {
-  transform: rotate(-45deg);
-
-  position: absolute;
-  top: 50%;
-}
-
-div .menu span {
-  transition:
-    transform 0.3s ease-in-out,
-    opacity 0.3s ease-in-out,
-    top 0.3s ease-in-out;
-}
