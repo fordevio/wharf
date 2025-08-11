@@ -153,24 +153,25 @@ const ContainerDetail = () => {
     <>
       <div className="container-det">
         <div className="con-det-h">
-          <img src={containerIcon} alt="" className="con-table-title-icon" />{' '}
+          <img src={containerIcon} alt="" className="con-det-hd-img" />{' '}
           <span className="con-det-hd">Container Details</span>
           <div className="con-det-buts">
-            <button className="btn del-btn" onClick={() => setOpenDl(true)}>
-              Delete
+
+            <button className="det-btn" onClick={StartStopHandler}>
+              {' '}
+              {container.State === 'exited' ? 'Start' : 'Stop'}
+            </button>
+            <button className="det-btn" onClick={PauseUnpauseHandler}>
+              {container.State === 'paused' ? 'Unpause' : 'Pause'}
             </button>
             <button
-              className="btn"
+              className="det-btn"
               onClick={() => navigate('/container/update/' + id)}
             >
               Edit
             </button>
-            <button className="btn" onClick={StartStopHandler}>
-              {' '}
-              {container.State === 'exited' ? 'Start' : 'Stop'}
-            </button>
-            <button className="btn" onClick={PauseUnpauseHandler}>
-              {container.State === 'paused' ? 'Unpause' : 'Pause'}
+              <button className="det-btn del-btn" onClick={() => setOpenDl(true)}>
+              Delete
             </button>
           </div>
         </div>
