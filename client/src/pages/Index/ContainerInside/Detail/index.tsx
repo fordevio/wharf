@@ -151,6 +151,27 @@ const ContainerDetail = () => {
   return (
     <>
       <div className="container-det">
+        <div className='con-det-h'>
+          <span className="con-det-hd">Container Details</span>
+             <div className="con-det-buts">
+          <button className="btn del-btn" onClick={() => setOpenDl(true)}>
+            Delete
+          </button>
+          <button
+            className="btn"
+            onClick={() => navigate('/container/update/' + id)}
+          >
+            Edit
+          </button>
+          <button className="btn" onClick={StartStopHandler}>
+            {' '}
+            {container.State === 'exited' ? 'Start' : 'Stop'}
+          </button>
+          <button className="btn" onClick={PauseUnpauseHandler}>
+            {container.State === 'paused' ? 'Unpause' : 'Pause'}
+          </button>
+        </div>
+        </div>
         <div className="cont-div">
           <span className="cont sp">Name: </span>{' '}
           <span className="cont"> {container.Names[0].replace(/^\//, '')}</span>
@@ -201,24 +222,7 @@ const ContainerDetail = () => {
             })}
           </div>
         </div>
-        <div className="">
-          <button className="btn del-btn" onClick={() => setOpenDl(true)}>
-            Delete
-          </button>
-          <button
-            className="btn"
-            onClick={() => navigate('/container/update/' + id)}
-          >
-            Edit
-          </button>
-          <button className="btn" onClick={StartStopHandler}>
-            {' '}
-            {container.State === 'exited' ? 'Start' : 'Stop'}
-          </button>
-          <button className="btn" onClick={PauseUnpauseHandler}>
-            {container.State === 'paused' ? 'Unpause' : 'Pause'}
-          </button>
-        </div>
+     
       </div>
       <div
         className="popup-overlay"
