@@ -4,6 +4,10 @@
   align-items: center;
   justify-content: center;
   padding: 10px 10px;
+  margin: auto;
+  border: 0.5px solid white;
+  border-radius: 20px;
+  width: 971px;
 }
 
 .cont-div {
@@ -70,20 +74,4 @@ input[type='checkbox'] {
 label {
   font-size: 16px;
   color: #333;
-}
-
-@media (max-width: 768px) {
-  .cont {
-    font-size: 30px;
-    word-break: break-word;
-  }
-
-  .cont .sp {
-    font-size: 25px;
-  }
-
-  .cont-l {
-    font-size: 23px;
-    word-break: break-word;
-  }
 }
