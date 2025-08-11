@@ -14,6 +14,7 @@
 
 import { useNavigate, useParams } from 'react-router-dom';
 import './index.css';
+import containerIcon from '../../../../assets/common/container.png';
 import { DockerContainer } from '../../../../models/container';
 import { useState } from 'react';
 import {
@@ -151,26 +152,27 @@ const ContainerDetail = () => {
   return (
     <>
       <div className="container-det">
-        <div className='con-det-h'>
+        <div className="con-det-h">
+          <img src={containerIcon} alt="" className="con-table-title-icon" />{' '}
           <span className="con-det-hd">Container Details</span>
-             <div className="con-det-buts">
-          <button className="btn del-btn" onClick={() => setOpenDl(true)}>
-            Delete
-          </button>
-          <button
-            className="btn"
-            onClick={() => navigate('/container/update/' + id)}
-          >
-            Edit
-          </button>
-          <button className="btn" onClick={StartStopHandler}>
-            {' '}
-            {container.State === 'exited' ? 'Start' : 'Stop'}
-          </button>
-          <button className="btn" onClick={PauseUnpauseHandler}>
-            {container.State === 'paused' ? 'Unpause' : 'Pause'}
-          </button>
-        </div>
+          <div className="con-det-buts">
+            <button className="btn del-btn" onClick={() => setOpenDl(true)}>
+              Delete
+            </button>
+            <button
+              className="btn"
+              onClick={() => navigate('/container/update/' + id)}
+            >
+              Edit
+            </button>
+            <button className="btn" onClick={StartStopHandler}>
+              {' '}
+              {container.State === 'exited' ? 'Start' : 'Stop'}
+            </button>
+            <button className="btn" onClick={PauseUnpauseHandler}>
+              {container.State === 'paused' ? 'Unpause' : 'Pause'}
+            </button>
+          </div>
         </div>
         <div className="cont-div">
           <span className="cont sp">Name: </span>{' '}
@@ -222,7 +224,6 @@ const ContainerDetail = () => {
             })}
           </div>
         </div>
-     
       </div>
       <div
         className="popup-overlay"

@@ -3,11 +3,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px 10px;
   margin: auto;
   border: 0.5px solid white;
   border-radius: 20px;
   width: 971px;
+}
+
+.con-det-h{
+  border-bottom: 0.5px solid white;
+  width: 100%;
+  padding: 20px 20px;
+  display: flex;
+}
+
+.con-det-hd{
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;       /* Medium weight */
+  font-style: normal;     /* "Medium" is a weight, not a style */
+  font-size: 28px;
+  line-height: 72px;
+
 }
 
 .cont-div {

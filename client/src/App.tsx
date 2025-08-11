@@ -83,22 +83,22 @@ function App() {
           <Route path="containers" element={<Containers />} />
           <Route path="users" element={<Users />} />
           <Route path="container/:id" element={<ContainerInside />}>
-          <Route index element={<ContainerDetail />} />
-          <Route path="volumes" element={<ContainerVolumes />} />
-          <Route path="networks" element={<ContainerNetworks />} />
-          <Route path="stats" element={<ContainerStats />} />
-          <Route path="logs" element={<ContainerLogs />} />
-           <Route path="image/:id" element={<ImageDetail />} />
-        <Route path="volume/:id" element={<VolumeDetail />} />
-        <Route path="network/:id" element={<NetworkDetail />} />
+            <Route index element={<ContainerDetail />} />
+            <Route path="volumes" element={<ContainerVolumes />} />
+            <Route path="networks" element={<ContainerNetworks />} />
+            <Route path="stats" element={<ContainerStats />} />
+            <Route path="logs" element={<ContainerLogs />} />
+            <Route path="image/:id" element={<ImageDetail />} />
+            <Route path="volume/:id" element={<VolumeDetail />} />
+            <Route path="network/:id" element={<NetworkDetail />} />
+          </Route>
         </Route>
-        </Route>
-        
+
         <Route path="/container/create" element={<ContainerCreate />} />
         <Route path="/container/update/:id" element={<ContainerUpdate />} />
         <Route path="/volume/create" element={<VolumeCreate />} />
         <Route path="/network/create" element={<NetworkCreate />} />
-       
+
         <Route path="/network/edit/:id" element={<NetworkUpdate />} />
         <Route path="/login" element={<Login />} />
       </Routes>

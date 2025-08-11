@@ -27,13 +27,14 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
 
   return (
     <div className="con-nav">
-
-      <ul >
+      <ul>
         <li>
           <Link
             to={`/container/${id}`}
             className="link"
-            style={currentPath === `/container/${id}` ? { color: '#0099FF' } : {}}
+            style={
+              currentPath === `/container/${id}` ? { color: '#0099FF' } : {}
+            }
           >
             Container info
           </Link>
@@ -69,7 +70,9 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
             to={`/container/${id}/stats`}
             className="link"
             style={
-              currentPath === `/container/${id}/stats` ? { color: '#0099FF' } : {}
+              currentPath === `/container/${id}/stats`
+                ? { color: '#0099FF' }
+                : {}
             }
           >
             Stats
@@ -80,7 +83,9 @@ const ContainerNavbar: React.FC<Props> = ({ id }) => {
             to={`/container/${id}/logs`}
             className="link"
             style={
-              currentPath === `/container/${id}/logs` ? { color: '#0099FF' } : {}
+              currentPath === `/container/${id}/logs`
+                ? { color: '#0099FF' }
+                : {}
             }
           >
             Logs

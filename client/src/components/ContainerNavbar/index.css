@@ -1,15 +1,14 @@
 .con-nav {
- 
   width: 784px;
   height: 48px;
   margin-top: 135px;
   transform: rotate(0deg); /* angle: 0deg */
-  background-color: #2E2C2C;
+  background-color: #2e2c2c;
   border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-inline: auto; 
+  margin-inline: auto;
   margin-bottom: 20px;
 }
 
@@ -23,16 +22,13 @@ div ul li {
 }
 
 div ul li a {
-   
-  font-weight: 500;        
-  font-style: normal;     
+  font-weight: 500;
+  font-style: normal;
   font-size: 20px;
-  letter-spacing: 0;    
+  letter-spacing: 0;
   color: white;
-  font-family:  'Lato', sans-serif;
+  font-family: 'Lato', sans-serif;
   cursor: pointer;
   text-decoration: none;
   padding-left: 30px;
-  
 }
-
