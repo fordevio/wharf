@@ -14,9 +14,9 @@
 
 import { useState } from 'react';
 import './index.css';
-import { DockerContainer } from '../../../models/container';
+import { DockerContainer } from '../../../../models/container';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getAllContainers } from '../../../api/container';
+import { getAllContainers } from '../../../../api/container';
 import { useQuery } from 'react-query';
 
 const ContainerVolumes = () => {

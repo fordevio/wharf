@@ -15,7 +15,7 @@
 import { useState } from 'react';
 import './index.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import { containerStats } from '../../../api/container';
+import { containerStats } from '../../../../api/container';
 import { useQuery } from 'react-query';
 
 const ContainerStats = () => {

@@ -14,7 +14,7 @@
 
 import { useNavigate, useParams } from 'react-router-dom';
 import './index.css';
-import { DockerContainer } from '../../../models/container';
+import { DockerContainer } from '../../../../models/container';
 import { useState } from 'react';
 import {
   getContainer,
@@ -23,9 +23,9 @@ import {
   startContainer,
   stopContainer,
   unpauseContainer,
-} from '../../../api/container';
+} from '../../../../api/container';
 import { useQuery } from 'react-query';
-import { convertToIndianDateTime } from '../../../utils/util';
+import { convertToIndianDateTime } from '../../../../utils/util';
 import toast from 'react-hot-toast';
 
 const ContainerDetail = () => {
