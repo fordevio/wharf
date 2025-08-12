@@ -63,6 +63,10 @@ cursor: pointer;
 margin-left: 10px;
 }
 
+.btn-logo{
+  margin-right: 10px;
+}
+
 .cont-span {
   display: flex;
   justify-content: center;

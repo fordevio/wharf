@@ -28,6 +28,7 @@ import {
 import { useQuery } from 'react-query';
 import { convertToIndianDateTime } from '../../../../utils/util';
 import toast from 'react-hot-toast';
+import { Trash, Pencil, Pause, Play,LogOut } from 'lucide-react';
 
 const ContainerDetail = () => {
   const [container, setContainer] = useState<DockerContainer | null>(null);
@@ -159,18 +160,22 @@ const ContainerDetail = () => {
 
             <button className="det-btn" onClick={StartStopHandler}>
               {' '}
+              {container.State === 'exited' ? <Play className='btn-logo' size={20} /> : <LogOut className='btn-logo' size={20} />}
               {container.State === 'exited' ? 'Start' : 'Stop'}
             </button>
             <button className="det-btn" onClick={PauseUnpauseHandler}>
+              {container.State!== 'paused' ? <Pause className='btn-logo' size={20} /> : <Play className='btn-logo' size={20} />}
               {container.State === 'paused' ? 'Unpause' : 'Pause'}
             </button>
             <button
               className="det-btn"
               onClick={() => navigate('/container/update/' + id)}
             >
+              <Pencil className='btn-logo' size={20} />
               Edit
             </button>
               <button className="det-btn del-btn" onClick={() => setOpenDl(true)}>
+                <Trash className='btn-logo' size={20} />
               Delete
             </button>
           </div>
