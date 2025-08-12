@@ -13,16 +13,16 @@
 // limitations under the License.
 
 import { Outlet, useParams } from 'react-router-dom';
-import ContainerNavbar from '../../components/ContainerNavbar';
+import ContainerNavbar from '../../../components/ContainerNavbar';
 
 const ContainerInside = () => {
   const { id } = useParams();
 
   return (
-    <>
+    <div className="page">
       {id !== undefined && <ContainerNavbar id={id} />}
       <Outlet />
-    </>
+    </div>
   );
 };
 

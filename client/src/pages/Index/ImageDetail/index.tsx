@@ -14,10 +14,10 @@
 
 import { useNavigate, useParams } from 'react-router-dom';
 import './index.css';
-import { deleteImagge, getAllImages, tagImage } from '../../api/image';
-import { Image } from '../../models/image';
+import { deleteImagge, getAllImages, tagImage } from '../../../api/image';
+import { Image } from '../../../models/image';
 import { useState } from 'react';
-import { formatBytes } from '../../utils/util';
+import { formatBytes } from '../../../utils/util';
 import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
 

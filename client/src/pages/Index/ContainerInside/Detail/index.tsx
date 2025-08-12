@@ -14,7 +14,8 @@
 
 import { useNavigate, useParams } from 'react-router-dom';
 import './index.css';
-import { DockerContainer } from '../../../models/container';
+import containerIcon from '../../../../assets/common/container.png';
+import { DockerContainer } from '../../../../models/container';
 import { useState } from 'react';
 import {
   getContainer,
@@ -23,10 +24,11 @@ import {
   startContainer,
   stopContainer,
   unpauseContainer,
-} from '../../../api/container';
+} from '../../../../api/container';
 import { useQuery } from 'react-query';
-import { convertToIndianDateTime } from '../../../utils/util';
+import { convertToIndianDateTime } from '../../../../utils/util';
 import toast from 'react-hot-toast';
+import { Trash, Pencil, Pause, Play, LogOut } from 'lucide-react';
 
 const ContainerDetail = () => {
   const [container, setContainer] = useState<DockerContainer | null>(null);
@@ -151,73 +153,92 @@ const ContainerDetail = () => {
   return (
     <>
       <div className="container-det">
-        <div className="cont-div">
-          <span className="cont sp">Name: </span>{' '}
-          <span className="cont"> {container.Names[0].replace(/^\//, '')}</span>
+        <div className="con-det-h">
+          <img src={containerIcon} alt="" className="con-det-hd-img" />{' '}
+          <span className="con-det-hd">Container Details</span>
+          <div className="con-det-buts">
+            <button className="det-btn" onClick={StartStopHandler}>
+              {' '}
+              {container.State === 'exited' ? (
+                <Play className="btn-logo" size={20} />
+              ) : (
+                <LogOut className="btn-logo" size={20} />
+              )}
+              {container.State === 'exited' ? 'Start' : 'Stop'}
+            </button>
+            <button className="det-btn" onClick={PauseUnpauseHandler}>
+              {container.State !== 'paused' ? (
+                <Pause className="btn-logo" size={20} />
+              ) : (
+                <Play className="btn-logo" size={20} />
+              )}
+              {container.State === 'paused' ? 'Unpause' : 'Pause'}
+            </button>
+            <button
+              className="det-btn"
+              onClick={() => navigate('/container/update/' + id)}
+            >
+              <Pencil className="btn-logo" size={20} />
+              Edit
+            </button>
+            <button className="det-btn del-btn" onClick={() => setOpenDl(true)}>
+              <Trash className="btn-logo" size={20} />
+              Delete
+            </button>
+          </div>
         </div>
         <div className="cont-div">
-          <span className="cont sp cont-span">Image: </span>{' '}
-          <span className="cont"> {container.Image.split('@')[0]}</span>
+          <div className="cont-key">Name </div>
+          <div className="cont-val">
+            {' '}
+            {container.Names[0].replace(/^\//, '')}
+          </div>
         </div>
-        <div className="cont-div pad">
-          <span className="cont-l sp">Status: </span>{' '}
-          <span className="cont-l"> {container.Status}</span>
+        <div className="cont-div">
+          <div className="cont-key">Image </div>
+          <div className="cont-val"> {container.Image.split('@')[0]}</div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">Status </div>
+          <div className="cont-val"> {container.Status}</div>
         </div>
         <div className="cont-div ">
-          <span className="cont-l sp">State: </span>{' '}
-          <span
-            className="cont-l"
+          <div className="cont-key">State </div>
+          <div
+            className="cont-val"
             style={
               container.State === 'running'
                 ? { color: 'green' }
                 : { color: 'red' }
             }
           >
-            {' '}
             {container.State}
-          </span>
-        </div>
-        <div className="cont-div pad">
-          <span className="cont-l sp">Created At: </span>{' '}
-          <span className="cont-l">
-            {' '}
-            {convertToIndianDateTime(container.Created)}
-          </span>
-        </div>
-        <div className="cont-div pad">
-          <span className="cont-l sp">Command: </span>{' '}
-          <span className="cont-l"> {container.Command}</span>
-        </div>
-        <div className="cont-div pad">
-          <span className="cont-l sp">Labels: </span>
-          <div className="lab">
-            {Object.entries(container.Labels).map(([key, value]) => {
-              return (
-                <p key={key} className="cont-l">
-                  {' '}
-                  {key} : {value}
-                </p>
-              );
-            })}
           </div>
         </div>
-        <div className="">
-          <button className="btn del-btn" onClick={() => setOpenDl(true)}>
-            Delete
-          </button>
-          <button
-            className="btn"
-            onClick={() => navigate('/container/update/' + id)}
-          >
-            Edit
-          </button>
-          <button className="btn" onClick={StartStopHandler}>
-            {' '}
-            {container.State === 'exited' ? 'Start' : 'Stop'}
-          </button>
-          <button className="btn" onClick={PauseUnpauseHandler}>
-            {container.State === 'paused' ? 'Unpause' : 'Pause'}
-          </button>
+        <div className="cont-div">
+          <div className="cont-key">Created At </div>
+          <div className="cont-val">
+            {convertToIndianDateTime(container.Created)}
+          </div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">Command </div>
+          <div className="cont-val"> {container.Command}</div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">Labels </div>
+          <div className="cont-val">
+            {Object.entries(container.Labels)
+              .slice(0, 2)
+              .map(([key, value]) => {
+                return (
+                  <p key={key} className="cont-l">
+                    {' '}
+                    {key} : {value}
+                  </p>
+                );
+              })}
+          </div>
         </div>
       </div>
       <div

@@ -17,7 +17,7 @@ import MonacoEditor, { OnMount } from '@monaco-editor/react';
 import * as monaco from 'monaco-editor';
 import './index.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import { containerLogs } from '../../../api/container';
+import { containerLogs } from '../../../../api/container';
 import { useQuery } from 'react-query';
 
 const ContainerLogs = () => {

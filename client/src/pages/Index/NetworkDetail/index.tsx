@@ -15,8 +15,8 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import './index.css';
 import { useState } from 'react';
-import { NetworkResource } from '../../models/network';
-import { deleteNetwork, getAllNetworks } from '../../api/network';
+import { NetworkResource } from '../../../models/network';
+import { deleteNetwork, getAllNetworks } from '../../../api/network';
 import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
 

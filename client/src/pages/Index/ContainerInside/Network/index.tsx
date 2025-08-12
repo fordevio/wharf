@@ -14,14 +14,14 @@
 
 import { useState } from 'react';
 import './index.css';
-import { DockerContainer } from '../../../models/container';
+import { DockerContainer } from '../../../../models/container';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getContainer } from '../../../api/container';
+import { getContainer } from '../../../../api/container';
 import { useQuery } from 'react-query';
 import {
   connectContainerToNetwork,
   disconnectContainerFromNetwork,
-} from '../../../api/network';
+} from '../../../../api/network';
 import toast from 'react-hot-toast';
 
 const ContainerNetworks = () => {

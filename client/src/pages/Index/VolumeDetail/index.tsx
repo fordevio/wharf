@@ -15,9 +15,9 @@
 import { useState } from 'react';
 import './index.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Volume } from '../../models/volume';
-import { deleteVolume, getAllVolumes } from '../../api/volume';
-import { formatBytes } from '../../utils/util';
+import { Volume } from '../../../models/volume';
+import { deleteVolume, getAllVolumes } from '../../../api/volume';
+import { formatBytes } from '../../../utils/util';
 import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
 
