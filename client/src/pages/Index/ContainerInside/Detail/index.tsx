@@ -181,45 +181,44 @@ const ContainerDetail = () => {
           </div>
         </div>
         <div className="cont-div">
-          <span className="cont sp">Name: </span>{' '}
-          <span className="cont"> {container.Names[0].replace(/^\//, '')}</span>
+          <div className="cont-key">Name </div>
+          <div className="cont-val"> {container.Names[0].replace(/^\//, '')}</div>
         </div>
         <div className="cont-div">
-          <span className="cont sp cont-span">Image: </span>{' '}
-          <span className="cont"> {container.Image.split('@')[0]}</span>
+          <div className="cont-key">Image </div>
+          <div className="cont-val"> {container.Image.split('@')[0]}</div>
         </div>
-        <div className="cont-div pad">
-          <span className="cont-l sp">Status: </span>{' '}
-          <span className="cont-l"> {container.Status}</span>
+        <div className="cont-div">
+          <div className="cont-key">Status </div>
+          <div className="cont-val"> {container.Status}</div>
         </div>
         <div className="cont-div ">
-          <span className="cont-l sp">State: </span>{' '}
-          <span
-            className="cont-l"
+          <div className="cont-key">State </div>
+          <div
+            className="cont-val"
             style={
               container.State === 'running'
                 ? { color: 'green' }
                 : { color: 'red' }
             }
           >
-            {' '}
             {container.State}
-          </span>
+          </div>
         </div>
-        <div className="cont-div pad">
-          <span className="cont-l sp">Created At: </span>{' '}
-          <span className="cont-l">
-            {' '}
+        <div className="cont-div">
+          <div className="cont-key">Created At </div>
+          <div className="cont-val">
+          
             {convertToIndianDateTime(container.Created)}
-          </span>
+          </div>
         </div>
-        <div className="cont-div pad">
-          <span className="cont-l sp">Command: </span>{' '}
-          <span className="cont-l"> {container.Command}</span>
+        <div className="cont-div">
+          <div className="cont-key">Command </div>
+          <div className="cont-val"> {container.Command}</div>
         </div>
-        <div className="cont-div pad">
-          <span className="cont-l sp">Labels: </span>
-          <div className="lab">
+        <div className="cont-div">
+          <div className="cont-key">Labels </div>
+          <div className="cont-val">
             {Object.entries(container.Labels).map(([key, value]) => {
               return (
                 <p key={key} className="cont-l">
