@@ -13,9 +13,8 @@
 // limitations under the License.
 
 import './index.css';
-import wharfLogo from '../../assets/wharf.png';
 import { Link, useLocation } from 'react-router-dom';
-import React, { useState } from 'react';
+import React from 'react';
 
 interface Props {
   id: string;
