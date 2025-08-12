@@ -109,3 +109,8 @@ label {
   font-size: 16px;
   color: #333;
 }
+
+.cont-l {
+  white-space: normal;
+  word-break: break-word;
+}
