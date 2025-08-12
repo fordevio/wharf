@@ -28,7 +28,7 @@ import {
 import { useQuery } from 'react-query';
 import { convertToIndianDateTime } from '../../../../utils/util';
 import toast from 'react-hot-toast';
-import { Trash, Pencil, Pause, Play,LogOut } from 'lucide-react';
+import { Trash, Pencil, Pause, Play, LogOut } from 'lucide-react';
 
 const ContainerDetail = () => {
   const [container, setContainer] = useState<DockerContainer | null>(null);
@@ -157,32 +157,42 @@ const ContainerDetail = () => {
           <img src={containerIcon} alt="" className="con-det-hd-img" />{' '}
           <span className="con-det-hd">Container Details</span>
           <div className="con-det-buts">
-
             <button className="det-btn" onClick={StartStopHandler}>
               {' '}
-              {container.State === 'exited' ? <Play className='btn-logo' size={20} /> : <LogOut className='btn-logo' size={20} />}
+              {container.State === 'exited' ? (
+                <Play className="btn-logo" size={20} />
+              ) : (
+                <LogOut className="btn-logo" size={20} />
+              )}
               {container.State === 'exited' ? 'Start' : 'Stop'}
             </button>
             <button className="det-btn" onClick={PauseUnpauseHandler}>
-              {container.State!== 'paused' ? <Pause className='btn-logo' size={20} /> : <Play className='btn-logo' size={20} />}
+              {container.State !== 'paused' ? (
+                <Pause className="btn-logo" size={20} />
+              ) : (
+                <Play className="btn-logo" size={20} />
+              )}
               {container.State === 'paused' ? 'Unpause' : 'Pause'}
             </button>
             <button
               className="det-btn"
               onClick={() => navigate('/container/update/' + id)}
             >
-              <Pencil className='btn-logo' size={20} />
+              <Pencil className="btn-logo" size={20} />
               Edit
             </button>
-              <button className="det-btn del-btn" onClick={() => setOpenDl(true)}>
-                <Trash className='btn-logo' size={20} />
+            <button className="det-btn del-btn" onClick={() => setOpenDl(true)}>
+              <Trash className="btn-logo" size={20} />
               Delete
             </button>
           </div>
         </div>
         <div className="cont-div">
           <div className="cont-key">Name </div>
-          <div className="cont-val"> {container.Names[0].replace(/^\//, '')}</div>
+          <div className="cont-val">
+            {' '}
+            {container.Names[0].replace(/^\//, '')}
+          </div>
         </div>
         <div className="cont-div">
           <div className="cont-key">Image </div>
@@ -208,7 +218,6 @@ const ContainerDetail = () => {
         <div className="cont-div">
           <div className="cont-key">Created At </div>
           <div className="cont-val">
-          
             {convertToIndianDateTime(container.Created)}
           </div>
         </div>
