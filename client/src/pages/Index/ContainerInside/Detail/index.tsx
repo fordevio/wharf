@@ -228,14 +228,16 @@ const ContainerDetail = () => {
         <div className="cont-div">
           <div className="cont-key">Labels </div>
           <div className="cont-val">
-            {Object.entries(container.Labels).map(([key, value]) => {
-              return (
-                <p key={key} className="cont-l">
-                  {' '}
-                  {key} : {value}
-                </p>
-              );
-            })}
+            {Object.entries(container.Labels)
+              .slice(0, 2)
+              .map(([key, value]) => {
+                return (
+                  <p key={key} className="cont-l">
+                    {' '}
+                    {key} : {value}
+                  </p>
+                );
+              })}
           </div>
         </div>
       </div>
