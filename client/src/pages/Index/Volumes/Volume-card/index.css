@@ -3,6 +3,10 @@
   color: #0099ff;
   text-decoration: underline;
   white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 18ch;
+  min-width: 18ch;
 }
 
 .td-sp-nm:hover {
