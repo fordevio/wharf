@@ -15,38 +15,37 @@
 import React from 'react';
 import './index.css';
 import { Image } from '../../../../models/image';
-import { Link } from 'react-router-dom';
-import { formatBytes } from '../../../../utils/util';
+import { useNavigate } from 'react-router-dom';
+import { convertToIndianDateTime, formatBytes } from '../../../../utils/util';
 
 interface Props {
   image: Image;
 }
 
 const ImageCard: React.FC<Props> = ({ image }) => {
+  const navigate = useNavigate();
+  const displayName =
+    image.RepoTags && image.RepoTags.length > 0
+      ? image.RepoTags[0]
+      : '<none>:<none>';
+
   return (
-    <>
-      <div className="cont-card">
-        <div className="name">{image.RepoTags[0]}</div>
-
-        <div className="content">
-          <span className="label">Created: </span>{' '}
-          <span className="label">
-            {new Date(image.Created * 1000).toString()}
-          </span>
-        </div>
-        <div className="content">
-          <span className="label">Size: </span>{' '}
-          <span className="label">{formatBytes(image.Size)}</span>
-        </div>
-        <div>
-          <Link className="btn detail" to={'/image/' + image.Id}>
-            Details
-          </Link>
-        </div>
-
-        <div></div>
-      </div>
-    </>
+    <tr className="con-tr">
+      <td>
+        <span
+          className="td-sp-nm"
+          onClick={() => navigate(`/image/${image.Id}`)}
+        >
+          {displayName}
+        </span>
+      </td>
+      <td>
+        <span>{formatBytes(image.Size || 0)}</span>
+      </td>
+      <td>
+        <span>{convertToIndianDateTime(image.Created)}</span>
+      </td>
+    </tr>
   );
 };
 
