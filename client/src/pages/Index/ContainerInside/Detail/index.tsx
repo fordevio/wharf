@@ -181,7 +181,11 @@ const ContainerDetail = () => {
               <Pencil className="btn-logo" size={20} />
               Edit
             </button>
-            <button className="det-btn del-btn" onClick={() => setOpenDl(true)}>
+            <button
+              className="det-btn del-btn"
+              style={{ background: '#B11010' }}
+              onClick={() => setOpenDl(true)}
+            >
               <Trash className="btn-logo" size={20} />
               Delete
             </button>
@@ -228,16 +232,16 @@ const ContainerDetail = () => {
         <div className="cont-div">
           <div className="cont-key">Labels </div>
           <div className="cont-val">
-            {Object.entries(container.Labels)
+            {(container.Labels instanceof Map
+              ? Array.from(container.Labels.entries())
+              : Object.entries(container.Labels ?? {})
+            )
               .slice(0, 2)
-              .map(([key, value]) => {
-                return (
-                  <p key={key} className="cont-l">
-                    {' '}
-                    {key} : {value}
-                  </p>
-                );
-              })}
+              .map(([key, value]) => (
+                <p key={key} className="cont-l">
+                  {` ${key} : ${value}`}
+                </p>
+              ))}
           </div>
         </div>
       </div>
