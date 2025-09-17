@@ -20,6 +20,8 @@ import { deleteVolume, getAllVolumes } from '../../../api/volume';
 import { formatBytes } from '../../../utils/util';
 import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
+import { Trash } from 'lucide-react';
+import volumeIcon from '../../../assets/common/volume.png';
 
 const VolumeDetail = () => {
   const navigate = useNavigate();
@@ -81,86 +83,109 @@ const VolumeDetail = () => {
   }
 
   return (
-    <div className='page'>
-      <div className="volume-detail">
-        <h2>Volume Detail</h2>
-        <p>
-          <strong>Name:</strong> {volume.Name}
-        </p>
-        <p>
-          <strong>Driver:</strong> {volume.Driver}
-        </p>
-        <p>
-          <strong>Mountpoint:</strong> {volume.Mountpoint}
-        </p>
-        <p>
-          <strong>Scope:</strong> {volume.Scope}
-        </p>
-        {volume.CreatedAt && (
-          <p>
-            <strong>Created At:</strong>{' '}
-            {new Date(volume.CreatedAt).toLocaleString()}
-          </p>
-        )}
-
-        <h3>Labels</h3>
-        {Object.keys(volume.Labels ?? {}).length > 0 ? (
-          <ul>
-            {Object.entries(volume.Labels ?? {}).map(([k, v]) => (
-              <li key={k}>
-                <strong>{k}:</strong> {v}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No labels</p>
-        )}
-
-        <h3>Options</h3>
-        {Object.keys(volume.Options ?? {}).length > 0 ? (
-          <ul>
-            {Object.entries(volume.Options ?? {}).map(([k, v]) => (
-              <li key={k}>
-                <strong>{k}:</strong> {v}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No options</p>
-        )}
-
-        {volume.Status && (
-          <>
-            <h3>Status</h3>
-            <ul>
-              {Object.entries(volume.Status).map(([k, v]) => (
-                <li key={k}>
-                  <strong>{k}:</strong> {String(v)}
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-
+    <div className="page">
+      <div className="vol-det">
+        <div className="vol-det-h">
+          <img src={volumeIcon} alt="" className="vol-det-hd-img" />{' '}
+          <span className="vol-det-hd">Volume Details</span>
+          <div className="vol-det-buts">
+            <button
+              className="det-btn del-btn"
+              style={{ background: '#B11010' }}
+              onClick={() => setOpenDl(true)}
+            >
+              <Trash className="btn-logo" size={20} />
+              Delete
+            </button>
+          </div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">Name </div>
+          <div className="cont-val"> {volume.Name}</div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">Driver </div>
+          <div className="cont-val"> {volume.Driver}</div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">Mountpoint </div>
+          <div className="cont-val"> {volume.Mountpoint}</div>
+        </div>
+        <div className="cont-div ">
+          <div className="cont-key">Scope </div>
+          <div className="cont-val">{volume.Scope}</div>
+        </div>
         {volume.UsageData && (
-          <>
-            <h3>Usage Data</h3>
-            <p>
-              <strong>Ref Count:</strong>{' '}
+          <div className="cont-div ">
+            <div className="cont-key">Size </div>
+            <div className="cont-val">{formatBytes(volume.UsageData.Size)}</div>
+          </div>
+        )}
+        {volume.UsageData && (
+          <div className="cont-div ">
+            <div className="cont-key">Ref Count </div>
+            <div className="cont-val">
               {volume.UsageData.RefCount === -1
                 ? 'N/A'
                 : volume.UsageData.RefCount}
-            </p>
-            <p>
-              <strong>Size:</strong> {formatBytes(volume.UsageData.Size)}
-            </p>
-          </>
+            </div>
+          </div>
         )}
-      </div>
-      <div className="btn-div">
-        <button className="btn " onClick={() => setOpenDl(true)}>
-          Delete
-        </button>
+        <div className="cont-div">
+          <div className="cont-key">Created At </div>
+          <div className="cont-val">
+            {volume.CreatedAt
+              ? new Date(volume.CreatedAt).toLocaleString()
+              : 'N/A'}
+          </div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">Labels </div>
+          <div className="cont-val">
+            {(volume.Labels instanceof Map
+              ? Array.from(volume.Labels.entries())
+              : Object.entries(volume.Labels ?? {})
+            )
+              .slice(0, 2)
+              .map(([key, value]) => (
+                <p key={key} className="cont-l">
+                  {` ${key} : ${value}`}
+                </p>
+              ))}
+          </div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">Options </div>
+          <div className="cont-val">
+            {(volume.Options instanceof Map
+              ? Array.from(volume.Options.entries())
+              : Object.entries(volume.Options ?? {})
+            )
+              .slice(0, 2)
+              .map(([key, value]) => (
+                <p key={key} className="cont-l">
+                  {` ${key} : ${value}`}
+                </p>
+              ))}
+          </div>
+        </div>
+        {volume.Status && (
+          <div className="cont-div">
+            <div className="cont-key">Status </div>
+            <div className="cont-val">
+              {(volume.Status instanceof Map
+                ? Array.from(volume.Status.entries())
+                : Object.entries(volume.Status ?? {})
+              )
+                .slice(0, 4)
+                .map(([key, value]) => (
+                  <p key={key} className="cont-l">
+                    {` ${key} : ${value}`}
+                  </p>
+                ))}
+            </div>
+          </div>
+        )}
       </div>
       <div
         className="popup-overlay"

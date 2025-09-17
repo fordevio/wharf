@@ -79,7 +79,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="images" element={<Imges />} />
           <Route path="volumes" element={<Volumes />} />
-           <Route path="volume/:id" element={<VolumeDetail />} />
+          <Route path="volume/:id" element={<VolumeDetail />} />
           <Route path="networks" element={<Networks />} />
           <Route path="containers" element={<Containers />} />
           <Route path="users" element={<Users />} />
