@@ -10,4 +10,5 @@
   display: inline-block;
   color: #0099ff;
   cursor: pointer;
+  text-decoration: none !important;
 }

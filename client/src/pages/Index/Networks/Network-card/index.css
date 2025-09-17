@@ -1,7 +1,7 @@
 .td-sp-nm {
   cursor: pointer;
   color: #0099ff;
-  text-decoration: underline;
+  text-decoration: none !important;
   white-space: nowrap;
 }
 

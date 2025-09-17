@@ -1,12 +1,12 @@
 .td-sp-nm {
   cursor: pointer;
   color: #0099ff;
-  text-decoration: underline;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 22ch;
   min-width: 22ch;
+  text-decoration: none !important;
 }
 
 .td-sp-nm:hover {

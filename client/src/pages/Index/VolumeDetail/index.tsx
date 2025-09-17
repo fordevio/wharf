@@ -81,15 +81,7 @@ const VolumeDetail = () => {
   }
 
   return (
-    <>
-      <div className="back-button-container">
-        <button
-          className="btn back-button"
-          onClick={() => window.history.back()}
-        >
-          <i className="fa-solid fa-arrow-left"></i> Back
-        </button>
-      </div>
+    <div className='page'>
       <div className="volume-detail">
         <h2>Volume Detail</h2>
         <p>
@@ -202,7 +194,7 @@ const VolumeDetail = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
