@@ -16,7 +16,7 @@ import React from 'react';
 import { DockerContainer } from '../../../../models/container';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
-import { convertToIndianDateTime } from '../../../../utils/util';
+import { convertToDateTime } from '../../../../utils/util';
 
 interface Props {
   container: DockerContainer;
@@ -46,7 +46,7 @@ const ContainerCard: React.FC<Props> = ({ container }) => {
         </span>
       </td>
       <td>
-        <span>{convertToIndianDateTime(container.Created)}</span>
+        <span>{convertToDateTime(container.Created)}</span>
       </td>
       <td>
         <span>{container.Status}</span>

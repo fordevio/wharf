@@ -26,7 +26,7 @@ import {
   unpauseContainer,
 } from '../../../../api/container';
 import { useQuery } from 'react-query';
-import { convertToIndianDateTime } from '../../../../utils/util';
+import { convertToDateTime } from '../../../../utils/util';
 import toast from 'react-hot-toast';
 import { Trash, Pencil, Pause, Play, LogOut } from 'lucide-react';
 
@@ -221,9 +221,7 @@ const ContainerDetail = () => {
         </div>
         <div className="cont-div">
           <div className="cont-key">Created At </div>
-          <div className="cont-val">
-            {convertToIndianDateTime(container.Created)}
-          </div>
+          <div className="cont-val">{convertToDateTime(container.Created)}</div>
         </div>
         <div className="cont-div">
           <div className="cont-key">Command </div>

@@ -78,6 +78,7 @@ function App() {
         <Route path="/" element={<Index />}>
           <Route index element={<Home />} />
           <Route path="images" element={<Imges />} />
+          <Route path="/image/:id" element={<ImageDetail />} />
           <Route path="volumes" element={<Volumes />} />
           <Route path="volume/:id" element={<VolumeDetail />} />
           <Route path="networks" element={<Networks />} />
@@ -91,7 +92,6 @@ function App() {
             <Route path="logs" element={<ContainerLogs />} />
           </Route>
         </Route>
-        <Route path="/image/:id" element={<ImageDetail />} />
         <Route path="/network/:id" element={<NetworkDetail />} />
         <Route path="/container/create" element={<ContainerCreate />} />
         <Route path="/container/update/:id" element={<ContainerUpdate />} />
