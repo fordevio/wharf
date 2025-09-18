@@ -16,7 +16,7 @@ import React from 'react';
 import { Volume } from '../../../../models/volume';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
-import { convertToIndianDateTime } from '../../../../utils/util';
+import { convertToDateTime } from '../../../../utils/util';
 
 interface Props {
   volume: Volume;
@@ -38,7 +38,7 @@ const VolumeCard: React.FC<Props> = ({ volume }) => {
       <td>
         <span>
           {volume.CreatedAt &&
-            convertToIndianDateTime(
+            convertToDateTime(
               Math.floor(new Date(volume.CreatedAt).getTime() / 1000)
             )}
         </span>

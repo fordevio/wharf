@@ -16,7 +16,7 @@ import React from 'react';
 import './index.css';
 import { Image } from '../../../../models/image';
 import { useNavigate } from 'react-router-dom';
-import { convertToIndianDateTime, formatBytes } from '../../../../utils/util';
+import { convertToDateTime, formatBytes } from '../../../../utils/util';
 
 interface Props {
   image: Image;
@@ -43,7 +43,7 @@ const ImageCard: React.FC<Props> = ({ image }) => {
         <span>{formatBytes(image.Size || 0)}</span>
       </td>
       <td>
-        <span>{convertToIndianDateTime(image.Created)}</span>
+        <span>{convertToDateTime(image.Created)}</span>
       </td>
     </tr>
   );

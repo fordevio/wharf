@@ -16,7 +16,7 @@ import React from 'react';
 import { NetworkResource } from '../../../../models/network';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
-import { convertToIndianDateTime } from '../../../../utils/util';
+import { convertToDateTime } from '../../../../utils/util';
 
 interface Props {
   network: NetworkResource;
@@ -47,7 +47,7 @@ const NetworkCard: React.FC<Props> = ({ network }) => {
       <td>
         <span>
           {network.Created &&
-            convertToIndianDateTime(
+            convertToDateTime(
               Math.floor(new Date(network.Created).getTime() / 1000)
             )}
         </span>
