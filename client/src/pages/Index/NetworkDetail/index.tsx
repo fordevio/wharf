@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './index.css';
 import { useState } from 'react';
 import { NetworkResource } from '../../../models/network';
 import { deleteNetwork, getAllNetworks } from '../../../api/network';
 import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
-import { Trash, Pencil, Network } from 'lucide-react';
+import { Trash, Pencil } from 'lucide-react';
 import netIcon from '../../../assets/common/network.png';
 import { convertToDateTime } from '../../../utils/util';
 
