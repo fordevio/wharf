@@ -1,58 +1,66 @@
-.network-detail {
-  background-color: #e6f2ff; /* light blue */
-  color: #003366;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 24px;
-  max-width: 900px;
-  margin: 40px auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+.page {
+  padding-left: 400px;
 }
 
-.network-detail h2 {
-  color: #005b99;
-  border-bottom: 2px solid #cce0ff;
-  padding-bottom: 6px;
-  margin-bottom: 20px;
-}
-
-.network-detail h3 {
-  margin-top: 24px;
-  color: #0066cc;
-}
-
-.network-detail h4 {
-  margin-top: 12px;
-  color: #0077cc;
-}
-
-.network-detail p {
-  margin: 4px 0;
-}
-
-.network-detail ul {
-  list-style: disc;
-  padding-left: 24px;
-  margin-top: 8px;
-}
-
-.network-detail li {
-  margin-bottom: 8px;
-}
-
-.network-detail strong {
-  color: #00264d;
-}
-
-.network-detail-container {
+.net-det {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: auto;
+  border: 0.5px solid white;
+  border-radius: 20px;
+  width: 971px;
+  margin-top: 100px;
 }
 
-.network-actions {
+.net-det-h {
+  border-bottom: 0.5px solid white;
+  width: 100%;
+  padding: 20px 20px;
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  align-items: center;
+  height: 100px;
+}
+
+.net-det-hd {
+  font-family: 'Lato', sans-serif;
+  font-weight: 500; /* Medium weight */
+  font-style: normal; /* "Medium" is a weight, not a style */
+  font-size: 28px;
+  padding: 0 5px;
+}
+
+.net-det-hd-net {
+  width: 30px;
+  height: 36px;
+}
+
+.net-det-buts {
+  margin-left: auto;
+}
+
+.cont {
+  font-size: 50px;
+  font-family: cursive;
+  color: white;
+  word-break: break-word;
+}
+
+.det-btn {
+  width: 125px;
+  height: 38px;
+  border-radius: 12px;
+  background-color: #2e2c2c;
+  color: white;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500; /* Medium weight */
+  font-style: normal; /* Medium is a weight, not a style */
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.btn-logo {
+  margin-right: 10px;
 }
