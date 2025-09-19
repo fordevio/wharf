@@ -22,6 +22,7 @@ import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
 import { Trash } from 'lucide-react';
 import volumeIcon from '../../../assets/common/volume.png';
+import { convertToDateTime } from '../../../utils/util';
 
 const VolumeDetail = () => {
   const navigate = useNavigate();
@@ -135,7 +136,7 @@ const VolumeDetail = () => {
           <div className="cont-key">Created At </div>
           <div className="cont-val">
             {volume.CreatedAt
-              ? new Date(volume.CreatedAt).toLocaleString()
+              ? convertToDateTime(new Date(volume.CreatedAt).getTime() / 1000)
               : 'N/A'}
           </div>
         </div>

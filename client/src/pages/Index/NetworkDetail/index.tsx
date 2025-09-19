@@ -12,13 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './index.css';
 import { useState } from 'react';
 import { NetworkResource } from '../../../models/network';
 import { deleteNetwork, getAllNetworks } from '../../../api/network';
 import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
+import { Trash, Pencil } from 'lucide-react';
+import netIcon from '../../../assets/common/network.png';
+import { convertToDateTime } from '../../../utils/util';
 
 const NetworkDetail = () => {
   const navigate = useNavigate();
@@ -76,150 +79,98 @@ const NetworkDetail = () => {
     return <></>;
   }
   return (
-    <>
-      <div className="back-button-container">
-        <button
-          className="btn back-button"
-          onClick={() => window.history.back()}
-        >
-          <i className="fa-solid fa-arrow-left"></i> Back
-        </button>
-      </div>
-      <div className="network-detail">
-        <h2>Network Detail</h2>
-        <p>
-          <strong>ID:</strong> {network.Id}
-        </p>
-        <p>
-          <strong>Name:</strong> {network.Name}
-        </p>
-        <p>
-          <strong>Created:</strong> {new Date(network.Created).toLocaleString()}
-        </p>
-        <p>
-          <strong>Scope:</strong> {network.Scope}
-        </p>
-        <p>
-          <strong>Driver:</strong> {network.Driver}
-        </p>
-        <p>
-          <strong>Enable IPv6:</strong> {network.EnableIPv6 ? 'Yes' : 'No'}
-        </p>
-        <p>
-          <strong>Internal:</strong> {network.Internal ? 'Yes' : 'No'}
-        </p>
-        <p>
-          <strong>Attachable:</strong> {network.Attachable ? 'Yes' : 'No'}
-        </p>
-        <p>
-          <strong>Ingress:</strong> {network.Ingress ? 'Yes' : 'No'}
-        </p>
-        <p>
-          <strong>Config Only:</strong> {network.ConfigOnly ? 'Yes' : 'No'}
-        </p>
-        <p>
-          <strong>Config From:</strong> {network.ConfigFrom?.Network}
-        </p>
-
-        <h3>Labels</h3>
-        {Object.keys(network.Labels ?? {}).length > 0 ? (
-          <ul>
-            {Object.entries(network.Labels).map(([k, v]) => (
-              <li key={k}>
-                <strong>{k}:</strong> {v}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No labels</p>
-        )}
-
-        <h3>Options</h3>
-        {Object.keys(network.Options ?? {}).length > 0 ? (
-          <ul>
-            {Object.entries(network.Options).map(([k, v]) => (
-              <li key={k}>
-                <strong>{k}:</strong> {v}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No options</p>
-        )}
-
-        <h3>IPAM</h3>
-        <p>
-          <strong>Driver:</strong> {network.IPAM.Driver}
-        </p>
-        <h4>IPAM Options</h4>
-        <ul>
-          {Object.entries(network.IPAM.Options ?? {}).map(([k, v]) => (
-            <li key={k}>
-              <strong>{k}:</strong> {v}
-            </li>
-          ))}
-        </ul>
-        <h4>IPAM Config</h4>
-        <ul>
-          {network.IPAM.Config.map((cfg, i) => (
-            <li key={i}>{JSON.stringify(cfg)}</li>
-          ))}
-        </ul>
-
-        <h3>Containers</h3>
-        <ul>
-          {Object.entries(network.Containers ?? {}).map(([id, container]) => (
-            <li key={id}>
-              <p>
-                <strong>{container.Name}</strong> ({id})
-              </p>
-              <p>EndpointID: {container.EndpointID}</p>
-              <p>MAC: {container.MacAddress}</p>
-              <p>IPv4: {container.IPv4Address}</p>
-              <p>IPv6: {container.IPv6Address}</p>
-            </li>
-          ))}
-        </ul>
-
-        {network.Peers && (
-          <>
-            <h3>Peers</h3>
-            <ul>
-              {network.Peers.map((peer, index) => (
-                <li key={index}>
-                  <strong>{peer.Name}</strong>: {peer.IP}
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-
-        {network.Services && (
-          <>
-            <h3>Services</h3>
-            {Object.entries(network.Services).map(([serviceName, svc]) => (
-              <div key={serviceName}>
-                <p>
-                  <strong>{serviceName}</strong>
+    <div className="page">
+      <div className="net-det">
+        <div className="net-det-h">
+          <img src={netIcon} alt="" className="net-det-hd-img" />{' '}
+          <span className="net-det-hd">Network Details</span>
+          <div className="net-det-buts">
+            <button
+              className="det-btn del-btn"
+              style={{ background: '#0099FF' }}
+              onClick={() => navigate('/network/edit/' + network.Id)}
+            >
+              <Pencil className="btn-logo" size={20} />
+              Edit
+            </button>
+            <button
+              className="det-btn del-btn"
+              style={{ background: '#B11010' }}
+              onClick={deleteHandler}
+            >
+              <Trash className="btn-logo" size={20} />
+              Delete
+            </button>
+          </div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">Name </div>
+          <div className="cont-val"> {network.Name}</div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">Id </div>
+          <div className="cont-val"> {network.Id}</div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">Created </div>
+          <div className="cont-val">
+            {' '}
+            {convertToDateTime(new Date(network.Created).getTime() / 1000)}
+          </div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">Scope </div>
+          <div className="cont-val"> {network.Scope}</div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">Driver </div>
+          <div className="cont-val"> {network.Driver}</div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">IPAM Config</div>
+          <div className="cont-val">
+            {(network.IPAM?.Config ?? []).map((cfg, i) =>
+              Object.entries(cfg).map(([key, value]) => (
+                <p key={`${i}-${key}`} className="cont-l">
+                  {`${key} : ${value},`}
                 </p>
-                <p>VIP: {svc.VIP}</p>
-                <p>Ports: {svc.Ports.join(', ')}</p>
-                <p>LB Index: {svc.LocalLBIndex}</p>
-                <p>Tasks: {svc.Tasks.length}</p>
-              </div>
-            ))}
-          </>
-        )}
+              ))
+            )}
+          </div>
+        </div>
+
+        <div className="cont-div">
+          <div className="cont-key">Options </div>
+          <div className="cont-val">
+            {(network.Options instanceof Map
+              ? Array.from(network.Options.entries())
+              : Object.entries(network.Options ?? {})
+            )
+              .slice(0, 2)
+              .map(([key, value]) => (
+                <p key={key} className="cont-l">
+                  {` ${key} : ${value}`}
+                </p>
+              ))}
+          </div>
+        </div>
+        <div className="cont-div">
+          <div className="cont-key">Labels </div>
+          <div className="cont-val">
+            {(network.Labels instanceof Map
+              ? Array.from(network.Labels.entries())
+              : Object.entries(network.Labels ?? {})
+            )
+              .slice(0, 2)
+              .map(([key, value]) => (
+                <p key={key} className="cont-l">
+                  {` ${key} : ${value}`}
+                </p>
+              ))}
+          </div>
+        </div>
       </div>
-      <div className="network-actions">
-        <Link className="btn detail" to={'/network/edit/' + network.Id}>
-          Edit
-        </Link>
-        <button className="btn detail" onClick={deleteHandler}>
-          Delete
-        </button>
-      </div>
-    </>
+    </div>
   );
 };
 

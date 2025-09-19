@@ -82,6 +82,7 @@ function App() {
           <Route path="volumes" element={<Volumes />} />
           <Route path="volume/:id" element={<VolumeDetail />} />
           <Route path="networks" element={<Networks />} />
+          <Route path="/network/:id" element={<NetworkDetail />} />
           <Route path="containers" element={<Containers />} />
           <Route path="users" element={<Users />} />
           <Route path="container/:id" element={<ContainerInside />}>
@@ -92,12 +93,11 @@ function App() {
             <Route path="logs" element={<ContainerLogs />} />
           </Route>
         </Route>
-        <Route path="/network/:id" element={<NetworkDetail />} />
+
         <Route path="/container/create" element={<ContainerCreate />} />
         <Route path="/container/update/:id" element={<ContainerUpdate />} />
         <Route path="/volume/create" element={<VolumeCreate />} />
         <Route path="/network/create" element={<NetworkCreate />} />
-
         <Route path="/network/edit/:id" element={<NetworkUpdate />} />
         <Route path="/login" element={<Login />} />
       </Routes>
