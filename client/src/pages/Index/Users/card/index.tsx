@@ -17,7 +17,7 @@ import { User } from '../../../../models/user';
 import './index.css';
 import { deleteUser, updateUser } from '../../../../api/user';
 import toast from 'react-hot-toast';
-import { Trash, Pencil } from 'lucide-react';
+import { Trash, Pencil, Eye, EyeOff } from 'lucide-react';
 
 interface Prop {
   user: User;
@@ -30,6 +30,7 @@ const UserCard: React.FC<Prop> = ({ user, setUsers, users }) => {
   const [username, setUsername] = useState<string>(user.username);
   const [password, setPassword] = useState<string>(user.password);
   const [permissions, setPermissions] = useState<string>(user.permissions);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const permissionRename = () => {
     if (user.permissions === 'x') {
       return 'execute';
@@ -98,7 +99,7 @@ const UserCard: React.FC<Prop> = ({ user, setUsers, users }) => {
     <>
       <tr key={user.id}>
         <td>{user.username}</td>
-        <td>{user.password}</td>
+        <td>{showPassword?user.password:"************"} {showPassword?<EyeOff  onClick={()=>setShowPassword(false)} style={{cursor: "pointer"}}/>:<Eye  onClick={()=>setShowPassword(true)} style={{cursor: "pointer"}}/>}</td>
         <td>{permissionRename()}</td>
         <td>{user.isAdmin ? 'true' : 'false'}</td>
         <td>
