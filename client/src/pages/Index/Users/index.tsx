@@ -131,11 +131,11 @@ const Users = () => {
         </table>
       </div>
       <div
-        className="popup-overlay"
+        className="us-popup-overlay"
         id="popupOverlay"
         style={open ? { display: 'block' } : { display: 'none' }}
       >
-        <div className="popup" id="popup">
+        <div className="us-popup" id="popup">
           <span
             className="close"
             id="closePopup"
@@ -144,7 +144,7 @@ const Users = () => {
             &times;
           </span>
 
-          <div className="popup-content">
+          <div className="us-popup-content">
             <input
               type="text"
               placeholder="Username"
@@ -164,7 +164,7 @@ const Users = () => {
               onChange={e => setPermissions(e.target.value)}
             />
             <p>x -execute | w -write | r -read</p>
-            <button className="submit" onClick={add_user}>
+            <button className="us-submit" onClick={add_user}>
               Submit
             </button>
           </div>
