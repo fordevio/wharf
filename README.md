@@ -31,7 +31,7 @@ Wharf implements JWT-based authentication with role-based access control. Users 
 
 ## Project Status
 
-Currently the version 1.0.1 is released.
+Currently the version 1.2.0 is released.
 
 ## Support
 
