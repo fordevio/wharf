@@ -99,7 +99,20 @@ const UserCard: React.FC<Prop> = ({ user, setUsers, users }) => {
     <>
       <tr key={user.id}>
         <td>{user.username}</td>
-        <td>{showPassword?user.password:"************"} {showPassword?<EyeOff  onClick={()=>setShowPassword(false)} style={{cursor: "pointer"}}/>:<Eye  onClick={()=>setShowPassword(true)} style={{cursor: "pointer"}}/>}</td>
+        <td>
+          {showPassword ? user.password : '************'}{' '}
+          {showPassword ? (
+            <EyeOff
+              onClick={() => setShowPassword(false)}
+              style={{ cursor: 'pointer' }}
+            />
+          ) : (
+            <Eye
+              onClick={() => setShowPassword(true)}
+              style={{ cursor: 'pointer' }}
+            />
+          )}
+        </td>
         <td>{permissionRename()}</td>
         <td>{user.isAdmin ? 'true' : 'false'}</td>
         <td>

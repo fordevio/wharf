@@ -129,11 +129,8 @@ const ImageDetail = () => {
           <img src={imgIcon} alt="" className="img-det-hd-img" />{' '}
           <span className="img-det-hd">Image Details</span>
           <div className="img-det-buts">
-            <button
-              className="det-btn del-btn"
-              onClick={() => setOpenTg(true)}
-            >
-               <Pencil className="btn-logo" size={20} />
+            <button className="det-btn del-btn" onClick={() => setOpenTg(true)}>
+              <Pencil className="btn-logo" size={20} />
               Edit
             </button>
             <button

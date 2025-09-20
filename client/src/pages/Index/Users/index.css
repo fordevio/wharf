@@ -112,13 +112,11 @@
 
   background: #1a1a1a;
 
-
   padding: 20px;
 
   border-radius: 8px;
 
   box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
-
 }
 
 .us-popup-content {
@@ -169,5 +167,5 @@
 .us-submit {
   display: block;
   margin: auto;
-  background-color: #0099FF;
+  background-color: #0099ff;
 }
