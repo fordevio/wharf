@@ -87,7 +87,6 @@ const NetworkDetail = () => {
           <div className="net-det-buts">
             <button
               className="det-btn del-btn"
-              style={{ background: '#0099FF' }}
               onClick={() => navigate('/network/edit/' + network.Id)}
             >
               <Pencil className="btn-logo" size={20} />
