@@ -24,7 +24,7 @@ interface Prop {
   setUsers: (newUsers: User[]) => void;
 }
 
-const ContainerCard: React.FC<Prop> = ({ user, setUsers, users }) => {
+const UserCard: React.FC<Prop> = ({ user, setUsers, users }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [username, setUsername] = useState<string>(user.username);
   const [password, setPassword] = useState<string>(user.password);
@@ -95,34 +95,17 @@ const ContainerCard: React.FC<Prop> = ({ user, setUsers, users }) => {
 
   return (
     <>
-      <div className="user-card">
-        <div className="content">
-          <span className="label">Username: </span>{' '}
-          <span className="label">{user.username}</span>
-        </div>
-        <div className="content">
-          <span className="label">Password: </span>{' '}
-          <span className="label">{user.password}</span>
-        </div>
-        <div className="content">
-          <span className="label">Permission: </span>{' '}
-          <span className="label">{permissionRename()}</span>
-        </div>
-        <div className="content">
-          <span className="label">Admin: </span>{' '}
-          <span className="label">{user.isAdmin ? 'true' : 'false'}</span>
-        </div>
-        <div className="content">
-          <button className="btn" onClick={() => setOpen(true)}>
-            Edit
-          </button>
-          {!user.isAdmin && (
-            <button className="btn" onClick={delete_handler}>
-              Delete
-            </button>
-          )}
-        </div>
-      </div>
+      <tr key={user.id}>
+        <td>{user.username}</td>
+        <td>{user.password}</td>
+        <td>{permissionRename()}</td>
+        <td>{user.isAdmin ? 'true' : 'false'}</td>
+        <td>
+          <button onClick={() => setOpen(true)}>✏️ Edit</button>
+          {!user.isAdmin && <button onClick={delete_handler}> Delete</button>}
+        </td>
+      </tr>
+
       <div
         className="popup-overlay"
         id="popupOverlay"
@@ -167,4 +150,4 @@ const ContainerCard: React.FC<Prop> = ({ user, setUsers, users }) => {
   );
 };
 
-export default ContainerCard;
+export default UserCard;
