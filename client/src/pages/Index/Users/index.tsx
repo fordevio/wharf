@@ -16,9 +16,11 @@ import { useState } from 'react';
 import { createUser, getAllUser } from '../../../api/user';
 import { User } from '../../../models/user';
 import './index.css';
-import ContainerCard from './card';
+import UserCard from './card';
 import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
+import usIcon from '../../../assets/common/user.png';
+import { Plus } from 'lucide-react';
 
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -88,62 +90,83 @@ const Users = () => {
 
   return (
     <div className="page">
-      <div className="user-page">
-        <div className="func">
-          <button className="btn" onClick={() => setOpen(true)}>
-            Add User
-          </button>
-        </div>
-        <div className="users-cont">
-          {users.map(user => {
-            return (
-              <ContainerCard
-                key={user.id}
-                user={user}
-                users={users}
-                setUsers={setUsers}
-              />
-            );
-          })}
-        </div>
-        <div
-          className="popup-overlay"
-          id="popupOverlay"
-          style={open ? { display: 'block' } : { display: 'none' }}
-        >
-          <div className="popup" id="popup">
-            <span
-              className="close"
-              id="closePopup"
-              onClick={() => setOpen(false)}
+      <div className="us-det">
+        <div className="us-det-h">
+          <img src={usIcon} alt="" className="us-det-hd-img" />{' '}
+          <span className="us-det-hd">Users</span>
+          <div className="us-det-buts">
+            <button
+              className="det-btn del-btn"
+              style={{ background: '#0099FF' }}
+              onClick={() => setOpen(true)}
             >
-              &times;
-            </span>
+              <Plus className="btn-logo" size={20} />
+              Add
+            </button>
+          </div>
+        </div>
 
-            <div className="popup-content">
-              <input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={e => setUsername(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Permission"
-                value={permissions}
-                onChange={e => setPermissions(e.target.value)}
-              />
-              <p>x -execute | w -write | r -read</p>
-              <button className="submit" onClick={add_user}>
-                Submit
-              </button>
-            </div>
+        <table className="us-table">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Password</th>
+              <th>Permission</th>
+              <th>Admin</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map(user => {
+              return (
+                <UserCard
+                  key={user.id}
+                  user={user}
+                  users={users}
+                  setUsers={setUsers}
+                />
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <div
+        className="us-popup-overlay"
+        id="popupOverlay"
+        style={open ? { display: 'block' } : { display: 'none' }}
+      >
+        <div className="us-popup" id="popup">
+          <span
+            className="close"
+            id="closePopup"
+            onClick={() => setOpen(false)}
+          >
+            &times;
+          </span>
+
+          <div className="us-popup-content">
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Permission"
+              value={permissions}
+              onChange={e => setPermissions(e.target.value)}
+            />
+            <p>x -execute | w -write | r -read</p>
+            <button className="us-submit" onClick={add_user}>
+              Submit
+            </button>
           </div>
         </div>
       </div>

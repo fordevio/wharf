@@ -26,3 +26,16 @@
   font-weight: 500;
   margin: 2px 2px;
 }
+
+.tb-btn {
+  padding: 5px 5px;
+  border-radius: 10px;
+  background-color: #2e2c2c;
+  color: white;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 15px;
+  cursor: pointer;
+  margin-left: 5px;
+}

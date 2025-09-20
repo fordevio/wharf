@@ -20,7 +20,7 @@ import { useState } from 'react';
 import { formatBytes } from '../../../utils/util';
 import { useQuery } from 'react-query';
 import toast from 'react-hot-toast';
-import { Trash } from 'lucide-react';
+import { Trash, Pencil } from 'lucide-react';
 import imgIcon from '../../../assets/common/image.png';
 import { convertToDateTime } from '../../../utils/util';
 
@@ -129,12 +129,9 @@ const ImageDetail = () => {
           <img src={imgIcon} alt="" className="img-det-hd-img" />{' '}
           <span className="img-det-hd">Image Details</span>
           <div className="img-det-buts">
-            <button
-              className="det-btn del-btn"
-              style={{ background: '#0099FF' }}
-              onClick={() => setOpenTg(true)}
-            >
-              New Tag
+            <button className="det-btn del-btn" onClick={() => setOpenTg(true)}>
+              <Pencil className="btn-logo" size={20} />
+              Edit
             </button>
             <button
               className="det-btn del-btn"
