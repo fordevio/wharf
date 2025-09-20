@@ -40,7 +40,7 @@
   margin-left: auto;
 }
 
-.det-btn {
+.del-btn {
   width: 125px;
   height: 38px;
   border-radius: 12px;
@@ -56,6 +56,29 @@
 
 .btn-logo {
   margin-right: 10px;
+}
+
+.us-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+}
+
+.us-table th {
+  padding: 30px 12px;
+  border-bottom: 0.5px solid white;
+  font-weight: 500;
+  font-style: medium;
+  font-size: 24px;
+}
+
+.us-table td {
+  padding: 12px;
+  border-bottom: 0.5px solid white;
 }
 
 .popup-overlay {

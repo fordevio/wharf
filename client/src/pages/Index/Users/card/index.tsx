@@ -17,6 +17,7 @@ import { User } from '../../../../models/user';
 import './index.css';
 import { deleteUser, updateUser } from '../../../../api/user';
 import toast from 'react-hot-toast';
+import { Trash, Pencil } from 'lucide-react';
 
 interface Prop {
   user: User;
@@ -101,8 +102,21 @@ const UserCard: React.FC<Prop> = ({ user, setUsers, users }) => {
         <td>{permissionRename()}</td>
         <td>{user.isAdmin ? 'true' : 'false'}</td>
         <td>
-          <button onClick={() => setOpen(true)}>✏️ Edit</button>
-          {!user.isAdmin && <button onClick={delete_handler}> Delete</button>}
+          <div className="us-tb-buts">
+            <button className="tb-btn" onClick={() => setOpen(true)}>
+              {' '}
+              <Pencil className="btn-logo" size={15} /> Edit
+            </button>
+            {!user.isAdmin && (
+              <button
+                className="tb-btn"
+                style={{ background: '#B11010' }}
+                onClick={delete_handler}
+              >
+                <Trash className="btn-logo" size={15} /> Delete
+              </button>
+            )}
+          </div>
         </td>
       </tr>
 
