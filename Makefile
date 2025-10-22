@@ -1,5 +1,3 @@
-
-
 build: get
 	@go build -o bin/build ./cmd &&  rm -rf ./static && npm --prefix ./client run build 
 
@@ -21,10 +19,8 @@ format: get
 dockerImage:
 	@docker build -t wharf -f deployment/Dockerfile .
 
-
 testDockerImage:
 	@docker build -t wharf-test -f test/intrument_sample_app/Dockerfile .
-
 
 test-integration: testDockerImage
 	@docker run --rm wharf-test -v /var/run/docker.sock:/var/run/docker.sock -it wharf-test 
@@ -35,6 +31,9 @@ runDockerWharf:
 test-unit: get
 	@go test -v ./pkg/...
 
+test-e2e: get
+	@E2E_DOCKER=1 go test -v ./test/e2e/...
+
 help:
 	@echo "Available commands:"
 	@echo "  make build         - Build the application"
@@ -44,8 +43,6 @@ help:
 	@echo "  make get           - Install dependencies"
 	@echo "  make format        - Format code"
 	@echo "  make test-unit     - Run all unit test"
+	@echo "  make test-e2e      - Run e2e tests in ./test/e2e"
 	@echo "  make generate      - Generate static files for the frontend"
 	@echo "  make help          - Show this help message"
-
-
-
