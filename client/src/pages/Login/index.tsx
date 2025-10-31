@@ -146,142 +146,147 @@ const Login = () => {
   };
 
   return (
-    <body className="login-body">
-      <div>
-        <div className="logoDiv">
-          <img src={wharfLogo} alt="Wharf Logo" className="wharfLogo" />
-          <div className="wharf-text">Wharf</div>
-        </div>
-        <div className="container">
-          <div className="wel-text">
-            <p>
-              Welcome
-              <br />
-              to wharf.
-            </p>
+    <div className="login-wrapper">
+      <body className="login-body">
+        <div>
+          <div className="logoDiv">
+            <img src={wharfLogo} alt="Wharf Logo" className="wharfLogo" />
+            <div className="wharf-text">Wharf</div>
           </div>
-          <div className="input-container">
-            {isAdmin ? (
-              <div className="user-icon-container">
-                <img className="user-icon" src={userIcon} alt="user" />
-              </div>
-            ) : (
-              <div className="reg">Register</div>
-            )}
-            {!forgotPass && (
-              <div className="loginDiv">
-                <div className="iDiv">
-                  {!isAdmin && (
-                    <>
-                      <div className="inputDiv" tabIndex={0}>
-                        <input
-                          onChange={e => setInitPassword(e.target.value)}
-                          value={initPassword}
-                          placeholder="Init-Password"
-                        />
-                        <Crosshair className="input-icon" />
-                      </div>
-                      <p className="p">
-                        Init-Password can be found in /var/lib/wharf/wharf.txt
-                      </p>
-                    </>
-                  )}
-                  <div className="inputDiv" tabIndex={0}>
-                    <input
-                      onChange={e => setUsername(e.target.value)}
-                      value={username}
-                      placeholder="Username"
-                    />
-                    <User className="input-icon" />
-                  </div>
-
-                  <div className="inputDiv" tabIndex={0}>
-                    <input
-                      type={showPassword ? '' : 'password'}
-                      onChange={e => setPassword(e.target.value)}
-                      value={password}
-                      placeholder="Password"
-                    />
-                    {showPassword ? (
-                      <EyeOff
-                        className="input-icon eye-icon"
-                        onClick={() => setShowPassword(false)}
-                      />
-                    ) : (
-                      <Eye
-                        className="input-icon eye-icon"
-                        onClick={() => setShowPassword(true)}
-                      />
+          <div
+            className="container"
+            style={{ display: 'flex', flexDirection: 'column' }}
+          >
+            <div
+              className="wel-text"
+              tabIndex={0}
+              style={{ minHeight: '100px', transition: 'all 0.2s ease-in-out' }}
+            >
+              <p>
+                Welcome
+                <br />
+                to wharf.
+              </p>
+            </div>
+            <div className="input-container" style={{ minHeight: '400px' }}>
+              {!forgotPass && (
+                <div className="loginDiv">
+                  <div className="iDiv">
+                    {!isAdmin && (
+                      <>
+                        <div className="inputDiv" tabIndex={0}>
+                          <input
+                            onChange={e => setInitPassword(e.target.value)}
+                            value={initPassword}
+                            placeholder="Init-Password"
+                          />
+                          <Crosshair className="input-icon" />
+                        </div>
+                        <p className="p">
+                          Init-Password can be found in /var/lib/wharf/wharf.txt
+                        </p>
+                      </>
                     )}
-                  </div>
-
-                  {!isAdmin && (
                     <div className="inputDiv" tabIndex={0}>
                       <input
-                        type="password"
-                        onChange={e => setConfirmPassword(e.target.value)}
-                        value={confirmPassword}
-                        placeholder="Confirm Password"
+                        onChange={e => setUsername(e.target.value)}
+                        value={username}
+                        placeholder="Username"
                       />
+                      <User className="input-icon" />
                     </div>
-                  )}
 
-                  <button onClick={SubmitHandler} className="login-btn">
-                    Submit
-                  </button>
-                  {isAdmin && (
-                    <p className="forPas" onClick={() => setForgotPass(true)}>
-                      Forgot Password
-                    </p>
-                  )}
-                </div>
-              </div>
-            )}
-            {forgotPass && (
-              <div className="loginDiv">
-                <div className="iDiv">
-                  {adminUname !== '' && (
-                    <p>
-                      <span className="label">Username: </span>
-                      <span className="label">{adminUname}</span> {' | '}
-                      {adminPass !== '' && (
-                        <>
-                          <span className="label">Password: </span>
-                          <span className="label">{adminPass}</span>
-                        </>
+                    <div className="inputDiv" tabIndex={0}>
+                      <input
+                        type={showPassword ? '' : 'password'}
+                        onChange={e => setPassword(e.target.value)}
+                        value={password}
+                        placeholder="Password"
+                      />
+                      {showPassword ? (
+                        <EyeOff
+                          className="input-icon eye-icon"
+                          onClick={() => setShowPassword(false)}
+                        />
+                      ) : (
+                        <Eye
+                          className="input-icon eye-icon"
+                          onClick={() => setShowPassword(true)}
+                        />
                       )}
-                    </p>
-                  )}
+                    </div>
 
-                  <div className="inputDiv">
-                    <input
-                      onChange={e => setInitPassword(e.target.value)}
-                      value={initPassword}
-                      placeholder="Init-Password"
-                      tabIndex={0}
-                    />
-                    <Crosshair className="input-icon" />
+                    {!isAdmin && (
+                      <div className="inputDiv" tabIndex={0}>
+                        <input
+                          type="password"
+                          onChange={e => setConfirmPassword(e.target.value)}
+                          value={confirmPassword}
+                          placeholder="Confirm Password"
+                        />
+                      </div>
+                    )}
+
+                    <button onClick={SubmitHandler} className="login-btn">
+                      Submit
+                    </button>
+                    {isAdmin && (
+                      <p className="forPas" onClick={() => setForgotPass(true)}>
+                        Forgot Password
+                      </p>
+                    )}
                   </div>
-                  <p className="p">
-                    Init-Password can be found in /var/lib/wharf/wharf.txt
-                  </p>
-
-                  <button onClick={ForgotHandler} className="login-btn">
-                    Submit
-                  </button>
-                  {isAdmin && (
-                    <p className="forPas" onClick={() => setForgotPass(false)}>
-                      Login
-                    </p>
-                  )}
                 </div>
-              </div>
-            )}
+              )}
+              {forgotPass && (
+                <div className="loginDiv">
+                  <div className="iDiv">
+                    {adminUname !== '' && (
+                      <p>
+                        <span className="label">Username: </span>
+                        <span className="label">{adminUname}</span> {' | '}
+                        {adminPass !== '' && (
+                          <>
+                            <span className="label">Password: </span>
+                            <span className="label">{adminPass}</span>
+                          </>
+                        )}
+                      </p>
+                    )}
+
+                    <div className="inputDiv">
+                      <input
+                        onChange={e => setInitPassword(e.target.value)}
+                        value={initPassword}
+                        placeholder="Init-Password"
+                        tabIndex={0}
+                      />
+                      <Crosshair className="input-icon" />
+                    </div>
+                    <p className="p">
+                      Init-Password can be found in /var/lib/wharf/wharf.txt
+                    </p>
+
+                    <button onClick={ForgotHandler} className="login-btn">
+                      Submit
+                    </button>
+                    {isAdmin && (
+                      <p
+                        className="forPas"
+                        onClick={() => setForgotPass(false)}
+                      >
+                        Login
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-      <img src={vectorImage} className="vector-image" alt="vector" />
-    </body>
+        <img src={vectorImage} className="vector-image" alt="vector" />
+      </body>
+    </div>
   );
 };
 
